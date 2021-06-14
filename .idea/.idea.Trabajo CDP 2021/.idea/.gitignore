@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.Trabajo CDP 2021.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\jack_\Documents\ProyectosUnity\Trabajo CDP 2021\.idea\.idea.Trabajo CDP 2021\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

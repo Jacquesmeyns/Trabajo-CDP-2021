@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2272622966105797104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7539338461626026469}
+  - component: {fileID: 7936786312227156956}
+  m_Layer: 0
+  m_Name: WolfPack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7539338461626026469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2272622966105797104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7936786312227156956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2272622966105797104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572e95a3ed88fda4c996c95800b301b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wolfPackPrefab: {fileID: 0}
+  agentPrefabWolf: {fileID: 1190512399258875052, guid: 2e575cdac73026b4fbe0af3cc94101be,
+    type: 3}
+  rabbitFlockPrefab: {fileID: 0}
+  agentPrefabRabbit: {fileID: 3675808509562476831, guid: fc2a8587f652e264f9fecb344c3f4bc6,
+    type: 3}
+  behavior: {fileID: 11400000, guid: 60729d2e1c2c38f4fa8c462ea1380da1, type: 2}
+  startingCount: 5
+  driveFactor: 5.2
+  maxSpeed: 5
+  neighborRadius: 5
+  avoidanceRadiusMultiplier: 1
+  squareMaxSpeed: 0
+  squareNeighborRadius: 0
+  squareAvoidanceRadius: 0
+  targetPosition: {x: 10, y: 0, z: 0}
