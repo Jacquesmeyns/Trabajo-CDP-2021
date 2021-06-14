@@ -19,7 +19,6 @@ public class Spawner : MonoBehaviour
         
         foreach (Transform child in wolfPackSpawnPositionsObject.GetComponent<Transform>())
         {
-            //Debug.Log(child.ToString());
             _wolfSpawnPoints.Add(child);
         }
         
@@ -29,7 +28,7 @@ public class Spawner : MonoBehaviour
         }
 
         //Creamos las manadas de lobos y conejos
-        FlockWolf wolvesFlock = Instantiate(wolfPackPrefab, _wolfSpawnPoints[Random.Range(0,_wolfSpawnPoints.Count)]);
+        Instantiate(wolfPackPrefab, _wolfSpawnPoints[Random.Range(0,_wolfSpawnPoints.Count)]);
         //FlockRabbit rabbitFlock = Instantiate(rabbitFlockPrefab, _rabbitSpawnPoints[Random.Range(0,_rabbitSpawnPoints.Count)]);
 
     }

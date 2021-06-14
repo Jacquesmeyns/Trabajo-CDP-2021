@@ -11,3 +11,6 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+# Para el error de "LF will be replaced by CRLF"
+#autocrlf=false

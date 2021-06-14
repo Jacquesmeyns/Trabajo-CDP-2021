@@ -29,22 +29,15 @@ public class FlockWolf : Flock
             var newAgent = Instantiate(
                 agentPrefabWolf,
                 //Aseguro que siempre hay una distancia aceptable entre agentes
-                 this.transform.position + new Vector3(randomPos.x,0f,randomPos.y)*  startingCount * AgentDensity,
+                 transform.position + new Vector3(randomPos.x,0f,randomPos.y)*  startingCount * AgentDensity,
                 //Que mire a un punto aleatorio con respecto al plano
                 Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
-                this.GetComponentInParent<Transform>()
+                GetComponentInParent<Transform>()
             );
             newAgent.name = "Agent " + i;
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent);
         }
-
-        targetPosition = GetComponent<Transform>().position;
-        //Debug.Log("Padre: " + GetComponent<Transform>().position.ToString());
-        var target = Instantiate(GameObject.Find("Posicion target"), GetComponent<Transform>());
-        //Debug.Log("Target: " + target.transform.position.ToString());
-
-
     }
 
     internal void create(){
