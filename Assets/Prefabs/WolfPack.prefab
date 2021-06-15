@@ -50,11 +50,11 @@ MonoBehaviour:
   agentPrefabRabbit: {fileID: 3675808509562476831, guid: fc2a8587f652e264f9fecb344c3f4bc6,
     type: 3}
   behavior: {fileID: 11400000, guid: 60729d2e1c2c38f4fa8c462ea1380da1, type: 2}
-  startingCount: 21
-  driveFactor: 5.2
-  maxSpeed: 5
-  neighborRadius: 5
-  avoidanceRadiusMultiplier: 1
+  startingCount: 75
+  driveFactor: 100
+  maxSpeed: 15.3
+  neighborRadius: 17.7
+  avoidanceRadiusMultiplier: 0.546
   squareMaxSpeed: 0
   squareNeighborRadius: 0
   squareAvoidanceRadius: 0

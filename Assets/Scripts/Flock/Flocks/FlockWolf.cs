@@ -57,7 +57,7 @@ public class FlockWolf : Flock
         
             if(agent.inFlock)
             {
-                Debug.Log("Flock Behavior");
+                //Debug.Log("Flock Behavior");
                 //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                 move = behavior.CalculateMove(agent, context, this);
                 

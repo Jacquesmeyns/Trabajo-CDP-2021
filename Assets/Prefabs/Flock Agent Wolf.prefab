@@ -44,7 +44,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.63, y: 1.54, z: 1.6}
+  m_Size: {x: 2.63, y: 1.54, z: 2.64}
   m_Center: {x: 0, y: 0.53, z: 0}
 --- !u!114 &1190512399258875052
 MonoBehaviour:
@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa83e6ccb8f99b4980a724b8bc0bd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angulosVision: feffffffffffffff000000000100000002000000
   startingHealth: 20
   _lowHealthThreshold: 40
   healthRestoreRate: 1

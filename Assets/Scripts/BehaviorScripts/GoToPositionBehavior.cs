@@ -23,6 +23,8 @@ public class GoToPositionBehavior : FlockBehavior
             flock.targetPosition = Vector3.zero;
             return Vector3.zero;
         }
-        return targetOffset * (t * t);
+
+        Vector3 final = targetOffset * (t * t);
+        return new Vector3(final.x, 0, final.z);
     }
 }

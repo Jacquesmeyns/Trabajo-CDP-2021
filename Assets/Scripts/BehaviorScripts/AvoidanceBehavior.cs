@@ -31,6 +31,6 @@ public class AvoidanceBehavior : FlockBehavior
         if(nAvoid > 0)
             avoidanceMove /= nAvoid;
 
-        return avoidanceMove;
+        return new Vector3(avoidanceMove.x, 0, avoidanceMove.z);
     }
 }

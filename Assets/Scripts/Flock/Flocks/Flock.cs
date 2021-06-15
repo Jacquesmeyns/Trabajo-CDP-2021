@@ -19,7 +19,7 @@ public class Flock : MonoBehaviour
     [Header("Variables para aparición de agentes")]
     //Variables para la aparición de agentes
     [Range(1,500)] public int startingCount;
-    internal const float AgentDensity = 1.2f;
+    internal const float AgentDensity = 0.08f;
 
     [Header("Características boids")]
     [Range(1f,100f)] public float driveFactor = 10f;
@@ -108,7 +108,6 @@ public class Flock : MonoBehaviour
         //Array de todos los colliders que estén dentro del área circular, 
         // de centro el origen local del agente y con el radio de vecindad definido
         Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position,neighborRadius);
-        //Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
         
         //Para cada agente guardamos toda las posiciones de los demás agentes 
         //  que colisionen con él (estén dentro de su área)

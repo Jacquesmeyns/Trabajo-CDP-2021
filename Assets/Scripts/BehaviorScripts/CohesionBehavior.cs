@@ -16,14 +16,16 @@ public class CohesionBehavior : FlockBehavior
         Vector3 cohesionMove = Vector3.zero;
         foreach (Transform item in context)
         {
-            cohesionMove += item.position;
+            cohesionMove.x += item.position.x;
+            cohesionMove.z += item.position.z;
         }
 
         //La media
         cohesionMove /= context.Count;
 
         //Crear offset de la posicion del agente
-        cohesionMove -= agent.transform.position;
+        cohesionMove.x -= agent.transform.position.x;
+        cohesionMove.z -= agent.transform.position.z;
 
         return cohesionMove;
     }
