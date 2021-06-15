@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc003ebffb9c8146a1fedf1e4a68c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 50
-  _lowHealthThreshold: 40
+  angulosVision: ceffffffe7ffffff000000001900000032000000
+  startingHealth: 20
   healthRestoreRate: 1
   _inFlock: 1
   _hasBreeded: 0

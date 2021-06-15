@@ -45,54 +45,56 @@ private void Start() {
         //Se calcula el movimiento de cada agente
         foreach(FlockAgent agent in agents)
         {
-            //Se recogen todos los agentes dentro del radio
-            List<Transform> context = GetNearbyObjects(agent);
-            //agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count/6f);
-            
-            //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-            Vector3 move = behavior.CalculateMove(agent, context, this);
-            
-            /*
-            int layerMask = 1 << 8;
-            
-            RaycastHit[] hits = new RaycastHit[5];
-
-            for (int i = 0; i < hits.Length; i++)
+            if (!agent.IsDead())
             {
-                Vector3 anguloVision;
-                float scale = 5f;
-                anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
+                //Se recogen todos los agentes dentro del radio
+                List<Transform> context = GetNearbyObjects(agent);
+                //agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count/6f);
+
+                //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
+                Vector3 move = behavior.CalculateMove(agent, context, this);
+
+                /*
+                int layerMask = 1 << 8;
                 
-                if (Physics.Raycast(agent.transform.position,anguloVision, scale,layerMask))
-                {
-                    Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.red);
-                    Vector3 direccion = hits[i].point - agent.transform.position;
-                    direccion = direccion * 0.005f;
-                    move += direccion;
-                }
-                else
-                {
-                    Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.green);
-                }
-            }
-            */
-            //Con esto se suavizan los giros, para que no haga movimientos bruscos
-            move *= driveFactor;
-            
-            if (move.sqrMagnitude > squareMaxSpeed)
-            {
-                //Si el cuadrado del movimiento es mayor que el cuadrado la velocidad máxima
-                //  capo la velocidad con el máximo definido
-                move = move.normalized * maxSpeed;
-            }
+                RaycastHit[] hits = new RaycastHit[5];
 
-            //Muevo el agente mientras no haya llegado a la posición objetivo
-            //if(targetPosition!=Vector2.zero){
-            //    Debug.Log("Tengo una posición a la que ir");
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    Vector3 anguloVision;
+                    float scale = 5f;
+                    anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
+                    
+                    if (Physics.Raycast(agent.transform.position,anguloVision, scale,layerMask))
+                    {
+                        Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.red);
+                        Vector3 direccion = hits[i].point - agent.transform.position;
+                        direccion = direccion * 0.005f;
+                        move += direccion;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.green);
+                    }
+                }
+                */
+                //Con esto se suavizan los giros, para que no haga movimientos bruscos
+                move *= driveFactor;
+
+                if (move.sqrMagnitude > squareMaxSpeed)
+                {
+                    //Si el cuadrado del movimiento es mayor que el cuadrado la velocidad máxima
+                    //  capo la velocidad con el máximo definido
+                    move = move.normalized * maxSpeed;
+                }
+
+                //Muevo el agente mientras no haya llegado a la posición objetivo
+                //if(targetPosition!=Vector2.zero){
+                //    Debug.Log("Tengo una posición a la que ir");
                 agent.Move(move);
-            //}
-                
-            
+                //}
+            }
+
         }
     }
 

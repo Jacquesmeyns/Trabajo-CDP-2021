@@ -58,9 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa83e6ccb8f99b4980a724b8bc0bd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angulosVision: feffffffffffffff000000000100000002000000
-  startingHealth: 20
-  _lowHealthThreshold: 40
+  angulosVision: ecfffffff6ffffff000000000a00000014000000
+  startingHealth: 70
+  hungerTreshold: 0.98
+  flockHungerTreshold: 0.98
   healthRestoreRate: 1
   _inFlock: 1
   _hasBreeded: 0

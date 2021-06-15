@@ -14,7 +14,7 @@ public class FlockAgentRabbit : FlockAgent
     private void Awake() {
         //awarenessRadius = 15f;
         currentHealth = startingHealth;
-        foodBytes = (int) startingHealth;
+        foodBites = (int) startingHealth;
     }
 
     //Los árboles se construyen en código leyéndo el grafo de derecha a izquierda y de abajo a arriba

@@ -8,14 +8,39 @@ public class FlockAgent : MonoBehaviour
     BoxCollider agentCollider;
 
     //Ángulos desde los que se lanzan los rayos del raycast
-    public int[] angulosVision = {-2, -1, 0, 1, 2};
+    public int[] angulosVision = {-10, -1, 0, 1, 2};
 
     //Salud de inicio
     [SerializeField] internal float startingHealth;
-    internal int foodBytes;
+    
+    //Medidor de hambre
+    [Range(0,1)] public float hungerTreshold = 0.3f;
+    [Range(0,1)] public float flockHungerTreshold = 0.6f;
+    internal float startingHunger = 100f;
+    internal float _hunger;     //Cuando llega a cero, muere
+    public float hunger
+    {
+        get { return _hunger;}
+        set
+        {
+            _hunger = Mathf.Clamp(value, 0, startingHunger);
+            if (_hunger/startingHunger < hungerTreshold)
+            {
+                GoAlone();
+            }
+
+            if (_hunger <= 0)
+                currentHealth = 0;
+        }
+    }
+    //Cuánto hambnre baja por turno
+    internal float gluttony = 0.001f;
+    
+    
+    internal int foodBites;
 
     //Salud mínima para no considerarse sano
-    [SerializeField] private float _lowHealthThreshold;
+    [Range(0,1)] private float _lowHealthThreshold;
     public float lowHealthThreshold{
         get {return _lowHealthThreshold;}
         set { _lowHealthThreshold = value;}
@@ -72,7 +97,7 @@ public class FlockAgent : MonoBehaviour
     [SerializeField] private float _currentHealth;
     public float currentHealth {
         get {return _currentHealth;}
-        set { _currentHealth = Mathf.Clamp(value, 0, startingHealth);}
+        set { _currentHealth = Mathf.Clamp(value, 0, startingHealth); }
     }
 
     public BoxCollider AgentCollider { get { return agentCollider; } }
@@ -142,7 +167,18 @@ public class FlockAgent : MonoBehaviour
     //True cuando está con bocados disponibles
     public bool CanBeEaten()
     {
-        return --foodBytes > 0;
+        return foodBites > 0;
+    }
+    
+    //Se le quita un contador de bocados
+    public void TakeBite()
+    {
+        foodBites--;
+    }
+
+    public void UpdateHunger()
+    {
+        hunger -= gluttony*startingHunger;
     }
 }
 

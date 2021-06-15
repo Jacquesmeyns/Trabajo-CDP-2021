@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
 
         //Creamos las manadas de lobos y conejos
         Instantiate(wolfPackPrefab, _wolfSpawnPoints[Random.Range(0,_wolfSpawnPoints.Count)]);
-        //FlockRabbit rabbitFlock = Instantiate(rabbitFlockPrefab, _rabbitSpawnPoints[Random.Range(0,_rabbitSpawnPoints.Count)]);
+        //Instantiate(rabbitFlockPrefab, _rabbitSpawnPoints[Random.Range(0,_rabbitSpawnPoints.Count)]);
 
     }
 

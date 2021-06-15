@@ -19,19 +19,20 @@ public class EatNode : Node
         switch(agent.kind)
         {
             case AnimalKind.WOLF:
-                if(((FlockAgentWolf)agent).prey.IsDead())
+                //if(((FlockAgentWolf)agent).prey.IsDead())
+                //{
+                //Si sigue con bocados
+                if (((FlockAgentWolf) agent).CanTakeByte())
                 {
-                    //Si sigue con bocados
-                    if (((FlockAgentWolf) agent).prey.CanBeEaten())
-                    {
-                        return NodeState.RUNNING;
-                    }
-                    else
-                    {
-                        ((FlockAgentWolf) agent).prey.Dissappear();
-                        return NodeState.SUCCESS;
-                    }
+                    ((FlockAgentWolf) agent).Eat();
+                    return NodeState.RUNNING;
                 }
+                else
+                {
+                    ((FlockAgentWolf) agent).prey.Dissappear();
+                    return NodeState.SUCCESS;
+                }
+                //}
                 break;
 
             case AnimalKind.RABBIT:

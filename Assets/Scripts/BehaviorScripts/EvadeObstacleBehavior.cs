@@ -22,28 +22,31 @@ public class EvadeObstacleBehavior : FlockBehavior
         //  En este caso, la capa "Obstacle"
         int layerMask = 1 << 8;
             
+        //Voy a lanzar cinco rayos
         RaycastHit[] hits = new RaycastHit[5];
 
         for (int i = 0; i < hits.Length; i++)
         {
             Vector3 anguloVision;
-            float scale = 5f;
+            float maxDistance = 10f;
             anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
-                
-            if (Physics.Raycast(agent.transform.position,anguloVision, scale,layerMask))
+
+            //Compruebo colisiones con objetos que estén en la máscara de capa seleccionada
+            if (Physics.Raycast(agent.transform.position,anguloVision, maxDistance,layerMask))
             {
-                Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.red);
+                Debug.DrawRay(agent.transform.position,anguloVision * maxDistance,Color.red);
                 Vector3 direccion = hits[i].point - agent.transform.position;
-                direccion = direccion * 0.005f;
+                //El movimento escala con la cercanía al objetivo a evadir
+                direccion = direccion * (Vector3.Magnitude(direccion)/maxDistance);
                 evadeMove += direccion;
             }
             else
             {
-                Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.green);
+                Debug.DrawRay(agent.transform.position,anguloVision * maxDistance,Color.green);
             }
         }
 
 
-        return evadeMove;
+        return new Vector3(evadeMove.x, 0, evadeMove.z);
     }
 }

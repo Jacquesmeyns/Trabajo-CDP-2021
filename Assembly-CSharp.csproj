@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\Nodes\IsCoverAvailable.cs" />
      <Compile Include="Assets\Scripts\Nodes\IsCoveredNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\IsFlockHealthyNode.cs" />
+     <Compile Include="Assets\Scripts\Nodes\IsFlockHungry.cs" />
      <Compile Include="Assets\Scripts\Nodes\RangeNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\SearchPreyNode.cs" />
      <Compile Include="Assets\Scripts\VisionCone.cs" />

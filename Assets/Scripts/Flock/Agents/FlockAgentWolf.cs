@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -8,7 +9,8 @@ public class FlockAgentWolf : FlockAgent
     private void Awake() {
         //awarenessRadius = 10f;
         currentHealth = startingHealth;
-        foodBytes = (int) startingHealth;
+        hunger = startingHunger;
+        foodBites = (int) startingHealth;
         ConstructBehaviorTree();
     }
 
@@ -20,15 +22,19 @@ public class FlockAgentWolf : FlockAgent
         get{ return _prey;}
         set{ _prey = value;}
     }
+    
+    private bool attacked = false;
+    private bool eating = false;
+    
 
     public Transform targetLocation{
         get {return _prey.transform;}
     }
 
 
-    //Los árboles se construyen en código leyéndo el grafo de derecha a izquierda y de abajo a arriba
-    //  Primero haz todos los nodos (no importa el orden), y luego monta las secuencias y los selectores
-    //  en el orden que he dicho al principio
+    //Los árboles se construyen en código leyendo el grafo de derecha a izquierda y de abajo a arriba
+    //  Primero se hacen todos los nodos (no importa el orden), y luego se montan las secuencias y los selectores
+    //  en el orden dicho al principio
     private void ConstructBehaviorTree()
     {
         IsFlockHealthyNode isFlockHealthyNode = new IsFlockHealthyNode(this, lowHealthThreshold);
@@ -38,7 +44,7 @@ public class FlockAgentWolf : FlockAgent
         AttackNode attackNode = new AttackNode(prey);
         EatNode eatNode = new EatNode(this);
         BreedNode breedNode = new BreedNode(this);
-        Inverter isFlockHungryNode = new Inverter(isFlockHealthyNode);
+        IsFlockHungryNode isFlockHungryNode = new IsFlockHungryNode(this, flockHungerTreshold);
 
         Sequence mateSequence = new Sequence(new List<Node> {isFlockHealthyNode, isFlockHungryNode, breedNode});
 
@@ -51,14 +57,21 @@ public class FlockAgentWolf : FlockAgent
     }
 
     private void Update() {
-        
-        topNode.Evaluate();
-        if(topNode.nodeState == NodeState.FAILURE)
+        if (!IsDead())
         {
-            //GetComponentInChildren<Material>().SetColor("_Color",Color.red);
-            //Debug.Log("TODO MAL");
+            //Controlo el comportamiento a través del arbol
+            topNode.Evaluate();
+
+            if (topNode.nodeState == NodeState.FAILURE)
+            {
+                //GetComponentInChildren<Material>().SetColor("_Color",Color.red);
+                //Debug.Log("TODO MAL");
+            }
+
+            //Actualizo la vida y el hambre
+            RegenerateHealth();
+            UpdateHunger();
         }
-        //regenerateHealth();
     }
 
     public bool IsPreyHidden()
@@ -93,13 +106,47 @@ public class FlockAgentWolf : FlockAgent
 
     public void Attack()
     {
-        prey.currentHealth -= 5;
+        if(!attacked)
+            StartCoroutine(AttackCoolDown());
     }
 
     private void RegenerateHealth(){
         currentHealth += Time.deltaTime * healthRestoreRate;
     }
+
+    public bool CanTakeByte()
+    {
+        if (prey == null)
+        {
+            Debug.LogError("No tiene una presa a la que morder");
+            return false;
+        }
+        else
+        {
+            return prey.CanBeEaten();
+        }
+    }
+
+    public void Eat()
+    {
+        if(!eating)
+            StartCoroutine(BiteCoolDown());
+    }
     
+        
+    IEnumerator AttackCoolDown()
+    {
+        attacked = true;
+        prey.currentHealth -= 5;
+        yield return new WaitForSeconds(3);
+        attacked = false;
+    }
     
-    
+    IEnumerator BiteCoolDown()
+    {
+        eating = true;
+        prey.TakeBite();
+        yield return new WaitForSeconds(1.5f);
+        eating = false;
+    }
 }

@@ -46,5 +46,4 @@ public class ChaseNode : Node
         }
         return NodeState.RUNNING;
     }
-
 }

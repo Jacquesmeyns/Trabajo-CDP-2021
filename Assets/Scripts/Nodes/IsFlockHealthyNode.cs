@@ -24,7 +24,7 @@ public class IsFlockHealthyNode : Node
             flockHealth += _agent.currentHealth;
             quantity++;
         }
-        flockHealth /= quantity;
+        flockHealth /= (quantity*agent.startingHealth);
         _nodeState = flockHealth >= flockThreshold ? NodeState.SUCCESS : NodeState.FAILURE;
         return _nodeState;
     }
