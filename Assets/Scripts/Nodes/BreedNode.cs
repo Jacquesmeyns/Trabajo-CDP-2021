@@ -16,6 +16,9 @@ public class BreedNode : Node
 
     public override NodeState Evaluate()
     {
+        //Reiniciamos la lista de agentes   CREO QUE ESTO ESTÁ MAL 16-6-2021---------------
+        agents = new List<Collider2D>();
+        
         //Cuando es CIAN, está buscando compañero para tener crías
         //agent.GetComponentInChildren<Material>().SetColor("_Color",Color.cyan);
 

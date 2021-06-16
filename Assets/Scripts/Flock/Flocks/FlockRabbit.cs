@@ -48,6 +48,7 @@ private void Start() {
         {
             if (agents[i] == null)
                 agents.RemoveAt(i);
+            else 
             if (!agents[i].IsDead())
             {
                 //Se recogen todos los agentes dentro del radio

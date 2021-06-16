@@ -15,6 +15,8 @@ public class SearchPreyNode : Node
 
     public override NodeState Evaluate()
     {
+        //Reiniciamos la lista cada vez
+        conejos = new List<FlockAgentRabbit>();
         //Buscando presa
 
         Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, agent.awarenessRadius);
