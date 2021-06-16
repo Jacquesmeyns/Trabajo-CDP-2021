@@ -40,7 +40,7 @@ public class EvadeObstacleBehavior : FlockBehavior
                 direccion = direccion * (Vector3.Magnitude(direccion)/maxDistance);
                 evadeMove += direccion;
 
-                Debug.Log("EVITA ESTO: " + evadeMove);
+                //Debug.Log("EVITA ESTO: " + evadeMove);
             }
             else
             {

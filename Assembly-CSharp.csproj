@@ -82,10 +82,10 @@
      <Compile Include="Assets\Scripts\Flock\Flocks\FlockWolf.cs" />
      <Compile Include="Assets\Scripts\Flock\Spawner.cs" />
      <Compile Include="Assets\Scripts\Nodes\AttackNode.cs" />
-     <Compile Include="Assets\Scripts\Nodes\BreedNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\ChaseAttackNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\EatNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\GoToCoverNode.cs" />
+     <Compile Include="Assets\Scripts\Nodes\GoToPartnerNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\HealthNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\IsCoverAvailable.cs" />
      <Compile Include="Assets\Scripts\Nodes\IsCoveredNode.cs" />
@@ -93,6 +93,7 @@
      <Compile Include="Assets\Scripts\Nodes\IsFlockHungry.cs" />
      <Compile Include="Assets\Scripts\Nodes\RangeNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\SearchPreyNode.cs" />
+     <Compile Include="Assets\Scripts\Nodes\SeekPartnerNode.cs" />
      <Compile Include="Assets\Scripts\VisionCone.cs" />
      <Compile Include="Assets\Visor.cs" />
      <Compile Include="Assets\enemyController.cs" />

@@ -9,7 +9,7 @@ public class FlockAgentWolf : FlockAgent
 {
     private void Awake() {
         //awarenessRadius = 10f;
-        currentHealth = startingHealth/9;   //************************QUITAR EL /9. SÓLO DEBUG
+        currentHealth = startingHealth;   //************************QUITAR EL /9. SÓLO DEBUG
         hunger = startingHunger;
         foodBites = (int) startingHealth;
         ConstructBehaviorTree();
@@ -44,17 +44,18 @@ public class FlockAgentWolf : FlockAgent
         ChaseAttackNode chaseAttackNode = new ChaseAttackNode(this);
         AttackNode attackNode = new AttackNode(prey);
         EatNode eatNode = new EatNode(this);
-        BreedNode breedNode = new BreedNode(this);
+        SeekPartnerNode seekPartnerNode = new SeekPartnerNode(this);
         IsFlockHungryNode isFlockHungryNode = new IsFlockHungryNode(this, flockHungerThreshold);
+        GoToPartnerNode goToPartnerNode = new GoToPartnerNode(this);
 
-        Sequence mateSequence = new Sequence(new List<Node> {isFlockHealthyNode, isFlockHungryNode, breedNode});
+        Sequence mateSequence = new Sequence(new List<Node> {isFlockHealthyNode, new Inverter(isFlockHungryNode), seekPartnerNode, goToPartnerNode});
 
         Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseAttackNode, attackNode});
 
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
         Sequence surviveSequence = new Sequence(new List<Node>{ new Inverter(isFlockHealthyNode), isFlockHungryNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
 
-        topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence, mateSequence*/});
+        topNode = new Selector(new List<Node>{ /*surviveSequence, defendSequence, */mateSequence});
     }
 
     private void Update() {
@@ -135,6 +136,15 @@ public class FlockAgentWolf : FlockAgent
             StartCoroutine(BiteCoolDown());
     }
     
+    //Crea hijo o hijos
+    public void SpawnChilds()
+    {
+        _hasBreeded = true;
+        partner._hasBreeded = true;
+        
+        GameObject child = Instantiate(gameObject, GetComponentInParent<FlockWolf>().transform);
+        GetComponentInParent<FlockWolf>().agents.Add(child.GetComponent<FlockAgentWolf>());
+    }
         
     IEnumerator AttackCoolDown()
     {

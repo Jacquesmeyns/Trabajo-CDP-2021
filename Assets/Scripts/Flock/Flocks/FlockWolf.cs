@@ -34,7 +34,7 @@ public class FlockWolf : Flock
                 Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
                 GetComponentInParent<Transform>()
             );
-            newAgent.name = "Agent " + i;
+            newAgent.name = "Lobo " + i;
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent);
         }
@@ -65,7 +65,7 @@ public class FlockWolf : Flock
 
                 }
                 //Si no esta en grupo y puede aparearse, se aparea
-                else if (agent.partnerPosition != null && agent.CanBreed())
+                else if (agent.partner != null && agent.CanBreed())
                 {
                     Debug.Log("Breeding Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido

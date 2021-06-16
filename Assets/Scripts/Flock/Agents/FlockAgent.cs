@@ -79,17 +79,17 @@ public class FlockAgent : MonoBehaviour
     [SerializeField] private bool _inFlock = false;
 
     //Si ha criado o no
-    [SerializeField] private bool _hasBreeded = false;
+    [SerializeField] internal bool _hasBreeded = false;
     public bool inFlock {
         get { return _inFlock;}
         set { _inFlock = value;}
     }
 
-    //Posición del agente con el que criar 
-    private Transform _partnerPosition = null;
-    public Transform partnerPosition {
-        get { return _partnerPosition;}
-        set { _partnerPosition = value;}
+    //Agente con el que criar 
+    private FlockAgent _partner = null;
+    public FlockAgent partner {
+        get { return _partner;}
+        set { _partner = value;}
     }
 
     //Comportamiento de criar
@@ -171,8 +171,10 @@ public class FlockAgent : MonoBehaviour
 
     public bool CanBreed()
     {
+        return !_hasBreeded;
+        
         //Si ha tenido crías no puede tener más
-        if(_hasBreeded)
+        /*if(_hasBreeded)
         {
             return false;
         }
@@ -181,7 +183,7 @@ public class FlockAgent : MonoBehaviour
         {
             _hasBreeded = true;
             return true;
-        }
+        }*/
     }
 
     public void Dissappear()
@@ -210,6 +212,28 @@ public class FlockAgent : MonoBehaviour
     
     internal void RegenerateHealth(){
         currentHealth += Time.deltaTime * healthRestoreRate;
+    }
+
+    public bool PartnerWith(FlockAgent agent)
+    {
+        //Si alguno ya tiene compañero, no puede elegirse otro
+        if (partner != null || agent.partner != null)
+            return false;
+
+        partner = agent;
+        agent.partner = this;
+        
+        return true;
+    }
+
+    //Crea hijo o hijos
+    public void SpawnChilds()
+    {
+        _hasBreeded = true;
+        partner._hasBreeded = true;
+        
+        GameObject child = Instantiate(gameObject, GetComponentInParent<FlockWolf>().transform);
+        GetComponentInParent<FlockWolf>().agents.Add(child.GetComponent<FlockAgentWolf>());
     }
 }
 
