@@ -31,6 +31,12 @@ public class GoToPreyBehavior : FlockBehavior
 
      public Vector3 calculatePreyPosition(FlockAgentWolf agent)
     {
+        if (agent.prey == null)
+        {
+            agent.Regroup();
+            return Vector3.zero;
+        }
+            
         //Calculo la dirección a la que ir
         Vector3 targetOffset = agent.prey.transform.position - agent.transform.position;
         //

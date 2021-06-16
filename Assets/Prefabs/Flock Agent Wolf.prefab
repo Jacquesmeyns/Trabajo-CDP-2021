@@ -62,7 +62,8 @@ MonoBehaviour:
   startingHealth: 70
   hungerTreshold: 0.98
   flockHungerTreshold: 0.98
-  healthRestoreRate: 1
+  _lowHealthThreshold: 0.504
+  healthRestoreRate: 0.5
   _inFlock: 1
   _hasBreeded: 0
   breedingBehavior: {fileID: 11400000, guid: cb552b1ea04994c45afcedfd27823ab2, type: 2}

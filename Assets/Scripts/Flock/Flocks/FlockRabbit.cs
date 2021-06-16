@@ -43,16 +43,19 @@ private void Start() {
     void Update()
     {
         //Se calcula el movimiento de cada agente
-        foreach(FlockAgent agent in agents)
+        
+        for(int i = agents.Count-1; i >= 0; i--)
         {
-            if (!agent.IsDead())
+            if (agents[i] == null)
+                agents.RemoveAt(i);
+            if (!agents[i].IsDead())
             {
                 //Se recogen todos los agentes dentro del radio
-                List<Transform> context = GetNearbyObjects(agent);
+                List<Transform> context = GetNearbyObjects(agents[i]);
                 //agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count/6f);
 
                 //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                Vector3 move = behavior.CalculateMove(agent, context, this);
+                Vector3 move = behavior.CalculateMove(agents[i], context, this);
 
                 /*
                 int layerMask = 1 << 8;
@@ -91,7 +94,7 @@ private void Start() {
                 //Muevo el agente mientras no haya llegado a la posición objetivo
                 //if(targetPosition!=Vector2.zero){
                 //    Debug.Log("Tengo una posición a la que ir");
-                agent.Move(move);
+                agents[i].Move(move);
                 //}
             }
 

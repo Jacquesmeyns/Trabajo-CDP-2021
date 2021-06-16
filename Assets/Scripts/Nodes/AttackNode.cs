@@ -20,6 +20,6 @@ public class AttackNode : Node
             return NodeState.SUCCESS;
         }
 
-        return NodeState.RUNNING;
+        return NodeState.FAILURE;
     }
 }

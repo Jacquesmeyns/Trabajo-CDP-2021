@@ -10,11 +10,11 @@ public class HealthNode : Node
     public HealthNode(FlockAgent agent, float threshold)
     {
         this.agent = agent;
-        this.threshold = threshold;
+        this.threshold = threshold*0.6f;    //60% de lo que sería el umbral para la manada
     }
     public override NodeState Evaluate()
     {
-        _nodeState = agent.currentHealth <= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        _nodeState = agent.currentHealth/agent.startingHealth <= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
         //Si no la vida está por debajo del umbral, me pongo a buscar comida
         if(_nodeState == NodeState.SUCCESS)
             agent.Regroup();

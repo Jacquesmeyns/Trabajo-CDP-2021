@@ -42,8 +42,8 @@ public class ChaseNode : Node
             }
 
             //La presa sigue viva
-            return NodeState.RUNNING;
+            return NodeState.FAILURE;
         }
-        return NodeState.RUNNING;
+        return NodeState.FAILURE;
     }
 }

@@ -15,7 +15,7 @@ public class FlockAgent : MonoBehaviour
     
     //Medidor de hambre
     [Range(0,1)] public float hungerTreshold = 0.3f;
-    [Range(0,1)] public float flockHungerTreshold = 0.6f;
+    [Range(0,1)] public float flockHungerTreshold = 0.97f;
     internal float startingHunger = 100f;
     internal float _hunger;     //Cuando llega a cero, muere
     public float hunger
@@ -30,17 +30,35 @@ public class FlockAgent : MonoBehaviour
             }
 
             if (_hunger <= 0)
+            {
                 currentHealth = 0;
+                Dissappear();
+            }
         }
     }
-    //Cuánto hambnre baja por turno
-    internal float gluttony = 0.001f;
-    
-    
-    internal int foodBites;
+    //Cuánto hambre baja por turno
+    internal float gluttony = 0.0001f;
+
+
+    private int _foodBites;
+
+    internal int foodBites
+    {
+        get
+        {
+            return _foodBites;
+        }
+        set
+        {
+            _foodBites = value;
+            if(_foodBites<=0)
+                Dissappear();
+        }
+        
+    }
 
     //Salud mínima para no considerarse sano
-    [Range(0,1)] private float _lowHealthThreshold;
+    [Range(0,1)] public float _lowHealthThreshold;
     public float lowHealthThreshold{
         get {return _lowHealthThreshold;}
         set { _lowHealthThreshold = value;}
@@ -160,7 +178,8 @@ public class FlockAgent : MonoBehaviour
 
     public void Dissappear()
     {
-        Destroy(this);
+        Debug.Log("Me destruyo: " + this.ToString());
+        Destroy(gameObject);
     }
 
     
@@ -179,6 +198,10 @@ public class FlockAgent : MonoBehaviour
     public void UpdateHunger()
     {
         hunger -= gluttony*startingHunger;
+    }
+    
+    internal void RegenerateHealth(){
+        currentHealth += Time.deltaTime * healthRestoreRate;
     }
 }
 

@@ -8,7 +8,7 @@ public class FlockAgentWolf : FlockAgent
 {
     private void Awake() {
         //awarenessRadius = 10f;
-        currentHealth = startingHealth;
+        currentHealth = startingHealth/9;   //************************QUITAR EL /9. SÓLO DEBUG
         hunger = startingHunger;
         foodBites = (int) startingHealth;
         ConstructBehaviorTree();
@@ -51,9 +51,9 @@ public class FlockAgentWolf : FlockAgent
         Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseNode, attackNode});
 
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
-        Sequence surviveSequence = new Sequence(new List<Node>{ isFlockHealthyNode, isFlockHungryNode, healthNode, searchPreyNode, chaseNode, eatNode});
+        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockHungryNode, healthNode, searchPreyNode, chaseNode, eatNode});
 
-        topNode = new Selector(new List<Node>{ surviveSequence, defendSequence, mateSequence});
+        topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence, mateSequence*/});
     }
 
     private void Update() {
@@ -110,11 +110,9 @@ public class FlockAgentWolf : FlockAgent
             StartCoroutine(AttackCoolDown());
     }
 
-    private void RegenerateHealth(){
-        currentHealth += Time.deltaTime * healthRestoreRate;
-    }
+    
 
-    public bool CanTakeByte()
+    public bool CanTakeBite()
     {
         if (prey == null)
         {
@@ -146,6 +144,7 @@ public class FlockAgentWolf : FlockAgent
     {
         eating = true;
         prey.TakeBite();
+        currentHealth += 10;
         yield return new WaitForSeconds(1.5f);
         eating = false;
     }

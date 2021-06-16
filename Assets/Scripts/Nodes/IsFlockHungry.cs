@@ -22,11 +22,11 @@ public class IsFlockHungryNode : Node
         int quantity = 0;
         foreach (FlockAgent _agent in agent.GetComponentInParent<Flock>().agents)
         {
-            flockHunger += _agent.currentHealth;
+            flockHunger += _agent.hunger;
             quantity++;
         }
-        flockHunger /= (quantity*agent.startingHealth);
-        _nodeState = flockHunger >= flockThreshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        flockHunger /= (quantity*agent.startingHunger);
+        _nodeState = flockHunger <= flockThreshold ? NodeState.SUCCESS : NodeState.FAILURE;
         return _nodeState;
     }
 }

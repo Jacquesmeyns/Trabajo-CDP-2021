@@ -22,14 +22,15 @@ public class EatNode : Node
                 //if(((FlockAgentWolf)agent).prey.IsDead())
                 //{
                 //Si sigue con bocados
-                if (((FlockAgentWolf) agent).CanTakeByte())
+                if (((FlockAgentWolf) agent).CanTakeBite() && ((FlockAgentWolf) agent) != null)
                 {
                     ((FlockAgentWolf) agent).Eat();
-                    return NodeState.RUNNING;
+                    return NodeState.FAILURE;
                 }
                 else
                 {
-                    ((FlockAgentWolf) agent).prey.Dissappear();
+                    //((FlockAgentWolf) agent).prey.Dissappear();
+                    ((FlockAgentWolf) agent).Regroup();
                     return NodeState.SUCCESS;
                 }
                 //}
