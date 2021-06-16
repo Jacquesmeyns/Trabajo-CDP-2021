@@ -94,7 +94,11 @@ private void Start() {
                 //Muevo el agente mientras no haya llegado a la posición objetivo
                 //if(targetPosition!=Vector2.zero){
                 //    Debug.Log("Tengo una posición a la que ir");
-                agents[i].Move(move);
+                
+                //agents[i].Move(move);
+                //  ------------> SÓLO DEBUG, PARA EVITAR QUE SE MUEVA <--------------------
+                
+                
                 //}
             }
 

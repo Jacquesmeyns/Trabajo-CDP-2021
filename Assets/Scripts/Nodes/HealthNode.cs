@@ -10,7 +10,7 @@ public class HealthNode : Node
     public HealthNode(FlockAgent agent, float threshold)
     {
         this.agent = agent;
-        this.threshold = threshold*0.6f;    //60% de lo que sería el umbral para la manada
+        this.threshold = threshold;
     }
     public override NodeState Evaluate()
     {

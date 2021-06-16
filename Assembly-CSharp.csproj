@@ -83,7 +83,7 @@
      <Compile Include="Assets\Scripts\Flock\Spawner.cs" />
      <Compile Include="Assets\Scripts\Nodes\AttackNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\BreedNode.cs" />
-     <Compile Include="Assets\Scripts\Nodes\ChaseNode.cs" />
+     <Compile Include="Assets\Scripts\Nodes\ChaseAttackNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\EatNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\GoToCoverNode.cs" />
      <Compile Include="Assets\Scripts\Nodes\HealthNode.cs" />

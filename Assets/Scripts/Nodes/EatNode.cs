@@ -21,9 +21,10 @@ public class EatNode : Node
             case AnimalKind.WOLF:
                 //if(((FlockAgentWolf)agent).prey.IsDead())
                 //{
-                //Si sigue con bocados
-                if (((FlockAgentWolf) agent).CanTakeBite() && ((FlockAgentWolf) agent) != null)
+                //Si sigue con bocados y no ha desaparecido
+                if (((FlockAgentWolf) agent).CanTakeBite() && ((FlockAgentWolf) agent).prey != null)
                 {
+                    //Come
                     ((FlockAgentWolf) agent).Eat();
                     return NodeState.FAILURE;
                 }
@@ -49,11 +50,4 @@ public class EatNode : Node
 
         return NodeState.RUNNING;
     }
-
-    //Timer para que se quede unos segundos comiendo
-    IEnumerator eat()
-    {
-        yield return new WaitForSeconds(3);
-    }
-    
 }

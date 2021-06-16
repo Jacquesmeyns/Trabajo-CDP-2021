@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -37,21 +38,21 @@ public class FlockAgentWolf : FlockAgent
     //  en el orden dicho al principio
     private void ConstructBehaviorTree()
     {
-        IsFlockHealthyNode isFlockHealthyNode = new IsFlockHealthyNode(this, lowHealthThreshold);
+        IsFlockHealthyNode isFlockHealthyNode = new IsFlockHealthyNode(this, flockLowHealthThreshold);
         HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
         SearchPreyNode searchPreyNode = new SearchPreyNode(this);
-        ChaseNode chaseNode = new ChaseNode(this);
+        ChaseAttackNode chaseNode = new ChaseAttackNode(this);
         AttackNode attackNode = new AttackNode(prey);
         EatNode eatNode = new EatNode(this);
         BreedNode breedNode = new BreedNode(this);
-        IsFlockHungryNode isFlockHungryNode = new IsFlockHungryNode(this, flockHungerTreshold);
+        IsFlockHungryNode isFlockHungryNode = new IsFlockHungryNode(this, flockHungerThreshold);
 
         Sequence mateSequence = new Sequence(new List<Node> {isFlockHealthyNode, isFlockHungryNode, breedNode});
 
         Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseNode, attackNode});
 
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
-        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockHungryNode, healthNode, searchPreyNode, chaseNode, eatNode});
+        Sequence surviveSequence = new Sequence(new List<Node>{ new Inverter(isFlockHealthyNode), isFlockHungryNode, /*healthNode, */searchPreyNode, chaseNode, eatNode});
 
         topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence, mateSequence*/});
     }
@@ -69,7 +70,7 @@ public class FlockAgentWolf : FlockAgent
             }
 
             //Actualizo la vida y el hambre
-            RegenerateHealth();
+            //RegenerateHealth();
             UpdateHunger();
         }
     }
@@ -98,10 +99,13 @@ public class FlockAgentWolf : FlockAgent
 
     public bool IsPreyDead()
     {
+        return prey.IsDead();
+        
+        /*
         if(prey!=null)
             return prey.IsDead();
         else
-            return false;
+            return false;*/
     }
 
     public void Attack()

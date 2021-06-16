@@ -14,8 +14,8 @@ public class FlockAgent : MonoBehaviour
     [SerializeField] internal float startingHealth;
     
     //Medidor de hambre
-    [Range(0,1)] public float hungerTreshold = 0.3f;
-    [Range(0,1)] public float flockHungerTreshold = 0.97f;
+    [Range(0,1)] public float hungerThreshold = 0.3f;
+    [Range(0,1)] public float flockHungerThreshold = 0.97f;
     internal float startingHunger = 100f;
     internal float _hunger;     //Cuando llega a cero, muere
     public float hunger
@@ -24,7 +24,7 @@ public class FlockAgent : MonoBehaviour
         set
         {
             _hunger = Mathf.Clamp(value, 0, startingHunger);
-            if (_hunger/startingHunger < hungerTreshold)
+            if (_hunger/startingHunger < hungerThreshold)
             {
                 GoAlone();
             }
@@ -57,6 +57,14 @@ public class FlockAgent : MonoBehaviour
         
     }
 
+    //Salud mínima para no considerarse la bandada sana
+    [Range(0,1)] public float _flockLowHealthThreshold;
+
+    public float flockLowHealthThreshold
+    {
+        get { return _flockLowHealthThreshold; }
+    }
+    
     //Salud mínima para no considerarse sano
     [Range(0,1)] public float _lowHealthThreshold;
     public float lowHealthThreshold{

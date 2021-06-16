@@ -35,10 +35,12 @@ public class EvadeObstacleBehavior : FlockBehavior
             if (Physics.Raycast(agent.transform.position,anguloVision, maxDistance,layerMask))
             {
                 Debug.DrawRay(agent.transform.position,anguloVision * maxDistance,Color.red);
-                Vector3 direccion = hits[i].point - agent.transform.position;
+                Vector3 direccion = agent.transform.TransformVector(agent.transform.position) - hits[i].point;
                 //El movimento escala con la cercanía al objetivo a evadir
                 direccion = direccion * (Vector3.Magnitude(direccion)/maxDistance);
                 evadeMove += direccion;
+
+                Debug.Log("EVITA ESTO: " + evadeMove);
             }
             else
             {

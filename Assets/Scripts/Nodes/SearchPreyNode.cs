@@ -15,20 +15,15 @@ public class SearchPreyNode : Node
 
     public override NodeState Evaluate()
     {
-        
-        //Cuando es amarillo, está buscando presa
-        //agent.GetComponentInChildren<Material>().SetColor("_Color",Color.yellow);
-
+        //Buscando presa
 
         Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, agent.awarenessRadius);
-        
-        
         //Guardamos las posiciones de todos los conejos dentro de su radio de búsqueda (los agentes 
         //  que estén dentro de su área)
         foreach (Collider c in contextColliders)
         {
             //No queremos guardar la posición del propio agente, ni la de agentes que no sean conejos
-            if(c!= agent.AgentCollider && c.CompareTag(("Rabbit")))
+            if(c!= agent.AgentCollider && (c.CompareTag("Rabbit") || c.CompareTag("FleeingRabbit")) )
             {
                 conejos.Add(c.gameObject.GetComponent<FlockAgentRabbit>());
             }
@@ -38,12 +33,11 @@ public class SearchPreyNode : Node
         {
             //Seguir buscando
             //Debug.Log("Buscando conejos");
-            return NodeState.RUNNING;
+            return NodeState.FAILURE;
         }
         else
         {
-            //Atacar
-            //Asignamos la presa
+            //Asignamos la presa a la que perseguir y atacar en el siguiente nodo
             agent.prey = closestAgent();
             agent.GoAlone();
             return NodeState.SUCCESS;
@@ -64,6 +58,9 @@ public class SearchPreyNode : Node
                 closestRabbit = conejo;
             }
         }
+        
+        if(closestRabbit == null)
+            Debug.LogError("ESTE CONEJO NO ES UN CONEJO");
 
         return closestRabbit;
     }
