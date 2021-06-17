@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName= "Flock/Behavior/Composite")]
 public class CompositeBehavior : FlockBehavior
 {
+    Vector3 currentVelocity;
+    public float agentSmoothTime = 0.1f;
     public FlockBehavior[] behaviors;
     public float[] weights;
 
@@ -44,7 +46,9 @@ public class CompositeBehavior : FlockBehavior
                 move += partialMove;
             }
         }
-
+        Debug.DrawRay(agent.transform.position,move*15,Color.blue);
+        move = Vector3.SmoothDamp(agent.transform.forward, move, ref currentVelocity, agentSmoothTime).normalized;
+        
         return move;
 
     }

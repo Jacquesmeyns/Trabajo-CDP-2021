@@ -233,7 +233,7 @@ public class FlockAgent : MonoBehaviour
     }
 
     //Crea hijo o hijos
-    public void SpawnChilds()
+    public virtual void SpawnChilds()
     {
         if(!CanBreed())
             return;

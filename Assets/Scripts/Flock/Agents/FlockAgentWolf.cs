@@ -57,7 +57,7 @@ public class FlockAgentWolf : FlockAgent
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
         Sequence surviveSequence = new Sequence(new List<Node>{ new Inverter(isFlockHealthyNode), isFlockHungryNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
 
-        topNode = new Selector(new List<Node>{ /*surviveSequence, defendSequence, */mateSequence});
+        topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence, mateSequence*/});
     }
 
     private void Update() {
@@ -74,7 +74,7 @@ public class FlockAgentWolf : FlockAgent
 
             //Actualizo la vida y el hambre
             //RegenerateHealth();
-            UpdateHunger();
+            //UpdateHunger();
         }
     }
 
@@ -140,7 +140,7 @@ public class FlockAgentWolf : FlockAgent
     }
     
     //Crea hijo o hijos
-    public void SpawnChilds()
+    public override void SpawnChilds()
     {
         if(!CanBreed())
             return;

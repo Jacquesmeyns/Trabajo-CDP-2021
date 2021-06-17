@@ -59,7 +59,7 @@ public class FlockWolf : Flock
 
                 if (agent.inFlock)
                 {
-                    //Debug.Log("Flock Behavior");
+                    Debug.Log("Flock Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                     move = behavior.CalculateMove(agent, context, this);
 
@@ -124,8 +124,9 @@ public class FlockWolf : Flock
                     //Si el cuadrado del movimiento es mayor que el cuadrado la velocidad máxima
                     //  capo la velocidad con el máximo definido
                     move = move.normalized * maxSpeed;
+                    move = move.normalized;
                 }
-
+                Debug.DrawRay(agent.transform.position,move*15,Color.magenta);
 
                 //Muevo el agente mientras no haya llegado a la posición objetivo
                 //if(targetPosition!=Vector2.zero){

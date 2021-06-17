@@ -7,10 +7,6 @@ public class EvadeObstacleBehavior : FlockBehavior
 {
      public override Vector3 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
     {
-        //Si no hay vecinos, mantener direccion actual
-        if(context.Count == 0)
-            return agent.transform.forward;
-        
         Vector3 evadeMove = Vector3.zero;
 
         //Comprobar obstáculos lanzando 5 rayos con Raycast
@@ -37,8 +33,8 @@ public class EvadeObstacleBehavior : FlockBehavior
                 Debug.DrawRay(agent.transform.position,anguloVision * maxDistance,Color.red);
                 Vector3 direccion = agent.transform.TransformVector(agent.transform.position) - hits[i].point;
                 //El movimento escala con la cercanía al objetivo a evadir
-                direccion = direccion * (Vector3.Magnitude(direccion)/maxDistance);
-                evadeMove += direccion;
+                //direccion = direccion * (Vector3.Magnitude(direccion)/maxDistance);
+                evadeMove += 50*direccion;
 
                 //Debug.Log("EVITA ESTO: " + evadeMove);
             }

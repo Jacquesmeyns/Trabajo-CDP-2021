@@ -31,7 +31,7 @@ public class SteeredCohesionBehavior : FlockBehavior
 
         //Para suavizar el movimiento. Cambia lentamente el vector hacia la dirección
         //    deseada en un tiempo determinado
-        cohesionMove = Vector3.SmoothDamp(agent.transform.forward, cohesionMove, ref currentVelocity, agentSmoothTime);
+        cohesionMove = Vector3.SmoothDamp(agent.transform.forward, cohesionMove, ref currentVelocity, agentSmoothTime); //.normalized?¿
         cohesionMove.y = 0f;
 
         return cohesionMove;

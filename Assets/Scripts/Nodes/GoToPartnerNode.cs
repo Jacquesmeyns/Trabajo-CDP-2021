@@ -14,6 +14,12 @@ public class GoToPartnerNode : Node
         this._agent = agent;
         _partner = agent.partner;
     }
+    
+    public GoToPartnerNode(FlockAgentWolf agent)
+    {
+        this._agent = agent;
+        _partner = agent.partner;
+    }
 
     public override NodeState Evaluate()
     {
@@ -31,7 +37,7 @@ public class GoToPartnerNode : Node
         }
         else
         {
-            ((FlockAgentWolf)_agent).SpawnChilds();
+            _agent.SpawnChilds();
             ((FlockAgentWolf)_agent).Regroup();
             return NodeState.SUCCESS;
         }
