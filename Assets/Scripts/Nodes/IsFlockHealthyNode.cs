@@ -7,7 +7,14 @@ public class IsFlockHealthyNode : Node
     private FlockAgent agent;
     private float flockThreshold;
 
-    public IsFlockHealthyNode(FlockAgent agent, float flockThreshold)
+    public IsFlockHealthyNode(FlockAgentWolf agent, float flockThreshold)
+    {
+        this.agent = agent;
+        this.flockThreshold = flockThreshold;
+    }
+    
+    //Esto es buena idea?
+    public IsFlockHealthyNode(FlockAgentRabbit agent, float flockThreshold)
     {
         this.agent = agent;
         this.flockThreshold = flockThreshold;

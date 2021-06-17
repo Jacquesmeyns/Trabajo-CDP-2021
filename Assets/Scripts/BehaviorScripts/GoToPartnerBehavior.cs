@@ -10,19 +10,20 @@ public class GoToPartnerBehavior : FlockBehavior
     public override Vector3 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
     {
         //Calculo la dirección a la que ir
-        Vector3 targetOffset = flock.targetPosition - agent.transform.position;
+        Vector3 targetOffset = agent.partner.transform.position - agent.transform.position;
         //
         float t = targetOffset.magnitude / radius;
 
         //Si estoy dentro del área objetivo, me quedo rondando el área
         //  ¿o no hace falta moverme más?
-        if(t<0.2f)
+        /*if(t<3f)
         {
             //Rondando
             flock.targetPosition = Vector3.zero;
             //return Vector2.zero;
         }
-        return targetOffset;
+        */
+        return new Vector3(targetOffset.x, 0, targetOffset.z);
     }
 
      /*public Vector3 CalculateMove(FlockAgentWolf agent)

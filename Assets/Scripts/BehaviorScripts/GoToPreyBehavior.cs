@@ -33,7 +33,7 @@ public class GoToPreyBehavior : FlockBehavior
     {
         if (agent.prey == null)
         {
-            agent.Regroup();
+            agent.Regroup();    
             return Vector3.zero;
         }
             

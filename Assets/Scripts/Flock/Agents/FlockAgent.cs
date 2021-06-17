@@ -160,9 +160,15 @@ public class FlockAgent : MonoBehaviour
         */
     }
 
-    public virtual void GoAlone(){}
+    public virtual void GoAlone()
+    {
+        Debug.LogError("Metodo a implementar en su clase");
+    }
 
-    public virtual void Regroup(){}
+    public virtual void Regroup()
+    {
+        Debug.LogError("Metodo a implementar en su clase");
+    }
 
     //Para controlar el movimiento
     public bool IsDead(){
@@ -229,6 +235,8 @@ public class FlockAgent : MonoBehaviour
     //Crea hijo o hijos
     public void SpawnChilds()
     {
+        if(!CanBreed())
+            return;
         _hasBreeded = true;
         partner._hasBreeded = true;
         

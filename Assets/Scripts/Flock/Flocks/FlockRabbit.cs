@@ -97,7 +97,7 @@ private void Start() {
                 //    Debug.Log("Tengo una posición a la que ir");
                 
                 //agents[i].Move(move);
-                //  ------------> SÓLO DEBUG, PARA EVITAR QUE SE MUEVA <--------------------
+                //  ---------------> SÓLO DEBUG, PARA EVITAR QUE SE MUEVA <--------------------
                 
                 
                 //}

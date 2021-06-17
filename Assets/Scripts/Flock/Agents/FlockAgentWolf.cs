@@ -13,6 +13,8 @@ public class FlockAgentWolf : FlockAgent
         hunger = startingHunger;
         foodBites = (int) startingHealth;
         ConstructBehaviorTree();
+        _hasBreeded = true;
+        StartCoroutine(GrowUp()); //Corrutina, tiempo que tarda en crecer para poder criar
     }
 
     [SerializeField] public FlockBehavior huntingBehavior;
@@ -86,17 +88,18 @@ public class FlockAgentWolf : FlockAgent
         return inFlock;
     }
     
-    public void GoAlone()
+    public override void GoAlone()
     {
         inFlock = false;
         this.tag = "LoneWolf";
     }
 
-    public void Regroup()
+    public override void Regroup()
     {
         inFlock = true;
         this.tag = "Wolf";
     }
+
 
     public bool IsPreyDead()
     {
@@ -139,6 +142,8 @@ public class FlockAgentWolf : FlockAgent
     //Crea hijo o hijos
     public void SpawnChilds()
     {
+        if(!CanBreed())
+            return;
         _hasBreeded = true;
         partner._hasBreeded = true;
         
@@ -161,5 +166,11 @@ public class FlockAgentWolf : FlockAgent
         currentHealth += 10;
         yield return new WaitForSeconds(1.5f);
         eating = false;
+    }
+    
+    IEnumerator GrowUp()
+    {
+        yield return new WaitForSeconds(3f);
+        _hasBreeded = false;
     }
 }

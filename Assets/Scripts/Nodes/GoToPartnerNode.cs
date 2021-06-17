@@ -18,21 +18,21 @@ public class GoToPartnerNode : Node
     public override NodeState Evaluate()
     {
         _partner = _agent.partner;
-        if (_partner == null)
+        if (_partner == null || !_agent.CanBreed())
         {
-            _agent.Regroup();
+            ((FlockAgentWolf)_agent).Regroup();
             return NodeState.FAILURE;
         }
 
         float distance = Vector3.Distance(_partner.transform.position, _agent.transform.position);
-        if(distance > 0.2f)
+        if(distance > 3f)
         {
             return NodeState.RUNNING;
         }
         else
         {
-            _agent.SpawnChilds();
-            _agent.Regroup();
+            ((FlockAgentWolf)_agent).SpawnChilds();
+            ((FlockAgentWolf)_agent).Regroup();
             return NodeState.SUCCESS;
         }
     }

@@ -16,6 +16,13 @@ public class SeekPartnerNode : Node
 
     public override NodeState Evaluate()
     {
+        //Si ya tiene una pareja, exito
+        if (agent.partner != null && agent.CanBreed())
+        {
+            return NodeState.SUCCESS;
+
+        }
+
         //Reiniciamos la lista de agentes   CREO QUE ESTO ESTÁ MAL 16-6-2021---------------
         agents = new List<Collider>();
         
@@ -30,8 +37,7 @@ public class SeekPartnerNode : Node
         {
             //No queremos guardar la posición del propio agente, 
             //  ni la de agentes que no sean de su tipo ni de los que no puedan criar
-            if(c!= agent.AgentCollider 
-                && c.gameObject.GetComponent<FlockAgent>().kind == agent.kind
+            if(c!= agent.AgentCollider && (c.tag.CompareTo(agent.tag) == 0)
                 && c.gameObject.GetComponent<FlockAgent>().CanBreed() )
             {
                 agents.Add(c);
@@ -44,15 +50,15 @@ public class SeekPartnerNode : Node
             if (MateClosestBreedableAgent())
             {
                 //Los dos se salen de la manada y se buscan
-                agent.GoAlone();
-                agent.partner.GoAlone();
+                ((FlockAgentWolf)agent).GoAlone();
+                ((FlockAgentWolf)agent.partner).GoAlone();
                 return NodeState.SUCCESS;
             }
             else
                 return NodeState.FAILURE;
         }
         else
-            return NodeState.RUNNING;
+            return NodeState.FAILURE;
 
         
     }
