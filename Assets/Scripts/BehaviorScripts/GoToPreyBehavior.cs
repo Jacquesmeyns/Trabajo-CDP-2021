@@ -16,12 +16,12 @@ public class GoToPreyBehavior : FlockBehavior
 
         //Si estoy dentro del área objetivo, me quedo rondando el área
         //  ¿o no hace falta moverme más?
-        if(t<0.2f)
+        /*if(t<0.2f)
         {
             //Rondando
             flock.targetPosition = Vector3.zero;
             //return Vector2.zero;
-        }
+        }*/
 
         targetOffset = calculatePreyPosition((FlockAgentWolf) agent);
         
@@ -33,7 +33,8 @@ public class GoToPreyBehavior : FlockBehavior
     {
         if (agent.prey == null)
         {
-            agent.Regroup();    
+            agent.Regroup();
+            
             return Vector3.zero;
         }
             

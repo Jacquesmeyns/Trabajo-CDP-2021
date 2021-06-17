@@ -6,9 +6,11 @@ using UnityEngine;
 public class FlockAgent : MonoBehaviour
 {
     BoxCollider agentCollider;
+    
+    Vector3 currentVelocity;
 
     //Ángulos desde los que se lanzan los rayos del raycast
-    public int[] angulosVision = {-10, -1, 0, 1, 2};
+    public int[] angulosVision = {-2, -1, 1, 2};
 
     //Salud de inicio
     [SerializeField] internal float startingHealth;
@@ -17,7 +19,7 @@ public class FlockAgent : MonoBehaviour
     [Range(0,1)] public float hungerThreshold = 0.3f;
     [Range(0,1)] public float flockHungerThreshold = 0.97f;
     internal float startingHunger = 100f;
-    internal float _hunger;     //Cuando llega a cero, muere
+    internal float _hunger;     //Cuando llega a cero, empieza a perder vida
     public float hunger
     {
         get { return _hunger;}
@@ -26,13 +28,13 @@ public class FlockAgent : MonoBehaviour
             _hunger = Mathf.Clamp(value, 0, startingHunger);
             if (_hunger/startingHunger < hungerThreshold)
             {
-                GoAlone();
+                //GoAlone();
             }
 
+            //Si el hambre está a 0, va perdiendo vida poco a poco
             if (_hunger <= 0)
             {
-                currentHealth = 0;
-                Dissappear();
+                currentHealth -= 2*gluttony * startingHealth;
             }
         }
     }
@@ -123,7 +125,10 @@ public class FlockAgent : MonoBehaviour
     [SerializeField] private float _currentHealth;
     public float currentHealth {
         get {return _currentHealth;}
-        set { _currentHealth = Mathf.Clamp(value, 0, startingHealth); }
+        set
+        {
+            _currentHealth = Mathf.Clamp(value, 0, startingHealth);
+        }
     }
 
     public BoxCollider AgentCollider { get { return agentCollider; } }

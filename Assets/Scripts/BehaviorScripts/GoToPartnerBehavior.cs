@@ -19,10 +19,10 @@ public class GoToPartnerBehavior : FlockBehavior
         /*if(t<3f)
         {
             //Rondando
-            flock.targetPosition = Vector3.zero;
-            //return Vector2.zero;
-        }
-        */
+            //flock.targetPosition = Vector3.zero;
+            return Vector3.zero;
+        }*/
+        
         return new Vector3(targetOffset.x, 0, targetOffset.z);
     }
 

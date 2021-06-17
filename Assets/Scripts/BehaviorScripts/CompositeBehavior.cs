@@ -6,7 +6,7 @@ using UnityEngine;
 public class CompositeBehavior : FlockBehavior
 {
     Vector3 currentVelocity;
-    public float agentSmoothTime = 0.1f;
+    public float agentSmoothTime = 10f;
     public FlockBehavior[] behaviors;
     public float[] weights;
 
@@ -29,8 +29,8 @@ public class CompositeBehavior : FlockBehavior
             //Calculamos cada movimiento parcial con su correspondiente peso
             Vector3 partialMove = behaviors[i].CalculateMove(agent, context, flock) * weights[i];
             
-            if(!partialMove.y.Equals(0.0f))
-                Debug.Log("Movimiento jodido en: " + behaviors[i].ToString() + " -->  " + partialMove);
+            //if(!partialMove.y.Equals(0.0f))
+            //    Debug.Log("Movimiento jodido en: " + behaviors[i].ToString() + " -->  " + partialMove);
 
             //Si se mueve
             if(partialMove != Vector3.zero)
@@ -46,9 +46,11 @@ public class CompositeBehavior : FlockBehavior
                 move += partialMove;
             }
         }
-        Debug.DrawRay(agent.transform.position,move*15,Color.blue);
-        move = Vector3.SmoothDamp(agent.transform.forward, move, ref currentVelocity, agentSmoothTime).normalized;
+
+        //move += new EvadeObstacleBehavior().CalculateMove(agent, context, flock);
         
+        //move = Vector3.SmoothDamp(agent.transform.forward, move, ref currentVelocity, agentSmoothTime);
+        //Debug.DrawRay(agent.transform.position,move*15,Color.white);
         return move;
 
     }

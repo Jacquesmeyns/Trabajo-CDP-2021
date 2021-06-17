@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7425903543725173102}
   - component: {fileID: 4894014754008138504}
   m_Layer: 0
-  m_Name: Flock Agent
+  m_Name: Prueba Wolf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c9a2fd736114d4897ca88536427728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angulosVision: feffffffffffffff0100000002000000
   startingHealth: 0
+  hungerThreshold: 0.3
+  flockHungerThreshold: 0.97
+  _flockLowHealthThreshold: 0
   _lowHealthThreshold: 0
   healthRestoreRate: 0
   _inFlock: 1
@@ -71,6 +75,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   availableCovers: []
   _kind: 2
+  _awarenessRadius: 10
   _currentHealth: 0
 --- !u!114 &4894014754008138504
 MonoBehaviour:
@@ -84,7 +89,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa83e6ccb8f99b4980a724b8bc0bd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angulosVision: feffffffffffffff0100000002000000
   startingHealth: 0
+  hungerThreshold: 0.3
+  flockHungerThreshold: 0.97
+  _flockLowHealthThreshold: 0
   _lowHealthThreshold: 0
   healthRestoreRate: 0
   _inFlock: 0
@@ -93,6 +102,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   availableCovers: []
   _kind: 2
+  _awarenessRadius: 10
   _currentHealth: 0
   huntingBehavior: {fileID: 0}
 --- !u!1 &6923717677610471478

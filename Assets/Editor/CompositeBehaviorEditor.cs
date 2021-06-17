@@ -56,7 +56,7 @@ public class CompositeBehaviorEditor : Editor
                 //Espaciado vertical entre los comportamientos del inspector
                 EditorGUILayout.Space(30);
                 //El slider para el peso
-                actual.weights[i] = EditorGUILayout.Slider(actual.weights[i], 0, 1);
+                actual.weights[i] = EditorGUILayout.Slider(actual.weights[i], 0, 10);
                 //Cierro la subdivisión del comportamiento actual
                 EditorGUILayout.EndHorizontal();
             }

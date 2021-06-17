@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,10 +35,14 @@ public class FlockWolf : Flock
                 Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
                 GetComponentInParent<Transform>()
             );
+            
+            
             newAgent.name = "Lobo " + i;
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent);
         }
+
+        Instantiate( GameObject.Find("Posicion target"), new Vector3(targetPosition.x, 1f, targetPosition.z), GameObject.Find("Posicion target").transform.rotation, gameObject.transform);
     }
 
     internal void create(){
@@ -59,7 +64,7 @@ public class FlockWolf : Flock
 
                 if (agent.inFlock)
                 {
-                    Debug.Log("Flock Behavior");
+                    //Debug.Log("Flock Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                     move = behavior.CalculateMove(agent, context, this);
 
@@ -124,18 +129,20 @@ public class FlockWolf : Flock
                     //Si el cuadrado del movimiento es mayor que el cuadrado la velocidad máxima
                     //  capo la velocidad con el máximo definido
                     move = move.normalized * maxSpeed;
-                    move = move.normalized;
                 }
-                Debug.DrawRay(agent.transform.position,move*15,Color.magenta);
+                //Debug.DrawRay(agent.transform.position,move*15,Color.magenta);
 
                 //Muevo el agente mientras no haya llegado a la posición objetivo
                 //if(targetPosition!=Vector2.zero){
                 //    Debug.Log("Tengo una posición a la que ir");
                 agent.Move(move);
                 //}
+                //agent.GetComponentInChildren<Transform>().forward = Vector3.SmoothDamp(agent.GetComponentInChildren<Transform>().forward, move, 0.1f);
             }
 
         }
+        
+        
     }
 
     

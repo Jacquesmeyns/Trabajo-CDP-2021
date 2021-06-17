@@ -33,6 +33,8 @@ public class FlockAgentWolf : FlockAgent
     public Transform targetLocation{
         get {return _prey.transform;}
     }
+    
+    
 
 
     //Los árboles se construyen en código leyendo el grafo de derecha a izquierda y de abajo a arriba
@@ -55,7 +57,7 @@ public class FlockAgentWolf : FlockAgent
         Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseAttackNode, attackNode});
 
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
-        Sequence surviveSequence = new Sequence(new List<Node>{ new Inverter(isFlockHealthyNode), isFlockHungryNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
+        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockHungryNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
 
         topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence, mateSequence*/});
     }
@@ -73,8 +75,8 @@ public class FlockAgentWolf : FlockAgent
             }
 
             //Actualizo la vida y el hambre
-            //RegenerateHealth();
-            //UpdateHunger();
+            RegenerateHealth();
+            UpdateHunger();
         }
     }
 
@@ -163,7 +165,8 @@ public class FlockAgentWolf : FlockAgent
     {
         eating = true;
         prey.TakeBite();
-        currentHealth += 10;
+        currentHealth += 5;
+        hunger += 20;
         yield return new WaitForSeconds(1.5f);
         eating = false;
     }

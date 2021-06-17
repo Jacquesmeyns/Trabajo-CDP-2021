@@ -19,23 +19,24 @@ public class EvadeObstacleBehavior : FlockBehavior
         int layerMask = 1 << 8;
             
         //Voy a lanzar cinco rayos
-        RaycastHit[] hits = new RaycastHit[5];
+        RaycastHit[] hits = new RaycastHit[agent.angulosVision.Length];
 
         for (int i = 0; i < hits.Length; i++)
         {
             Vector3 anguloVision;
-            float maxDistance = 10f;
+            float maxDistance = 1f;
             anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
 
             //Compruebo colisiones con objetos que estén en la máscara de capa seleccionada
-            if (Physics.Raycast(agent.transform.position,anguloVision, maxDistance,layerMask))
+            if (Physics.Raycast(agent.transform.position,anguloVision, out hits[i], maxDistance,layerMask))
             {
-                Debug.DrawRay(agent.transform.position,anguloVision * maxDistance,Color.red);
-                Vector3 direccion = agent.transform.TransformVector(agent.transform.position) - hits[i].point;
+                //Debug.Log(hits[i].point);
+                Debug.DrawRay(agent.transform.position,hits[i].point-agent.transform.position,Color.red);
+                Vector3 direccion = agent.transform.position - hits[i].point;
                 //El movimento escala con la cercanía al objetivo a evadir
-                //direccion = direccion * (Vector3.Magnitude(direccion)/maxDistance);
-                evadeMove += 50*direccion;
-
+                //direccion = direccion * (1 - Vector3.Magnitude(direccion)/maxDistance);
+                evadeMove += direccion;
+                break;
                 //Debug.Log("EVITA ESTO: " + evadeMove);
             }
             else
@@ -44,7 +45,7 @@ public class EvadeObstacleBehavior : FlockBehavior
             }
         }
 
-
-        return new Vector3(evadeMove.x, 0, evadeMove.z);
+        Debug.DrawRay(agent.transform.position,evadeMove,Color.cyan);
+        return new Vector3(evadeMove.x, 0, evadeMove.z).normalized;
     }
 }

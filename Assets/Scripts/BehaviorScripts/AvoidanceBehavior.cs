@@ -22,8 +22,7 @@ public class AvoidanceBehavior : FlockBehavior
                 //Se añade que hay que evitar un agente más, en la dirección opuesta al mismo
                 nAvoid++;
                 //avoidanceMove += (Vector2)(agent.transform.position - item.position);
-                Vector3 av = agent.transform.position - item.position;
-                avoidanceMove += av;
+                avoidanceMove += agent.transform.position - item.position;
             }
         }
 
@@ -31,6 +30,8 @@ public class AvoidanceBehavior : FlockBehavior
         if(nAvoid > 0)
             avoidanceMove /= nAvoid;
 
+        Debug.DrawRay(agent.transform.position, avoidanceMove, Color.red);
+        
         return new Vector3(avoidanceMove.x, 0, avoidanceMove.z);
     }
 }

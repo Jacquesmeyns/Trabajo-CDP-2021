@@ -12,15 +12,13 @@ public class GoToPositionBehavior : FlockBehavior
     {
         //Calculo la dirección a la que ir
         Vector3 targetOffset = /*center*/ flock.targetPosition - agent.transform.position;
-        //
+        //Debug.Log("Target position: " + flock.targetPosition);
         float t = targetOffset.magnitude / radius;
 
         //Si estoy dentro del área objetivo, me quedo rondando el área
-        //  ¿o no hace falta moverme más?
         if(t<0.5f)
         {
             //Rondando
-            flock.targetPosition = Vector3.zero;
             return Vector3.zero;
         }
 
