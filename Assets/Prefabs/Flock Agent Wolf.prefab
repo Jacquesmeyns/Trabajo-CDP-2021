@@ -61,13 +61,15 @@ MonoBehaviour:
   angulosVision: ecffffff14000000
   startingHealth: 70
   hungerThreshold: 0.239
-  flockHungerThreshold: 1
-  _flockLowHealthThreshold: 1
+  flockHungerThreshold: 0.489
+  _flockLowHealthThreshold: 0.499
   _lowHealthThreshold: 0.277
   healthRestoreRate: 0.5
   _inFlock: 1
   _hasBreeded: 0
   breedingBehavior: {fileID: 11400000, guid: cb552b1ea04994c45afcedfd27823ab2, type: 2}
+  preBreedingBehavior: {fileID: 11400000, guid: c483870ea7ed6464c9b09006729f44d7,
+    type: 2}
   playerTransform: {fileID: 0}
   availableCovers: []
   _kind: 0

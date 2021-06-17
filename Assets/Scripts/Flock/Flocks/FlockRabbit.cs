@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlockRabbit : Flock
 {
     //private bool _flockPanic = false;
-    List<FlockAgentRabbit> agents = new List<FlockAgentRabbit>();
+    //internal List<FlockAgentRabbit> agents = new List<FlockAgentRabbit>();
 private void Start() {
     
 }
@@ -37,7 +37,8 @@ private void Start() {
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent);
         }
-        
+
+        targetPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -57,13 +58,13 @@ private void Start() {
 
                 Vector3 move = new Vector3();
                 //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                if (agents[i].isSafe())
+                if (((FlockAgentRabbit)agents[i]).isSafe())
                 {
                     move = behavior.CalculateMove(agents[i], context, this);
                 }
                 else
                 {
-                    move = agents[i].panicBehavior.CalculateMove(agents[i], context, this);
+                    move = ((FlockAgentRabbit)agents[i]).panicBehavior.CalculateMove(agents[i], context, this);
                 }
 
                 //Con esto se suavizan los giros, para que no haga movimientos bruscos

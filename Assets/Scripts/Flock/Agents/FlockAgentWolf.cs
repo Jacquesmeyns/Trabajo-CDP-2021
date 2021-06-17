@@ -150,6 +150,8 @@ public class FlockAgentWolf : FlockAgent
         partner._hasBreeded = true;
         
         GameObject child = Instantiate(gameObject, GetComponentInParent<FlockWolf>().transform);
+        child.GetComponent<FlockAgentWolf>().Awake();
+        child.name = "Lobo " + GetComponentInParent<FlockWolf>().agents.Count;
         GetComponentInParent<FlockWolf>().agents.Add(child.GetComponent<FlockAgentWolf>());
     }
         

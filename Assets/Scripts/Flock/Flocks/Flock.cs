@@ -32,7 +32,9 @@ public class Flock : MonoBehaviour
     [SerializeField] internal float squareAvoidanceRadius;
     public float SquareAvoidanceRadius { get { return squareAvoidanceRadius; } }
     [SerializeField] internal Vector3 targetPosition = Vector3.zero;
-
+    internal Vector3 nestPosition;
+    
+    
     [Header("Posiciones de aparición")]
     private readonly List<Transform> _wolfSpawnPoints = new List<Transform>();
     private readonly List<Transform> _rabbitSpawnPoints = new List<Transform>();
@@ -40,6 +42,7 @@ public class Flock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nestPosition = transform.position;
         //Calculamos los cuadrados
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
         //  cada vez que use sqrMagnitude

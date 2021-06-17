@@ -13,6 +13,7 @@ public class FlockWolf : Flock
     }
     void Awake()
     {
+        nestPosition = transform.position;
         
         //Calculamos los cuadrados
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
@@ -42,7 +43,7 @@ public class FlockWolf : Flock
             agents.Add(newAgent);
         }
 
-        Instantiate( GameObject.Find("Posicion target"), new Vector3(targetPosition.x, 1f, targetPosition.z), GameObject.Find("Posicion target").transform.rotation, gameObject.transform);
+        Instantiate( GameObject.Find("Posicion target"), nestPosition, GameObject.Find("Posicion target").transform.rotation, gameObject.transform);
     }
 
     internal void create(){
@@ -73,10 +74,13 @@ public class FlockWolf : Flock
                 else if (agent.partner != null && agent.CanBreed())
                 {
                     Debug.Log("Breeding Behavior");
+                    //Si ambos están en el nido, pueden tener a la cría
+                    if(agent.InNestWithPartner(nestPosition))
+                        move = agent.breedingBehavior.CalculateMove(agent, context, this);
+                    else
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                    move = agent.breedingBehavior.CalculateMove(agent, context, this);
+                        move = agent.preBreedingBehavior.CalculateMove(agent, context, this);
                 }
-                //Si no esta en grupo ni buscando a su pareja, estoy cazando
                 else
                 {
                     Debug.Log("Hunting Behavior");

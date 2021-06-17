@@ -96,6 +96,7 @@ public class FlockAgent : MonoBehaviour
 
     //Comportamiento de criar
     [SerializeField] public FlockBehavior breedingBehavior;
+    [SerializeField] public FlockBehavior preBreedingBehavior;
 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Cover[] availableCovers;
@@ -247,6 +248,16 @@ public class FlockAgent : MonoBehaviour
         
         GameObject child = Instantiate(gameObject, GetComponentInParent<FlockWolf>().transform);
         GetComponentInParent<FlockWolf>().agents.Add(child.GetComponent<FlockAgentWolf>());
+    }
+
+    internal bool InNestWithPartner(Vector3 nestPosition)
+    {
+        Vector3 distanceToNest = transform.position - nestPosition;
+        Vector3 partnerDistanceToNest = partner.transform.position - nestPosition;
+        //float t = targetOffset.magnitude / 10f;
+
+        //Si ambos están a menos de 10 unidades del nido, están dentro
+        return distanceToNest.magnitude < 10f && partnerDistanceToNest.magnitude < 10f;
     }
 }
 
