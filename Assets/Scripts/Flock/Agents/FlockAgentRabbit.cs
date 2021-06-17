@@ -6,6 +6,8 @@ using UnityEngine;
 public class FlockAgentRabbit : FlockAgent
 {
     private bool _safe;
+
+    [SerializeField] public FlockBehavior panicBehavior;
     public bool safe{ 
         get{ return _safe;}
         set{ _safe = value;}
@@ -29,13 +31,13 @@ public class FlockAgentRabbit : FlockAgent
         return _safe;
     }
     
-    public void GoAlone()
+    public override void GoAlone()
     {
         inFlock = false;
         this.tag = "FleeingRabbit";
     }
 
-    public void Regroup()
+    public override void Regroup()
     {
         inFlock = true;
         this.tag = "Rabbit";

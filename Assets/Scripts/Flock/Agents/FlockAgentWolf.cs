@@ -59,7 +59,7 @@ public class FlockAgentWolf : FlockAgent
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
         Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockHungryNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
 
-        topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence, mateSequence*/});
+        topNode = new Selector(new List<Node>{ surviveSequence/*, defendSequence*/, mateSequence});
     }
 
     private void Update() {

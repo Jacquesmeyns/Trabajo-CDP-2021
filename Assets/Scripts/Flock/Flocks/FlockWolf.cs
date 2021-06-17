@@ -84,43 +84,7 @@ public class FlockWolf : Flock
                     move = agent.huntingBehavior.CalculateMove(agent, context, this);
                     //move = Vector3.zero;
                 }
-
-                //Comprobar obstáculos lanzando 5 rayos con Raycast
-                //  Del 0 al 4, de izquierda a derecha siendo 2 el transform.forward
-                //  para dibujar el raycast
-                //Debug.DrawLine(Camera.main.ScreenPointToRay(Input.mousePosition),hit.point,Color.green);
-
-                //Desplazamiento de bit para obtener la máscara de capa que queremos utilizar
-                //  En este caso, la capa "Obstacle"
-
-                /*int layerMask = 1 << 8;
                 
-                RaycastHit[] hits = new RaycastHit[5];
-
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    Vector3 anguloVision;
-                    float scale = 5f;
-                    anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
-                    
-                    if (Physics.Raycast(agent.transform.position,anguloVision, scale,layerMask))
-                    {
-                        Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.red);
-                        Vector3 direccion = hits[i].point - agent.transform.position;
-                        direccion = direccion * 0.005f;
-                        move += direccion;
-                    }
-                    else
-                    {
-                        Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.green);
-                    }
-                }
-                */
-
-                //Debug.DrawRay(agent.transform.position,agent.transform.position + new Vector3(0f,0f,1f),Color.blue);
-
-                //move = behavior.CalculateMove(agent, context, this);
-
                 //Con esto se suavizan los giros, para que no haga movimientos bruscos
                 move *= driveFactor;
 
@@ -130,14 +94,9 @@ public class FlockWolf : Flock
                     //  capo la velocidad con el máximo definido
                     move = move.normalized * maxSpeed;
                 }
-                //Debug.DrawRay(agent.transform.position,move*15,Color.magenta);
-
-                //Muevo el agente mientras no haya llegado a la posición objetivo
-                //if(targetPosition!=Vector2.zero){
-                //    Debug.Log("Tengo una posición a la que ir");
+                
+                //Aplico el movimiento
                 agent.Move(move);
-                //}
-                //agent.GetComponentInChildren<Transform>().forward = Vector3.SmoothDamp(agent.GetComponentInChildren<Transform>().forward, move, 0.1f);
             }
 
         }

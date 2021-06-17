@@ -47,6 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angulosVision: ceffffffe7ffffff000000001900000032000000
   startingHealth: 20
+  hungerThreshold: 0.3
+  flockHungerThreshold: 0.97
+  _flockLowHealthThreshold: 0
+  _lowHealthThreshold: 0
   healthRestoreRate: 1
   _inFlock: 1
   _hasBreeded: 0
@@ -56,6 +60,7 @@ MonoBehaviour:
   _kind: 1
   _awarenessRadius: 15
   _currentHealth: 0
+  panicBehavior: {fileID: 11400000, guid: e14c2ab14235bda4cbc7eb72496fb08d, type: 2}
 --- !u!65 &8321888775535206287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94,13 +99,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6923717677610471478}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6923717676523994282}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5551393377497476149
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,7 +113,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6923717677610471478}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 3796802907196982294, guid: 7b15ae3d35b95144a86c5031d26e09b6, type: 3}
 --- !u!23 &1420284234427266444
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -127,7 +132,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e3afd3f13bed53c448eaa979f23dbcb7, type: 2}
+  - {fileID: 2100000, guid: f344b2a16429e054793b4e3ef93f5aa9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

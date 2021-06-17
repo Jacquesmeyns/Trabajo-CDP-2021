@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class FlockRabbit : Flock
 {
-
+    //private bool _flockPanic = false;
+    List<FlockAgentRabbit> agents = new List<FlockAgentRabbit>();
 private void Start() {
     
 }
 
-    void Awake(){
-        
+    void Awake()
+    {
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
         //  cada vez que use sqrMagnitude
         squareMaxSpeed = maxSpeed * maxSpeed;
@@ -53,35 +54,18 @@ private void Start() {
             {
                 //Se recogen todos los agentes dentro del radio
                 List<Transform> context = GetNearbyObjects(agents[i]);
-                //agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count/6f);
 
+                Vector3 move = new Vector3();
                 //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                Vector3 move = behavior.CalculateMove(agents[i], context, this);
-
-                /*
-                int layerMask = 1 << 8;
-                
-                RaycastHit[] hits = new RaycastHit[5];
-
-                for (int i = 0; i < hits.Length; i++)
+                if (agents[i].isSafe())
                 {
-                    Vector3 anguloVision;
-                    float scale = 5f;
-                    anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
-                    
-                    if (Physics.Raycast(agent.transform.position,anguloVision, scale,layerMask))
-                    {
-                        Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.red);
-                        Vector3 direccion = hits[i].point - agent.transform.position;
-                        direccion = direccion * 0.005f;
-                        move += direccion;
-                    }
-                    else
-                    {
-                        Debug.DrawRay(agent.transform.position,anguloVision * scale,Color.green);
-                    }
+                    move = behavior.CalculateMove(agents[i], context, this);
                 }
-                */
+                else
+                {
+                    move = agents[i].panicBehavior.CalculateMove(agents[i], context, this);
+                }
+
                 //Con esto se suavizan los giros, para que no haga movimientos bruscos
                 move *= driveFactor;
 
@@ -96,7 +80,7 @@ private void Start() {
                 //if(targetPosition!=Vector2.zero){
                 //    Debug.Log("Tengo una posición a la que ir");
                 
-                //agents[i].Move(move);
+                agents[i].Move(move);
                 //  ---------------> SÓLO DEBUG, PARA EVITAR QUE SE MUEVA <--------------------
                 
                 
