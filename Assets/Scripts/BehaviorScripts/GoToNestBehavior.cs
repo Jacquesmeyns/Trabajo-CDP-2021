@@ -12,6 +12,12 @@ public class GoToNestBehavior : FlockBehavior
         Vector3 targetOffset = flock.nestPosition - agent.transform.position;
         //
         float t = targetOffset.magnitude / radius;
+        
+        /*if(t<0.5f)
+        {
+            //Rondando
+            return Vector3.zero;
+        }*/
 
         return new Vector3(targetOffset.x, 0, targetOffset.z);
     }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d06a33e90412cb49b2f90f680780790, type: 3}
   m_Name: DefaultFlockBehavior
   m_EditorClassIdentifier: 
+  agentSmoothTime: 0.2
   behaviors:
   - {fileID: 11400000, guid: 650d49d9982598a4d9e103f8b4b9d395, type: 2}
   - {fileID: 11400000, guid: c21a2129f24887841ab3b17dd743d970, type: 2}
@@ -19,8 +20,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 73c71f7e62f0f33418e7ac2c38282d00, type: 2}
   - {fileID: 11400000, guid: 5b55776a008557241ba2f767e8ebdd29, type: 2}
   weights:
-  - 0.5
-  - 0.5
+  - 4
   - 1
-  - 0
-  - 0.5
+  - 3.6
+  - 0.36
+  - 10

@@ -40,7 +40,7 @@ public class FlockWolf : Flock
             
             newAgent.name = "Lobo " + i;
             //Se guarda el nuevo agente en la bandada
-            agents.Add(newAgent);
+            agents.Add(newAgent.GetComponent<FlockAgentWolf>());
         }
 
         Instantiate( GameObject.Find("Posicion target"), nestPosition, GameObject.Find("Posicion target").transform.rotation, gameObject.transform);

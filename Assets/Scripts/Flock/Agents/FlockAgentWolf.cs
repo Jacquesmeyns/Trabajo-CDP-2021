@@ -148,9 +148,9 @@ public class FlockAgentWolf : FlockAgent
             return;
         _hasBreeded = true;
         partner._hasBreeded = true;
-        
-        GameObject child = Instantiate(gameObject, GetComponentInParent<FlockWolf>().transform);
-        child.GetComponent<FlockAgentWolf>().Awake();
+
+        GameObject child = Instantiate(GetComponentInParent<FlockWolf>().agentPrefabWolf, GetComponentInParent<FlockWolf>().transform);
+        //child.GetComponent<FlockAgentWolf>().Awake();
         child.name = "Lobo " + GetComponentInParent<FlockWolf>().agents.Count;
         GetComponentInParent<FlockWolf>().agents.Add(child.GetComponent<FlockAgentWolf>());
     }
@@ -169,13 +169,13 @@ public class FlockAgentWolf : FlockAgent
         prey.TakeBite();
         currentHealth += 5;
         hunger += 20;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         eating = false;
     }
     
     IEnumerator GrowUp()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(/*Random.value *3f + */2f);
         _hasBreeded = false;
     }
 }

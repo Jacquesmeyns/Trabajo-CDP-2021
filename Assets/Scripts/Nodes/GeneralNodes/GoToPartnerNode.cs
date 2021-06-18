@@ -33,7 +33,7 @@ public class GoToPartnerNode : Node
         float distance = Vector3.Distance(_partner.transform.position, _agent.transform.position);
         if(distance > 3f)
         {
-            return NodeState.RUNNING;
+            return NodeState.FAILURE;
         }
         else
         {

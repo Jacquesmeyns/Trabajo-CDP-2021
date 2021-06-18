@@ -24,7 +24,7 @@ private void Start() {
             Vector3 randomPos = Random.insideUnitCircle;
             //Se instancia el agente en una posición aleatoria y teniendo en cuenta la densidad
             //  También se hace que apunte a una dirección aleatoria del plano
-            FlockAgentRabbit newAgent = Instantiate(
+            var newAgent = Instantiate(
                 agentPrefabRabbit,
                 //Aseguro que siempre hay una distancia aceptable entre agentes
                 this.transform.position + new Vector3(randomPos.x,0f,randomPos.y)*  startingCount * AgentDensity,
@@ -35,7 +35,7 @@ private void Start() {
             newAgent.name = "Conejo " + i;
             //newAgent.kind = AnimalKind.RABBIT;
             //Se guarda el nuevo agente en la bandada
-            agents.Add(newAgent);
+            agents.Add(newAgent.GetComponent<FlockAgentRabbit>());
         }
 
         targetPosition = transform.position;

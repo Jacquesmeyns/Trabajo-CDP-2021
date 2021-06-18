@@ -7,9 +7,9 @@ public class Flock : MonoBehaviour
     //Prefabs de los agentes lobo y conejo y de las manadas de cada uno
     [Header("Prefabs")]
     [SerializeField] private FlockWolf wolfPackPrefab;
-    [SerializeField] internal FlockAgentWolf agentPrefabWolf;
+    [SerializeField] internal GameObject agentPrefabWolf;
     [SerializeField] private FlockRabbit rabbitFlockPrefab;
-    [SerializeField] internal FlockAgentRabbit agentPrefabRabbit;
+    [SerializeField] internal GameObject agentPrefabRabbit;
     //Lista de agentes
     internal List<FlockAgent> agents = new List<FlockAgent>();
     [Header("")]
