@@ -43,19 +43,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572e95a3ed88fda4c996c95800b301b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wolfPackPrefab: {fileID: 0}
   agentPrefabWolf: {fileID: 6923717676523994293, guid: 2e575cdac73026b4fbe0af3cc94101be,
     type: 3}
-  rabbitFlockPrefab: {fileID: 0}
   agentPrefabRabbit: {fileID: 6923717676523994293, guid: fc2a8587f652e264f9fecb344c3f4bc6,
     type: 3}
-  behavior: {fileID: 11400000, guid: 60729d2e1c2c38f4fa8c462ea1380da1, type: 2}
+  defaultBehavior: {fileID: 11400000, guid: 60729d2e1c2c38f4fa8c462ea1380da1, type: 2}
   startingCount: 5
   driveFactor: 40
   maxSpeed: 10
-  neighborRadius: 1.5
+  neighborRadius: 3
   avoidanceRadiusMultiplier: 7.96
-  squareMaxSpeed: 0
-  squareNeighborRadius: 0
-  squareAvoidanceRadius: 0
-  targetPosition: {x: 40, y: 0, z: -40}
+  targetPosition: {x: 10, y: 0, z: 10}
+  _flockLowHungerThreshold: 0.048
+  _flockLowHealthThreshold: 0.043
+  nestRadius: 1
