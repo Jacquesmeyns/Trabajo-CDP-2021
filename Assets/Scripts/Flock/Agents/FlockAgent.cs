@@ -252,12 +252,13 @@ public class FlockAgent : MonoBehaviour
 
     internal bool InNestWithPartner(Vector3 nestPosition)
     {
+        float minDistance = 4f;
         Vector3 distanceToNest = transform.position - nestPosition;
         Vector3 partnerDistanceToNest = partner.transform.position - nestPosition;
         //float t = targetOffset.magnitude / 10f;
 
         //Si ambos están a menos de 10 unidades del nido, están dentro
-        return distanceToNest.magnitude < 10f && partnerDistanceToNest.magnitude < 10f;
+        return distanceToNest.magnitude < minDistance && partnerDistanceToNest.magnitude < minDistance;
     }
 }
 

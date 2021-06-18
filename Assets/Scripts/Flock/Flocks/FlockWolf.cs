@@ -73,7 +73,7 @@ public class FlockWolf : Flock
                 //Si no esta en grupo y puede aparearse, se aparea
                 else if (agent.partner != null && agent.CanBreed())
                 {
-                    Debug.Log("Breeding Behavior");
+                    Debug.Log("Breeding Behavior" + agent.name);
                     //Si ambos están en el nido, pueden tener a la cría
                     if(agent.InNestWithPartner(nestPosition))
                         move = agent.breedingBehavior.CalculateMove(agent, context, this);
@@ -98,6 +98,8 @@ public class FlockWolf : Flock
                     //  capo la velocidad con el máximo definido
                     move = move.normalized * maxSpeed;
                 }
+                if(move == Vector3.zero)
+                    Debug.Log("ZERO");
                 
                 //Aplico el movimiento
                 agent.Move(move);
@@ -123,7 +125,7 @@ public class FlockWolf : Flock
         foreach (Collider c in contextColliders)
         {
             //No queremos guardar la posición del propio agente
-            if(c!= agent.AgentCollider && c.CompareTag("Wolf"))
+            if(c!= agent.AgentCollider && (c.CompareTag("Wolf") || c.CompareTag("LoneWolf")))
             {
                 //Debug.Log(c.gameObject.ToString());
                 context.Add(c.transform);

@@ -16,12 +16,12 @@ public class GoToPartnerBehavior : FlockBehavior
 
         //Si estoy dentro del área objetivo, me quedo rondando el área
         //  ¿o no hace falta moverme más?
-        /*if(t<3f)
+        if(t<3f)
         {
             //Rondando
             //flock.targetPosition = Vector3.zero;
             return Vector3.zero;
-        }*/
+        }
         
         return new Vector3(targetOffset.x, 0, targetOffset.z);
     }

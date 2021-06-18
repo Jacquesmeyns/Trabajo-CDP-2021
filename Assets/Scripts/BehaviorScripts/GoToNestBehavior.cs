@@ -13,13 +13,6 @@ public class GoToNestBehavior : FlockBehavior
         //
         float t = targetOffset.magnitude / radius;
 
-        //Si estoy dentro del área objetivo, me quedo rondando el área
-        if(t<3f)
-        {
-            //Rondando
-            return Vector3.zero;
-        }
-        
         return new Vector3(targetOffset.x, 0, targetOffset.z);
     }
 }
