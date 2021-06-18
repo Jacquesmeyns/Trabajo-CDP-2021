@@ -103,6 +103,7 @@ public class FlockWolf : Flock
                 
                 //Aplico el movimiento
                 agent.Move(move);
+                //GetComponentInChildren<FixRotationScript>().UpdateRotation(move);
             }
 
         }

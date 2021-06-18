@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6923717676523994282}
   - component: {fileID: -2686658291109697328}
-  - component: {fileID: 1190512399258875052}
+  - component: {fileID: 1009736993749976430}
   m_Layer: 2
   m_Name: Flock Agent Wolf
   m_TagString: Wolf
@@ -46,7 +46,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.63, y: 1.54, z: 2.64}
   m_Center: {x: 0, y: 0.53, z: 0}
---- !u!114 &1190512399258875052
+--- !u!114 &1009736993749976430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,6 +75,8 @@ MonoBehaviour:
   _kind: 0
   _awarenessRadius: 10
   _currentHealth: 0
+  tSeconds: 2
+  tDelta: 0
   huntingBehavior: {fileID: 11400000, guid: ef2071b3695a6b74cb0bdc82a7244f7b, type: 2}
 --- !u!1 &6923717677610471478
 GameObject:
@@ -87,6 +89,7 @@ GameObject:
   - component: {fileID: 6923717677610471477}
   - component: {fileID: 5551393377497476149}
   - component: {fileID: 1420284234427266444}
+  - component: {fileID: 2899793121130568302}
   m_Layer: 2
   m_Name: Flock Agent Sprite
   m_TagString: Untagged
@@ -102,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6923717677610471478}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.241, z: -0}
+  m_LocalPosition: {x: 0, y: 1.241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6923717676523994282}
@@ -155,3 +158,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2899793121130568302
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923717677610471478}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.250973, y: 5.158256, z: 2.6295266}
+  m_Center: {x: 0, y: -0.42830345, z: 0.015287522}

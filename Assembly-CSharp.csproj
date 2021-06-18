@@ -75,6 +75,7 @@
      <Compile Include="Assets\Scripts\BehaviorScripts\SteeredCohesionBehavior.cs" />
      <Compile Include="Assets\Scripts\Cover.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
+     <Compile Include="Assets\Scripts\FixRotationScript.cs" />
      <Compile Include="Assets\Scripts\Flock\Agents\FlockAgent.cs" />
      <Compile Include="Assets\Scripts\Flock\Agents\FlockAgentRabbit.cs" />
      <Compile Include="Assets\Scripts\Flock\Agents\FlockAgentWolf.cs" />

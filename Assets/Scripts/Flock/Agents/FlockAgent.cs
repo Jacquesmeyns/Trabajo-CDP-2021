@@ -82,7 +82,7 @@ public class FlockAgent : MonoBehaviour
 
     //Si ha criado o no
     [SerializeField] internal bool _hasBreeded = false;
-    public bool inFlock {
+    internal bool inFlock {
         get { return _inFlock;}
         set { _inFlock = value;}
     }
@@ -137,6 +137,10 @@ public class FlockAgent : MonoBehaviour
     //public VisionCone ConoVision { get { return conoVision; } }
 
     //internal Transform _targetLocation = null;
+    
+    //Para girar suave
+    public float tSeconds = 2.0f;
+    public float tDelta = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -156,10 +160,15 @@ public class FlockAgent : MonoBehaviour
     //Aplico movimientos con la velocidad
     public void Move(Vector3 velocity)
     {
-        transform.forward = velocity;
+        //transform.forward = velocity;
         transform.position += velocity * Time.deltaTime;
         
-        
+        //tDelta += Time.deltaTime / tSeconds;
+        transform.forward = Vector3.SmoothDamp(transform.forward, velocity, ref velocity, 1f);
+
+        //transform.position = Vector3.Lerp(transform.position, velocity , Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(transform.position, velocity * Time.deltaTime, velocity.magnitude);
+
         /*Vector3 velocidad = new Vector3(velocity.x, 0, velocity.y);
         transform.up = velocity;
         transform.position += (Vector3)velocidad * Time.deltaTime;
