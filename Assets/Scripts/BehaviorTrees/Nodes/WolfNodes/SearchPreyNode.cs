@@ -5,12 +5,12 @@ using UnityEngine.AI;
 
 public class SearchPreyNode : Node
 {
-    private FlockAgentWolf agent;
+    private FlockAgentWolf _agent;
     List<FlockAgentRabbit> conejos = new List<FlockAgentRabbit>();
 
     public SearchPreyNode(FlockAgentWolf agent)
     {
-        this.agent = agent;
+        this._agent = agent;
     }
 
     public override NodeState Evaluate()
@@ -19,13 +19,13 @@ public class SearchPreyNode : Node
         conejos = new List<FlockAgentRabbit>();
         //Buscando presa
 
-        Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, agent.awarenessRadius);
+        Collider[] contextColliders = Physics.OverlapSphere(_agent.transform.position, _agent.awarenessRadius);
         //Guardamos las posiciones de todos los conejos dentro de su radio de búsqueda (los agentes 
         //  que estén dentro de su área)
         foreach (Collider c in contextColliders)
         {
             //No queremos guardar la posición del propio agente, ni la de agentes que no sean conejos
-            if(c!= agent.AgentCollider && (c.CompareTag("Rabbit") || c.CompareTag("FleeingRabbit")) )
+            if(c!= _agent.AgentCollider && (c.CompareTag("Rabbit") || c.CompareTag("FleeingRabbit")) )
             {
                 conejos.Add(c.gameObject.GetComponent<FlockAgentRabbit>());
             }
@@ -40,8 +40,8 @@ public class SearchPreyNode : Node
         else
         {
             //Asignamos la presa a la que perseguir y atacar en el siguiente nodo
-            agent.prey = closestAgent();
-            agent.GoAlone();
+            _agent.prey = closestAgent();
+            _agent.GoAlone();
             return NodeState.SUCCESS;
         }
     }
@@ -53,7 +53,7 @@ public class SearchPreyNode : Node
 
         foreach (FlockAgentRabbit conejo in conejos)
         {
-            float distance = Vector3.Distance(agent.transform.position, conejo.transform.position);
+            float distance = Vector3.Distance(_agent.transform.position, conejo.transform.position);
             if( distance < closestDistance)
             {
                 closestDistance = distance;

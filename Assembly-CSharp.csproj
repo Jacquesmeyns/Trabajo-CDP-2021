@@ -72,6 +72,7 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GoToCoverNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoverAvailable.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoveredNode.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\IsPredatorNearNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RangeNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\AttackNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\ChaseAttackNode.cs" />
@@ -95,6 +96,7 @@
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPartnerBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPositionBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPreyBehavior.cs" />
+     <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\PanicBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\SteeredCohesionBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\Spawner.cs" />
      <Compile Include="Assets\Scripts\VisionCone.cs" />

@@ -58,7 +58,7 @@ private void Start() {
 
                 Vector3 move = new Vector3();
                 //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                if (((FlockAgentRabbit)agents[i]).isSafe())
+                if (!((FlockAgentRabbit)agents[i]).panic)
                 {
                     move = defaultBehavior.CalculateMove(agents[i], context, this);
                 }

@@ -53,7 +53,7 @@ MonoBehaviour:
   maxSpeed: 10
   neighborRadius: 3
   avoidanceRadiusMultiplier: 7.96
-  targetPosition: {x: 10, y: 0, z: 10}
+  targetPosition: {x: 40, y: 0, z: -40}
   _flockLowHungerThreshold: 0.048
   _flockLowHealthThreshold: 0.043
   nestRadius: 1

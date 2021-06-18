@@ -32,6 +32,8 @@ public class GoToPartnerNode : Node
             _agent.Regroup();
             return NodeState.SUCCESS;
         }
+        
+        //Si el compañero no se ha enterado, le avisa
         if(_partner.inFlock && _partner.CanBreed())
             _partner.GoAlone();
         

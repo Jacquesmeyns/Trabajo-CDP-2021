@@ -45,23 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc003ebffb9c8146a1fedf1e4a68c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angulosVision: ceffffffe7ffffff000000001900000032000000
+  angulosVision: ceffffffe7ffffff1900000032000000
   startingHealth: 20
-  hungerThreshold: 0.3
-  flockHungerThreshold: 0.97
-  _flockLowHealthThreshold: 0
-  _lowHealthThreshold: 0
+  hungerThreshold: 0.09
+  _lowHealthThreshold: 0.09
   healthRestoreRate: 1
   _inFlock: 1
   _hasBreeded: 0
   breedingBehavior: {fileID: 11400000, guid: cb552b1ea04994c45afcedfd27823ab2, type: 2}
   preBreedingBehavior: {fileID: 11400000, guid: c483870ea7ed6464c9b09006729f44d7,
     type: 2}
-  playerTransform: {fileID: 0}
-  availableCovers: []
   _kind: 1
-  _awarenessRadius: 15
+  _awarenessRadius: 14
   _currentHealth: 0
+  tSeconds: 2
+  tDelta: 0
+  panic: 0
   panicBehavior: {fileID: 11400000, guid: e14c2ab14235bda4cbc7eb72496fb08d, type: 2}
 --- !u!65 &8321888775535206287
 BoxCollider:

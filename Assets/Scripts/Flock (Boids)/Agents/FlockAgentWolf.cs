@@ -59,7 +59,7 @@ public class FlockAgentWolf : FlockAgent
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
         Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockFedNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
 
-        topNode = new Selector(new List<Node>{ /*surviveSequence, defendSequence, */mateSequence});
+        topNode = new Selector(new List<Node>{ surviveSequence,/* defendSequence, */mateSequence});
     }
 
     private void Update() {
@@ -150,8 +150,8 @@ public class FlockAgentWolf : FlockAgent
         partner._hasBreeded = true;
         FlockWolf pack = GetComponentInParent<FlockWolf>();
         
-        //Crían de 3 a 5 lobos
-        int tope = Mathf.CeilToInt(Random.value*3f+2f);
+        //Crían de 1 a 2 lobos (puede salir 0 aunque tiene muy poca probabilidad)
+        int tope = Mathf.CeilToInt(Random.value*2f);
         for (int i = 0; i < tope; i++)
         {
             //Se instancia el prefab del lobo
@@ -190,7 +190,7 @@ public class FlockAgentWolf : FlockAgent
         //float startTime = Time.time;
         Vector3 speed = Vector3.one;
         //transform.localScale = Vector3.SmoothDamp(transform.localScale, Vector3.one, ref speed, 2f);
-        yield return new WaitForSeconds(Random.value *3f + 8f);
+        yield return new WaitForSeconds(Random.value *10f + 10f);
         transform.localScale = Vector3.one;
         _hasBreeded = false;
     }

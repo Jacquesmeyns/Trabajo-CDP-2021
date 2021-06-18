@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ using UnityEngine;
 public class FlockAgentRabbit : FlockAgent
 {
     private bool _safe;
+    public bool panic;
 
     [SerializeField] public FlockBehavior panicBehavior;
     public bool safe{ 
@@ -15,8 +17,10 @@ public class FlockAgentRabbit : FlockAgent
 
     private void Awake() {
         //awarenessRadius = 15f;
+        safe = true;
         currentHealth = startingHealth;
         foodBites = (int) startingHealth/8;
+        ConstructBehaviorTree();
     }
 
     //Los árboles se construyen en código leyéndo el grafo de derecha a izquierda y de abajo a arriba
@@ -24,7 +28,19 @@ public class FlockAgentRabbit : FlockAgent
     //  en el orden que he dicho al principio
     private void ConstructBehaviorTree()
     {
-        Debug.LogError("Conejo necesita implementación de árbol");
+        IsPredatorNearNode isPredatorNearNode = new IsPredatorNearNode(this);
+        topNode = isPredatorNearNode;
+    }
+
+    private void Update()
+    {
+        if (!IsDead())
+        {
+            topNode.Evaluate();
+            
+            RegenerateHealth();
+            UpdateHunger();
+        }
     }
 
     public bool isSafe(){
