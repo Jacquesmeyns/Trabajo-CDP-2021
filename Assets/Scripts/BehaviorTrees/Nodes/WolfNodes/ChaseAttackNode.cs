@@ -27,7 +27,7 @@ public class ChaseAttackNode : Node
 
         //Rango a partir del cual ataca a la vez que persigue
         float distance = Vector3.Distance(targetAgent.transform.position, agent.transform.position);
-        if(distance < 0.4f)
+        if(distance < 3f)
         {
             //Seguir moviéndose
 

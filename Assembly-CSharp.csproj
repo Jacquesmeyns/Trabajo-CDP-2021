@@ -72,6 +72,8 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GoToCoverNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoverAvailable.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoveredNode.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\CanDig.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\GoToDig.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\IsPredatorNearNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RangeNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\AttackNode.cs" />
@@ -79,6 +81,7 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\SearchPreyNode.cs" />
      <Compile Include="Assets\Scripts\Cover.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
+     <Compile Include="Assets\Scripts\Environment\BurrowScript.cs" />
      <Compile Include="Assets\Scripts\FixRotationScript.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\Agents\FlockAgent.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\Agents\FlockAgentRabbit.cs" />
@@ -92,6 +95,7 @@
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\CompositeBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\EvadeObstacleBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\FlockBehavior.cs" />
+     <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoDigBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToNestBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPartnerBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPositionBehavior.cs" />

@@ -2,17 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(BoxCollider))]
 public class FlockAgentRabbit : FlockAgent
 {
     private bool _safe;
     public bool panic;
-
+    public FlockAgentWolf predator;     //<<<<<<<<<<<-------------PENDIENTE DE HACER
+    public bool _hasDug;
+    public bool searchingWhereToDig;
+    internal Transform burrowLocation;
+    private GameObject burrowPrefab;
+    
     [SerializeField] public FlockBehavior panicBehavior;
+    [SerializeField] public FlockBehavior digBehavior;
+    [SerializeField] public FlockBehavior eatBehavior;
     public bool safe{ 
         get{ return _safe;}
         set{ _safe = value;}
+    }
+    public bool hasDug{ 
+        get{ return _hasDug;}
+        set{ _hasDug = value;}
     }
 
     private void Awake() {
@@ -47,6 +59,7 @@ public class FlockAgentRabbit : FlockAgent
         return _safe;
     }
     
+    //
     public override void GoAlone()
     {
         inFlock = false;
@@ -59,7 +72,28 @@ public class FlockAgentRabbit : FlockAgent
         this.tag = "Rabbit";
     }
 
-    //Devuelve true cuando ya no queda más que comer
-    //  Cada vez reduce en uno los bocados disponibles
-    
+    public void ResetDiggingPosition()
+    {
+        if (!searchingWhereToDig)
+        {
+            searchingWhereToDig = true;
+            StartCoroutine(resetPosition());
+        }
+    }
+
+    public void DigBurrow()
+    {
+        hasDug = true;
+        Instantiate(burrowPrefab, burrowLocation.position, transform.rotation);
+        //Instanciar la madriguera
+    }
+
+    //Cada minuto se cambia la posición, para darle dinamismo
+    IEnumerator resetPosition()
+    {
+        Vector2 location = Random.insideUnitCircle;
+        burrowLocation.position = new Vector3(location.x, 0, location.y)*100;
+        yield return new WaitForSeconds(60);
+        searchingWhereToDig = false;
+    }
 }

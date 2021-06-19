@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class FlockAgent : MonoBehaviour
 {
+    #region Variables
     BoxCollider agentCollider;
     
     Vector3 currentVelocity;
@@ -21,25 +22,36 @@ public class FlockAgent : MonoBehaviour
     
     internal float startingHunger = 100f;
     internal float _hunger;     //Cuando llega a cero, empieza a perder vida
-    public float hunger
-    {
-        get { return _hunger;}
-        set
-        {
-            _hunger = Mathf.Clamp(value, 0, startingHunger);
-
-            //Si el hambre está a 0, va perdiendo vida poco a poco
-            if (_hunger <= 0)
-            {
-                currentHealth -= 2*gluttony * startingHealth;
-            }
-        }
-    }
+    
     //Cuánto hambre baja por turno
     internal float gluttony = 0.0001f;
-
-
+    
+    //Salud mínima para no considerarse sano
+    [Range(0,1)] public float _lowHealthThreshold;
+    
+    //Ratio de sanación por tiempo
+    [SerializeField] internal float healthRestoreRate;
+    
+    //Si está con el grupo o va por su cuenta
+    [SerializeField] private bool _inFlock = false;
+    
+    //Cantidad de bocados que puede morder un depredador de su cadáver
     private int _foodBites;
+    
+    //Si ha criado o no
+    [SerializeField] internal bool _hasBreeded = false;
+    
+    //Agente con el que criar 
+    private FlockAgent _partner = null;
+    
+    //Empieza el Behavior Tree
+    internal Node topNode;
+
+    //Nivel de salud actual
+    [SerializeField] private float _currentHealth;
+    
+    //Tipo de animal
+    [SerializeField] private AnimalKind _kind = AnimalKind.NULL;
 
     internal int foodBites
     {
@@ -56,32 +68,31 @@ public class FlockAgent : MonoBehaviour
         
     }
 
-    
+    public float hunger
+    {
+        get { return _hunger;}
+        set
+        {
+            _hunger = Mathf.Clamp(value, 0, startingHunger);
 
-    
-    
-    //Salud mínima para no considerarse sano
-    [Range(0,1)] public float _lowHealthThreshold;
+            //Si el hambre está a 0, va perdiendo vida poco a poco
+            if (_hunger <= 0)
+            {
+                currentHealth -= 2*gluttony * startingHealth;
+            }
+        }
+    }
+
     public float lowHealthThreshold{
         get {return _lowHealthThreshold;}
         set { _lowHealthThreshold = value;}
     }
 
-    //Ratio de sanación por tiempo
-    [SerializeField] internal float healthRestoreRate;
-
-    //Si está con el grupo o va por su cuenta
-    [SerializeField] private bool _inFlock = false;
     internal bool inFlock {
         get { return _inFlock;}
         set { _inFlock = value;}
     }
-
-    //Si ha criado o no
-    [SerializeField] internal bool _hasBreeded = false;
     
-    //Agente con el que criar 
-    private FlockAgent _partner = null;
     public FlockAgent partner {
         get { return _partner;}
         set { _partner = value;}
@@ -91,13 +102,6 @@ public class FlockAgent : MonoBehaviour
     [SerializeField] public FlockBehavior breedingBehavior;
     [SerializeField] public FlockBehavior preBreedingBehavior;
 
-    //[SerializeField] private Transform playerTransform;
-    //[SerializeField] private Cover[] availableCovers;
-
-    //internal Material material;
-
-    //Tipo de animal
-    [SerializeField] private AnimalKind _kind = AnimalKind.NULL;
     public AnimalKind kind {
         get { return _kind;}
         set { _kind = value;}
@@ -110,13 +114,7 @@ public class FlockAgent : MonoBehaviour
         get{ return _awarenessRadius;}
         //set{ _awarenessRadius = value;}
     }
-
-
-    //Empieza el Behavior Tree
-    internal Node topNode;
-
-    //Nivel de salud actual
-    [SerializeField] private float _currentHealth;
+    
     public float currentHealth {
         get {return _currentHealth;}
         set
@@ -126,22 +124,20 @@ public class FlockAgent : MonoBehaviour
     }
 
     public BoxCollider AgentCollider { get { return agentCollider; } }
-    
-    //public VisionCone ConoVision { get { return conoVision; } }
+    #endregion
 
-    //internal Transform _targetLocation = null;
+    #region MonoBehavior
     
-    //Para girar suave
-    public float tSeconds = 2.0f;
-    public float tDelta = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
         agentCollider = GetComponent<BoxCollider>();
         //conoVision = GetComponentInChildren<VisionCone>();
     }
+    #endregion
 
+    #region MyMethods
+    
     //Los árboles se construyen en código leyéndo el grafo de derecha a izquierda y de abajo a arriba
     //  Primero haz todos los nodos (no importa el orden), y luego monta las secuencias y los selectores
     //  en el orden que he dicho al principio
@@ -265,6 +261,8 @@ public class FlockAgent : MonoBehaviour
  
         return distanceToNest.magnitude < minDistance && partnerDistanceToNest.magnitude < minDistance;
     }
+    
+    #endregion
 }
 
 public enum AnimalKind{

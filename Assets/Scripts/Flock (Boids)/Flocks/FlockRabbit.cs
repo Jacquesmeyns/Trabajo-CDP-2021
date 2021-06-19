@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class FlockRabbit : Flock
 {
-    //private bool _flockPanic = false;
-    //internal List<FlockAgentRabbit> agents = new List<FlockAgentRabbit>();
-private void Start() {
-    
-}
-
     void Awake()
     {
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
@@ -58,14 +52,25 @@ private void Start() {
 
                 Vector3 move = new Vector3();
                 //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                if (!((FlockAgentRabbit)agents[i]).panic)
-                {
-                    move = defaultBehavior.CalculateMove(agents[i], context, this);
-                }
-                else
+                    //Pánico
+                if (((FlockAgentRabbit)agents[i]).panic)
                 {
                     move = ((FlockAgentRabbit)agents[i]).panicBehavior.CalculateMove(agents[i], context, this);
+                }   //Cavar madriguera
+                else if (((FlockAgentRabbit) agents[i]).searchingWhereToDig)
+                {
+                    move = ((FlockAgentRabbit)agents[i]).digBehavior.CalculateMove(agents[i], context, this);
+                }   //Hambre
+                else if(((FlockAgentRabbit)agents[i]).hunger < ((FlockAgentRabbit)agents[i]).hungerThreshold)
+                {
+                    move = ((FlockAgentRabbit)agents[i]).eatBehavior.CalculateMove(agents[i], context, this);
                 }
+                else//Reproducción
+                {
+                    move = ((FlockAgentRabbit)agents[i]).breedingBehavior.CalculateMove(agents[i], context, this);
+                }
+                    
+
 
                 //Con esto se suavizan los giros, para que no haga movimientos bruscos
                 move *= driveFactor;

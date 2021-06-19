@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Flock/Behavior/GoToNest")]
 public class GoToNestBehavior : FlockBehavior
 {
-    //public float radius = 5f;
     public override Vector3 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
     {
         //Calculo la dirección a la que ir
