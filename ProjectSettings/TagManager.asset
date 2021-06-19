@@ -6,9 +6,11 @@ TagManager:
   tags:
   - Wolf
   - Rabbit
-  - Obstacle
+  - WolfObstacle
   - LoneWolf
   - FleeingRabbit
+  - Burrow
+  - Obstacle
   layers:
   - Default
   - TransparentFX

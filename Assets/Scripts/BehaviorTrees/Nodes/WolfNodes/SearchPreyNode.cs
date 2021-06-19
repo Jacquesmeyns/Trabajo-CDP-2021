@@ -27,7 +27,8 @@ public class SearchPreyNode : Node
             //No queremos guardar la posición del propio agente, ni la de agentes que no sean conejos
             if(c!= _agent.AgentCollider && (c.CompareTag("Rabbit") || c.CompareTag("FleeingRabbit")) )
             {
-                conejos.Add(c.gameObject.GetComponent<FlockAgentRabbit>());
+                if(!c.gameObject.GetComponent<FlockAgentRabbit>().predated)
+                    conejos.Add(c.gameObject.GetComponent<FlockAgentRabbit>());
             }
         }
         
@@ -41,12 +42,18 @@ public class SearchPreyNode : Node
         {
             //Asignamos la presa a la que perseguir y atacar en el siguiente nodo
             _agent.prey = closestAgent();
-            _agent.GoAlone();
-            return NodeState.SUCCESS;
+            //if (_agent.prey != null)
+            //{
+                _agent.prey.predated = true;
+                _agent.GoAlone();
+                return NodeState.SUCCESS;
+            //}
+
+            return NodeState.FAILURE;
         }
     }
 
-        private FlockAgentRabbit closestAgent()
+    private FlockAgentRabbit closestAgent()
     {
         float closestDistance = 99999999f;
         FlockAgentRabbit closestRabbit = null;
@@ -54,11 +61,11 @@ public class SearchPreyNode : Node
         foreach (FlockAgentRabbit conejo in conejos)
         {
             float distance = Vector3.Distance(_agent.transform.position, conejo.transform.position);
-            if( distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestRabbit = conejo;
-            }
+                if (distance < closestDistance/* && !conejo.predated*/)
+                {
+                    closestDistance = distance;
+                    closestRabbit = conejo;
+                }
         }
         
         if(closestRabbit == null)

@@ -30,14 +30,29 @@ public class EvadeObstacleBehavior : FlockBehavior
             //Compruebo colisiones con objetos que estén en la máscara de capa seleccionada
             if (Physics.Raycast(agent.transform.position,anguloVision, out hits[i], maxDistance,layerMask))
             {
+                Vector3 direccion = Vector3.zero;
                 //Debug.Log(hits[i].point);
-                Debug.DrawRay(agent.transform.position,hits[i].point-agent.transform.position,Color.red);
-                Vector3 direccion = agent.transform.position - hits[i].point;
-                //El movimento escala con la cercanía al objetivo a evadir
-                //direccion = direccion * (1 - Vector3.Magnitude(direccion)/maxDistance);
-                evadeMove += direccion;
-                break;
-                //Debug.Log("EVITA ESTO: " + evadeMove);
+                //Si es un conejo sólo interesan los que tengan el tag Obstacle
+                if (agent.kind == AnimalKind.RABBIT && hits[i].transform.tag.Equals("Obstacle"))
+                {
+                    Debug.DrawRay(agent.transform.position,hits[i].point-agent.transform.position,Color.red);
+                    direccion = agent.transform.position - hits[i].point;
+                    //El movimento escala con la cercanía al objetivo a evadir
+                    //direccion = direccion * (1 - Vector3.Magnitude(direccion)/maxDistance);
+                    evadeMove += direccion;
+                    break;
+                }
+
+                if (agent.kind == AnimalKind.WOLF)
+                {
+                    //Para los lobos pillo todos los de la capa
+                    Debug.DrawRay(agent.transform.position, hits[i].point - agent.transform.position, Color.red);
+                    direccion = agent.transform.position - hits[i].point;
+                    //El movimento escala con la cercanía al objetivo a evadir
+                    //direccion = direccion * (1 - Vector3.Magnitude(direccion)/maxDistance);
+                    evadeMove += direccion;
+                    break;
+                }
             }
             else
             {

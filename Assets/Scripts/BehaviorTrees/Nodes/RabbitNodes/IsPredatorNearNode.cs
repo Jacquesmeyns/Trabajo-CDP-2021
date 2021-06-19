@@ -23,11 +23,11 @@ public class IsPredatorNearNode : Node
         //  que estén dentro de su área)
         foreach (Collider c in contextColliders)
         {
-            //No queremos guardar la posición del propio agente, ni la de agentes que no sean lobos (LoneWolf es el tag
-            //  que tienen al cazar, porque se separan de la manada)
-            if(c!= _agent.AgentCollider && c.CompareTag("LoneWolf"))
+            //No queremos guardar la posición del propio agente, ni la de agentes que no sean lobos
+            if(c!= _agent.AgentCollider && (c.CompareTag("LoneWolf") || c.CompareTag("Wolf")))
             {
                 //_predators.Add(c.gameObject.GetComponent<FlockAgentWolf>());
+                _agent.safe = false;
                 _agent.panic = true;
                 return NodeState.SUCCESS;
             }
@@ -35,6 +35,7 @@ public class IsPredatorNearNode : Node
         
         //No hay lobos cerca
         _agent.panic = false;
+        _agent.safe = true;
         return NodeState.FAILURE;
     }
 }

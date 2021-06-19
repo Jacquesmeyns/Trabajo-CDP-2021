@@ -9,7 +9,7 @@ public class FlockAgentRabbit : FlockAgent
 {
     private bool _safe;
     public bool panic;
-    public FlockAgentWolf predator;     //<<<<<<<<<<<-------------PENDIENTE DE HACER
+    public bool predated;     //<<<<<<<<<<<-------------PENDIENTE DE HACER
     public bool _hasDug;
     //public bool searchingWhereToDig;
     private bool calledThread;
@@ -34,6 +34,9 @@ public class FlockAgentRabbit : FlockAgent
         currentHealth = startingHealth;
         foodBites = (int) startingHealth/8;
         ConstructBehaviorTree();
+        if (Random.value < 0.65)
+            hasDug = true;
+        //Para controlar que no haya demasiadas madrigueras, tienen sólo un 25% de poder cavar
     }
 
 
@@ -52,7 +55,7 @@ public class FlockAgentRabbit : FlockAgent
         
         Selector surviveSelector = new Selector(new List<Node> {isPredatorNearNode});///////a medias
         
-        topNode = new Selector(new List<Node>{surviveSelector, digSafetyZoneSequence});
+        topNode = new Selector(new List<Node>{digSafetyZoneSequence, surviveSelector});
     }
 
     private void Update()
@@ -103,8 +106,7 @@ public class FlockAgentRabbit : FlockAgent
     //Cada minuto se cambia la posición, para darle dinamismo
     IEnumerator resetPosition()
     {
-        Vector3 location = Random.insideUnitSphere;
-        burrowPosition = new Vector3(location.x, 0, location.z)*100;
+        burrowPosition = (Random.insideUnitSphere * 70);// - (Vector3.one*70);
         burrowPosition.y = 0.42f;//0.42 es la altura para que quede bonito
         yield return new WaitForSeconds(60);
         calledThread = false;

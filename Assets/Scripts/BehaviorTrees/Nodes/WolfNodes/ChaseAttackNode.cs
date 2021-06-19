@@ -35,6 +35,7 @@ public class ChaseAttackNode : Node
             if( agent.IsPreyHidden())
             {
                 //Deja de buscar
+                agent.prey.predated = false;
                 agent.prey = null;
                 agent.Regroup();
                 return NodeState.FAILURE;

@@ -82,7 +82,7 @@ public class FlockAgentWolf : FlockAgent
 
     public bool IsPreyHidden()
     {
-        if(!prey && prey.isSafe())
+        if(prey.isSafe() && prey.panic)
         {
             Regroup();
             prey = null;
