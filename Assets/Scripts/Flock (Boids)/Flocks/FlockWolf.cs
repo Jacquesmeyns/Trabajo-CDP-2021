@@ -71,16 +71,21 @@ public class FlockWolf : Flock
                 //Si no esta en grupo y puede aparearse, se aparea
                 else if (agent.partner != null && agent.CanBreed())
                 {
-                    Debug.Log("Breeding Behavior" + agent.name);
-                    move = agent.breedingBehavior.CalculateMove(agent, context, this);
-                    
-                    
-                    /*else
+                    if(!agent.InNestWithPartner(nestPosition)) 
                     {
-                        Debug.Log("PRE-Breeding Behavior" + agent.name);
-                        //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-                        move = agent.preBreedingBehavior.CalculateMove(agent, context, this);
-                    }*/
+                         Debug.Log("PRE-Breeding Behavior" + agent.name);
+                         //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
+                         move = agent.preBreedingBehavior.CalculateMove(agent, context, this);
+                    }
+                    else
+                    {
+                        Debug.Log("Breeding Behavior" + agent.name);
+                        move = agent.breedingBehavior.CalculateMove(agent, context, this);
+                    }
+                    
+                    
+                    
+                    
                 }
                 else
                 {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanDig : Node
+public class CanDigNode : Node
 {
     private FlockAgentRabbit _agent;
     
-    public CanDig(FlockAgentRabbit agent)
+    public CanDigNode(FlockAgentRabbit agent)
     {
         _agent = agent;
     }

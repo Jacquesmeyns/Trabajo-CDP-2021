@@ -72,8 +72,8 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GoToCoverNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoverAvailable.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoveredNode.cs" />
-     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\CanDig.cs" />
-     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\GoToDig.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\CanDigNode.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\GoToDigNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\IsPredatorNearNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RangeNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\AttackNode.cs" />

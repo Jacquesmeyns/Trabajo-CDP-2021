@@ -41,6 +41,10 @@ public class FlockAgentRabbit : FlockAgent
     private void ConstructBehaviorTree()
     {
         IsPredatorNearNode isPredatorNearNode = new IsPredatorNearNode(this);
+        HealthNode isHealthy = new HealthNode(this, lowHealthThreshold);
+        CanDigNode canDigNode = new CanDigNode(this);
+
+        Selector survive = new Selector(new List<Node> { });///////a medias
         topNode = isPredatorNearNode;
     }
 

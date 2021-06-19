@@ -63,7 +63,7 @@ public class FlockRabbit : Flock
                 }   //Hambre
                 else if(((FlockAgentRabbit)agents[i]).hunger < ((FlockAgentRabbit)agents[i]).hungerThreshold)
                 {
-                    move = ((FlockAgentRabbit)agents[i]).eatBehavior.CalculateMove(agents[i], context, this);
+                    move = /*((FlockAgentRabbit)agents[i]).eatBehavior*/defaultBehavior.CalculateMove(agents[i], context, this);
                 }
                 else//Reproducción
                 {
