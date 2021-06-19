@@ -57,8 +57,9 @@ public class FlockRabbit : Flock
                 {
                     move = ((FlockAgentRabbit)agents[i]).panicBehavior.CalculateMove(agents[i], context, this);
                 }   //Cavar madriguera
-                else if (((FlockAgentRabbit) agents[i]).searchingWhereToDig)
+                else if (!((FlockAgentRabbit) agents[i]).hasDug)
                 {
+                    Debug.Log("DIG BEHAVIOR");
                     move = ((FlockAgentRabbit)agents[i]).digBehavior.CalculateMove(agents[i], context, this);
                 }   //Hambre
                 else if(((FlockAgentRabbit)agents[i]).hunger < ((FlockAgentRabbit)agents[i]).hungerThreshold)

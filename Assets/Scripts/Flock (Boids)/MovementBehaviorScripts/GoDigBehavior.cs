@@ -8,7 +8,7 @@ public class GoDigBehavior : FlockBehavior
     public override Vector3 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
     {
         //Calculo la dirección a la que ir
-        Vector3 targetOffset = ((FlockAgentRabbit)agent).burrowLocation.position - agent.transform.position;
+        Vector3 targetOffset = ((FlockAgentRabbit)agent).burrowPosition - agent.transform.position;
         //Cuán cerca estoy del centro (si t == 0, estoy justo en el centro, si t==1, estoy justo en el borde del radio)
         float t = targetOffset.magnitude / flock.nestRadius;
         

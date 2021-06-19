@@ -14,9 +14,10 @@ public class HealthNode : Node
     }
     public override NodeState Evaluate()
     {
-        _nodeState = agent.currentHealth/agent.startingHealth <= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
-        //Si no la vida está por debajo del umbral, me pongo a buscar comida
-        if(_nodeState == NodeState.SUCCESS)
+        _nodeState = agent.currentHealth/agent.startingHealth >= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        
+        //Si la vida está por debajo del umbral, no está sano
+        if(_nodeState == NodeState.FAILURE)
             agent.Regroup();
         return _nodeState;
     }

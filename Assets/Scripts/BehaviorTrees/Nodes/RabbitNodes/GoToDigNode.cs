@@ -15,7 +15,7 @@ public class GoToDigNode : Node
 
     public override NodeState Evaluate()
     {
-        Vector3 targetOffset = _agent.burrowLocation.position - _agent.transform.position;
+        Vector3 targetOffset = _agent.burrowPosition - _agent.transform.position;
 
         float t = targetOffset.magnitude / burrowRadius;
 

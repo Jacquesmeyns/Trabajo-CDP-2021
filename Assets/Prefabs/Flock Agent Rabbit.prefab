@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angulosVision: ceffffffe7ffffff1900000032000000
   startingHealth: 20
-  hungerThreshold: 0.09
-  _lowHealthThreshold: 0.09
+  hungerThreshold: 0.076
+  _lowHealthThreshold: 0.076
   healthRestoreRate: 1
   _inFlock: 1
   _hasBreeded: 0
@@ -61,7 +61,8 @@ MonoBehaviour:
   panic: 0
   predator: {fileID: 0}
   _hasDug: 0
-  searchingWhereToDig: 0
+  burrowPrefab: {fileID: 1146050271746315413, guid: 4ca5cd5f079799b4589cbb8739b5571e,
+    type: 3}
   panicBehavior: {fileID: 11400000, guid: e14c2ab14235bda4cbc7eb72496fb08d, type: 2}
   digBehavior: {fileID: 11400000, guid: fdaa88000b7d6894f8bcf46c99305b4a, type: 2}
   eatBehavior: {fileID: 0}

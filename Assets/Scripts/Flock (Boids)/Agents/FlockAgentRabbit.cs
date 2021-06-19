@@ -11,9 +11,10 @@ public class FlockAgentRabbit : FlockAgent
     public bool panic;
     public FlockAgentWolf predator;     //<<<<<<<<<<<-------------PENDIENTE DE HACER
     public bool _hasDug;
-    public bool searchingWhereToDig;
-    internal Transform burrowLocation;
-    private GameObject burrowPrefab;
+    //public bool searchingWhereToDig;
+    private bool calledThread;
+    internal Vector3 burrowPosition = Vector3.zero;
+    [SerializeField] GameObject burrowPrefab;
     
     [SerializeField] public FlockBehavior panicBehavior;
     [SerializeField] public FlockBehavior digBehavior;
@@ -35,6 +36,8 @@ public class FlockAgentRabbit : FlockAgent
         ConstructBehaviorTree();
     }
 
+
+
     //Los árboles se construyen en código leyéndo el grafo de derecha a izquierda y de abajo a arriba
     //  Primero haz todos los nodos (no importa el orden), y luego monta las secuencias y los selectores
     //  en el orden que he dicho al principio
@@ -43,9 +46,13 @@ public class FlockAgentRabbit : FlockAgent
         IsPredatorNearNode isPredatorNearNode = new IsPredatorNearNode(this);
         HealthNode isHealthy = new HealthNode(this, lowHealthThreshold);
         CanDigNode canDigNode = new CanDigNode(this);
+        GoToDigNode goToDigNode = new GoToDigNode(this);
 
-        Selector survive = new Selector(new List<Node> { });///////a medias
-        topNode = isPredatorNearNode;
+        Sequence digSafetyZoneSequence = new Sequence(new List<Node>{canDigNode, isHealthy, goToDigNode});
+        
+        Selector surviveSelector = new Selector(new List<Node> {isPredatorNearNode});///////a medias
+        
+        topNode = new Selector(new List<Node>{surviveSelector, digSafetyZoneSequence});
     }
 
     private void Update()
@@ -78,9 +85,10 @@ public class FlockAgentRabbit : FlockAgent
 
     public void ResetDiggingPosition()
     {
-        if (!searchingWhereToDig)
+        if (!calledThread)
         {
-            searchingWhereToDig = true;
+            calledThread = true;
+            //searchingWhereToDig = true;
             StartCoroutine(resetPosition());
         }
     }
@@ -88,16 +96,17 @@ public class FlockAgentRabbit : FlockAgent
     public void DigBurrow()
     {
         hasDug = true;
-        Instantiate(burrowPrefab, burrowLocation.position, transform.rotation);
+        Instantiate(burrowPrefab, burrowPosition, transform.rotation);
         //Instanciar la madriguera
     }
 
     //Cada minuto se cambia la posición, para darle dinamismo
     IEnumerator resetPosition()
     {
-        Vector2 location = Random.insideUnitCircle;
-        burrowLocation.position = new Vector3(location.x, 0, location.y)*100;
+        Vector3 location = Random.insideUnitSphere;
+        burrowPosition = new Vector3(location.x, 0, location.z)*100;
+        burrowPosition.y = 0.42f;//0.42 es la altura para que quede bonito
         yield return new WaitForSeconds(60);
-        searchingWhereToDig = false;
+        calledThread = false;
     }
 }
