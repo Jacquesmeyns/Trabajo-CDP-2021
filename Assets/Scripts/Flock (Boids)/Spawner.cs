@@ -16,6 +16,12 @@ public class Spawner : MonoBehaviour
         //Cargo las posibles posiciones de aparición
         var wolfPackSpawnPositionsObject = GameObject.Find("WolvesSpawnPoints");
         var rabbitFlockSpawnPositionsObject = GameObject.Find("RabbitSpawnPoints");
+
+        //Transform ranPos = new Transform();
+        Vector3 ranPos = Random.insideUnitSphere*60;
+        wolfPackSpawnPositionsObject.transform.position = new Vector3(ranPos.x, 0, ranPos.z);
+        ranPos = Random.insideUnitSphere*60;
+        rabbitFlockSpawnPositionsObject.transform.position= new Vector3(ranPos.x, 0, ranPos.z);
         
         foreach (Transform child in wolfPackSpawnPositionsObject.GetComponent<Transform>())
         {
@@ -28,8 +34,8 @@ public class Spawner : MonoBehaviour
         }
 
         //Creamos las manadas de lobos y conejos
-        Instantiate(wolfPackPrefab, _wolfSpawnPoints[Random.Range(0,_wolfSpawnPoints.Count)]);
-        Instantiate(rabbitFlockPrefab, _rabbitSpawnPoints[Random.Range(0,_rabbitSpawnPoints.Count)]);
+        Instantiate(wolfPackPrefab, wolfPackSpawnPositionsObject.transform);
+        Instantiate(rabbitFlockPrefab, rabbitFlockSpawnPositionsObject.transform);
 
     }
 
