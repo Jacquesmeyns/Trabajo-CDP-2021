@@ -37,7 +37,7 @@ public class SeekPartnerNode : Node
             //No queremos guardar la posición del propio agente, 
             //  ni la de agentes que no sean de su tipo ni de los que no puedan criar
             if(c!= agent.AgentCollider && (c.tag.CompareTo(agent.tag) == 0)
-                && c.gameObject.GetComponent<FlockAgent>().CanBreed() )
+                && c.gameObject.GetComponent<FlockAgent>().CanBreed() && c.gameObject != agent.gameObject)
             {
                 agents.Add(c);
             }

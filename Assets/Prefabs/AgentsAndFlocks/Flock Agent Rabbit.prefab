@@ -49,8 +49,9 @@ MonoBehaviour:
   angulosVision: ceffffffe7ffffff1900000032000000
   startingHealth: 20
   hungerThreshold: 0.076
+  gluttony: 0.0002
   _lowHealthThreshold: 0.076
-  healthRestoreRate: 1
+  healthRestoreRate: 0.5
   _inFlock: 1
   _hasBreeded: 0
   _currentHealth: 0

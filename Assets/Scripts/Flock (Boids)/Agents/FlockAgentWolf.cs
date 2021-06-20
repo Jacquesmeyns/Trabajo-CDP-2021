@@ -158,7 +158,8 @@ public class FlockAgentWolf : FlockAgent
             //Se instancia el prefab del lobo
             GameObject child = Instantiate(pack.agentPrefabWolf, pack.transform);
             //Se le asigna un nombre
-            child.name = "Lobo " + pack.agents.Count;
+            child.name = "Lobo " + pack.total;
+            pack.total++;
             //Se escala al 50% porque es una cría (más tarde crece en GrowUp() )
             child.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             //Se añade a la manada

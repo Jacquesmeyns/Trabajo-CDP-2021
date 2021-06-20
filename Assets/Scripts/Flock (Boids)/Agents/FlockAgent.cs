@@ -24,7 +24,7 @@ public class FlockAgent : MonoBehaviour
     internal float _hunger;     //Cuando llega a cero, empieza a perder vida
     
     //Cuánto hambre baja por turno
-    internal float gluttony = 0.0001f;
+    public float gluttony = 0.0001f;
     
     //Salud mínima para no considerarse sano
     [Range(0,1)] public float _lowHealthThreshold;
@@ -227,7 +227,7 @@ public class FlockAgent : MonoBehaviour
     public bool PartnerWith(FlockAgent agent)
     {
         //Si alguno ya tiene compañero, no puede elegirse otro. Tampoco si el compañero no puede criar aún
-        if (partner != null || agent.partner != null || agent.CanBreed() )
+        if (partner != null || agent.partner != null || !agent.CanBreed() )
             return false;
 
         partner = agent;

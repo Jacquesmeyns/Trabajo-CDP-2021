@@ -30,6 +30,7 @@ public class FlockRabbit : Flock
             //newAgent.kind = AnimalKind.RABBIT;
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent.GetComponent<FlockAgentRabbit>());
+            total++;
         }
 
         targetPosition = transform.position;
@@ -69,11 +70,17 @@ public class FlockRabbit : Flock
                 {
                     move = ((FlockAgentRabbit)agents[i]).eatBehavior.CalculateMove(agents[i], context, this);
                 }
-                else /*if(agents[i].CanBreed())//Reproducción
+                else if(agents[i].CanBreed() && agents[i].partner != null)//Reproducción
                 {
-                    move = ((FlockAgentRabbit)agents[i]).breedingBehavior.CalculateMove(agents[i], context, this);
+                    if (!agents[i].InNestWithPartner(nestPosition))
+                    {
+                        //Pre-breeding behavior. Se esperan en el nido
+                        move = agents[i].preBreedingBehavior.CalculateMove(agents[i], context, this);
+                    }
+                    else
+                        move = ((FlockAgentRabbit)agents[i]).breedingBehavior.CalculateMove(agents[i], context, this);
                 }
-                else*///Movimiento normal
+                else//Movimiento normal
                 {
                     move = defaultBehavior.CalculateMove(agents[i], context, this);
                 }

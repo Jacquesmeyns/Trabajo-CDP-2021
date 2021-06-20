@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 public class Flock : MonoBehaviour
@@ -55,9 +56,13 @@ public class Flock : MonoBehaviour
     internal Vector3 nestPosition;
     [Range(1,20)] public float nestRadius;
     
+    //Para llevar la cuenta del total de agentes
+    internal int total;
+    
     // Start is called before the first frame update
     void Start()
     {
+        total = 0;
         nestPosition = transform.position;
         //Calculamos los cuadrados
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
