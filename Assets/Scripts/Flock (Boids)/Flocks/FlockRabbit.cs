@@ -64,13 +64,18 @@ public class FlockRabbit : Flock
                     Debug.Log("DIG BEHAVIOR");
                     move = ((FlockAgentRabbit)agents[i]).digBehavior.CalculateMove(agents[i], context, this);
                 }   //Hambre
-                else if(((FlockAgentRabbit)agents[i]).hunger < ((FlockAgentRabbit)agents[i]).hungerThreshold)
+                else if(((FlockAgentRabbit)agents[i]).hunger < ((FlockAgentRabbit)agents[i]).hungerThreshold && 
+                        ((FlockAgentRabbit)agents[i]).food != null)
                 {
-                    move = /*((FlockAgentRabbit)agents[i]).eatBehavior*/defaultBehavior.CalculateMove(agents[i], context, this);
+                    move = ((FlockAgentRabbit)agents[i]).eatBehavior.CalculateMove(agents[i], context, this);
                 }
-                else//Reproducción
+                else /*if(agents[i].CanBreed())//Reproducción
                 {
                     move = ((FlockAgentRabbit)agents[i]).breedingBehavior.CalculateMove(agents[i], context, this);
+                }
+                else*///Movimiento normal
+                {
+                    move = defaultBehavior.CalculateMove(agents[i], context, this);
                 }
                     
 

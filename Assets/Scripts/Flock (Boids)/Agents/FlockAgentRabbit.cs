@@ -32,6 +32,7 @@ public class FlockAgentRabbit : FlockAgent
     private void Awake() {
         //awarenessRadius = 15f;
         currentHealth = startingHealth;
+        hunger = 15f;
         foodBites = (int) startingHealth/8;
         ConstructBehaviorTree();
         if (Random.value < 0.65)
@@ -48,12 +49,23 @@ public class FlockAgentRabbit : FlockAgent
     {
         IsPredatorNearNode isPredatorNearNode = new IsPredatorNearNode(this);
         HealthNode isHealthy = new HealthNode(this, lowHealthThreshold);
+        IsFlockHealthyNode isFlockHealthyNode =
+            new IsFlockHealthyNode(this, transform.GetComponentInParent<FlockRabbit>().flockLowHealthThreshold);
         CanDigNode canDigNode = new CanDigNode(this);
         GoToDigNode goToDigNode = new GoToDigNode(this);
+        IsFlockFedNode isFlockFedNode =
+            new IsFlockFedNode(this, transform.GetComponentInParent<FlockRabbit>().flockLowHungerThreshold);
+        SearchFoodNode searchFoodNode = new SearchFoodNode(this);
+        GoToEatNode goToEatNode = new GoToEatNode(this);
+        EatNode eatNode = new EatNode(this);
 
+        Sequence isHealthySequence = new Sequence(new List<Node> { isHealthy, isFlockHealthyNode, isFlockFedNode});
+
+        Sequence eatSequence = new Sequence(new List<Node>{new Inverter(isHealthySequence),searchFoodNode,goToEatNode,eatNode});
+        
         Sequence digSafetyZoneSequence = new Sequence(new List<Node>{canDigNode, isHealthy, goToDigNode});
         
-        Selector surviveSelector = new Selector(new List<Node> {digSafetyZoneSequence,isPredatorNearNode});///////a medias
+        Selector surviveSelector = new Selector(new List<Node> {digSafetyZoneSequence,isPredatorNearNode,eatSequence});///////a medias
         
         topNode = new Selector(new List<Node>{surviveSelector});
     }
@@ -84,6 +96,14 @@ public class FlockAgentRabbit : FlockAgent
     {
         inFlock = true;
         this.tag = "Rabbit";
+    }
+
+    public void Eat()
+    {
+        currentHealth += 5;
+        hunger += 20;
+        Destroy(food);
+        food = null;
     }
 
     public void ResetDiggingPosition()

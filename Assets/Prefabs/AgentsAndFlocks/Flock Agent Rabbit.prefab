@@ -66,7 +66,7 @@ MonoBehaviour:
     type: 3}
   panicBehavior: {fileID: 11400000, guid: e14c2ab14235bda4cbc7eb72496fb08d, type: 2}
   digBehavior: {fileID: 11400000, guid: fdaa88000b7d6894f8bcf46c99305b4a, type: 2}
-  eatBehavior: {fileID: 0}
+  eatBehavior: {fileID: 11400000, guid: 857ece6a4de83dd4ca8e8aff799b9443, type: 2}
 --- !u!65 &8321888775535206287
 BoxCollider:
   m_ObjectHideFlags: 0

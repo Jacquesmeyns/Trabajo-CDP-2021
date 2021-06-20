@@ -29,7 +29,8 @@ public class GoToPreyBehavior : FlockBehavior
         }
 
         //Debug.Log("Esta no es la buena, primo");
-        return targetOffset * (t*t);
+        targetOffset = targetOffset * (t*t);
+        return new Vector3(targetOffset.x, 0, targetOffset.z);
     }
 
      public Vector3 CalculatePreyPosition(FlockAgentWolf agent)

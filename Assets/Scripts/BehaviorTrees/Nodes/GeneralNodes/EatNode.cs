@@ -38,8 +38,8 @@ public class EatNode : Node
                 break;
 
             case AnimalKind.RABBIT:
-            //En un futuro poner zanahorias que respawneen con un CD
-                agent.currentHealth+=10;
+                //Se borra el gameobject y el conejo come
+                ((FlockAgentRabbit) agent).Eat();
                 return NodeState.SUCCESS;
 
             case AnimalKind.NULL:

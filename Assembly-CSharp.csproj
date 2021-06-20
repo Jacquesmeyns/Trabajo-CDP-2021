@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\IsCoveredNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\CanDigNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\GoToDigNode.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\GoToEatNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\IsPredatorNearNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\SearchFoodNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RangeNode.cs" />
@@ -97,6 +98,7 @@
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\EvadeObstacleBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\FlockBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoDigBehavior.cs" />
+     <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToGreenFoodBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToNestBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPartnerBehavior.cs" />
      <Compile Include="Assets\Scripts\Flock (Boids)\MovementBehaviorScripts\GoToPositionBehavior.cs" />
