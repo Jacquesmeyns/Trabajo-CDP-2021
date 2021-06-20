@@ -11,10 +11,10 @@ public class PanicBehavior : FlockBehavior
         //Reiniciamos la lista cada vez
         //_predators = new List<FlockAgentWolf>();
         int nPredators = 0;
-        int nBurrows = 0;
         Vector3 panicMove = Vector3.zero;
         Vector3 fleeMove = Vector3.zero;
         Vector3 toBurrowMove = Vector3.zero;
+        List<Collider> burrows = new List<Collider>();
         float t;
         
         
@@ -32,39 +32,45 @@ public class PanicBehavior : FlockBehavior
                 fleeMove += agent.transform.position - c.transform.position;
                 nPredators++;
             }
-            else if (c.CompareTag("Burrow"))    //Si encuentra madrigueras, va hacia ellas
+            else if (c.CompareTag("Burrow"))    //Si encuentra madrigueras, las añade a una lista para luego ir a la más cercana
             {
-                Vector3 distanceToBurrow = c.transform.position - agent.transform.position;
-                Debug.DrawRay(agent.transform.position, distanceToBurrow, Color.black);
-                //Si está cerca de un mínimo de la madriguera, se esconde
-                t = distanceToBurrow.magnitude / burrowRadius;
-                //if (t < 0.9f)
-                //{
-                    //((FlockAgentRabbit) agent).predator = null;
-                //    return Vector3.zero;
-                    /*if (c.GetComponent<BurrowScript>().EnterBurrow())
-                    {
-                        ((FlockAgentRabbit) agent).safe = true;
-                        agent.GetComponentInChildren<MeshRenderer>().enabled = false;
-                        
-                    }*/
-                //}
+                burrows.Add(c);
                 
+                //Elige la más cercana y va hacia ella
+                Collider nearestBrrow = NearestBurrow(burrows, agent);
+                
+                Vector3 distanceToBurrow = nearestBrrow.transform.position - agent.transform.position;
+                Debug.DrawRay(agent.transform.position, distanceToBurrow, Color.black);
+
                 toBurrowMove += distanceToBurrow;
-                nBurrows++;
             }
         }
         
         //Calculo la dirección hacia la que huir como la media de las posiciones
         if (nPredators > 0)
             fleeMove /= nPredators;
-        
-        if (nBurrows > 0)
-            toBurrowMove /= nBurrows;
 
         panicMove = fleeMove + toBurrowMove;
 
         Debug.DrawRay(agent.transform.position, panicMove, Color.blue);
         return new Vector3(panicMove.x, 0f, panicMove.z);
+    }
+
+    private Collider NearestBurrow(List<Collider> burrows, FlockAgent _agent)
+    {
+        float closestDistance = 99999999f;
+        Collider closestBurrow = null;
+        
+        foreach (Collider burrow in burrows)
+        {
+            float distance = Vector3.Distance(_agent.transform.position, burrow.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestBurrow = burrow;
+            }
+        }
+
+        return closestBurrow;
     }
 }
