@@ -17,9 +17,9 @@ public class ChaseAttackNode : Node
     public override NodeState Evaluate()
     {
         //Ya he encontrado mi presa
-        if (agent.prey == null)
+        if (agent.prey == null || agent.prey.predator != agent)
         {
-            agent.Regroup();    //La presa ha desaparecido
+            agent.Regroup();    //La presa ha desaparecido o no era de este agente
             return NodeState.FAILURE;
         }
 
@@ -32,10 +32,10 @@ public class ChaseAttackNode : Node
             //Seguir moviéndose
 
             //Si la presa se ha ocultado
-            if( agent.IsPreyHidden())
+            if(agent.IsPreyHidden())
             {
                 //Deja de buscar
-                agent.prey.predated = false;
+                //agent.prey.predated = false;
                 agent.prey = null;
                 agent.Regroup();
                 return NodeState.FAILURE;

@@ -48,9 +48,9 @@ MonoBehaviour:
   agentPrefabRabbit: {fileID: 6923717676523994293, guid: fc2a8587f652e264f9fecb344c3f4bc6,
     type: 3}
   defaultBehavior: {fileID: 11400000, guid: 60729d2e1c2c38f4fa8c462ea1380da1, type: 2}
-  startingCount: 5
+  startingCount: 1
   driveFactor: 40
-  maxSpeed: 10
+  maxSpeed: 18.5
   neighborRadius: 3
   avoidanceRadiusMultiplier: 7.96
   targetPosition: {x: 40, y: 0, z: -40}

@@ -45,8 +45,14 @@ public class PanicBehavior : FlockBehavior
                 t = distanceToBurrow.magnitude / burrowRadius;
                 if (t < 0.9f)
                 {
-                    ((FlockAgentRabbit) agent).safe = true;
+                    ((FlockAgentRabbit) agent).predator = null;
                     return Vector3.zero;
+                    /*if (c.GetComponent<BurrowScript>().EnterBurrow())
+                    {
+                        ((FlockAgentRabbit) agent).safe = true;
+                        agent.GetComponentInChildren<MeshRenderer>().enabled = false;
+                        
+                    }*/
                 }
                 
                 toBurrowMove += distanceToBurrow;

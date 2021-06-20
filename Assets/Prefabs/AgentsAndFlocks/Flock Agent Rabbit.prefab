@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6923717676523994282}
   - component: {fileID: 3675808509562476831}
   - component: {fileID: 8321888775535206287}
+  - component: {fileID: 449118821196317540}
   m_Layer: 2
   m_Name: Flock Agent Rabbit
   m_TagString: Rabbit
@@ -78,6 +79,24 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &449118821196317540
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923717676523994293}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6923717677610471478
 GameObject:

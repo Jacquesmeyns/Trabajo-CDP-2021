@@ -36,4 +36,24 @@ public class BurrowScript : MonoBehaviour
     {
         currentRabbits--;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("A");
+        if ((other.CompareTag("Rabbit") || other.CompareTag("FleeingRabbit")) && EnterBurrow())
+        {
+            other.transform.GetComponent<FlockAgentRabbit>().safe = true;
+            other.transform.GetComponentInChildren<MeshRenderer>().enabled = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Rabbit") || other.CompareTag("FleeingRabbit"))
+        {
+            other.transform.GetComponent<FlockAgentRabbit>().safe = false;
+            other.transform.GetComponentInChildren<MeshRenderer>().enabled = true;
+            ExitBurrow();
+        }
+    }
 }

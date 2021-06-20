@@ -9,7 +9,7 @@ public class FlockAgentRabbit : FlockAgent
 {
     private bool _safe;
     public bool panic;
-    public bool predated;     //<<<<<<<<<<<-------------PENDIENTE DE HACER
+    public FlockAgentWolf predator;
     public bool _hasDug;
     //public bool searchingWhereToDig;
     private bool calledThread;
@@ -30,7 +30,6 @@ public class FlockAgentRabbit : FlockAgent
 
     private void Awake() {
         //awarenessRadius = 15f;
-        safe = true;
         currentHealth = startingHealth;
         foodBites = (int) startingHealth/8;
         ConstructBehaviorTree();

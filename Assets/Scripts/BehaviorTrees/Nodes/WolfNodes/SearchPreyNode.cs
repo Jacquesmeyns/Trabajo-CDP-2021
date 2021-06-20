@@ -15,6 +15,10 @@ public class SearchPreyNode : Node
 
     public override NodeState Evaluate()
     {
+        //Si ya está persiguiendo a uno
+        if (_agent.prey.predator == _agent)
+            return NodeState.SUCCESS;
+        
         //Reiniciamos la lista cada vez
         conejos = new List<FlockAgentRabbit>();
         //Buscando presa
@@ -27,7 +31,9 @@ public class SearchPreyNode : Node
             //No queremos guardar la posición del propio agente, ni la de agentes que no sean conejos
             if(c!= _agent.AgentCollider && (c.CompareTag("Rabbit") || c.CompareTag("FleeingRabbit")) )
             {
-                if(!c.gameObject.GetComponent<FlockAgentRabbit>().predated)
+                //Guardo los conejos que no tengan lobo asignado
+                if(!c.gameObject.GetComponent<FlockAgentRabbit>().predator != null && 
+                   !c.gameObject.GetComponent<FlockAgentRabbit>().safe)
                     conejos.Add(c.gameObject.GetComponent<FlockAgentRabbit>());
             }
         }
@@ -38,19 +44,13 @@ public class SearchPreyNode : Node
             //Debug.Log("Buscando conejos");
             return NodeState.FAILURE;
         }
-        else
-        {
-            //Asignamos la presa a la que perseguir y atacar en el siguiente nodo
-            _agent.prey = closestAgent();
-            //if (_agent.prey != null)
-            //{
-                _agent.prey.predated = true;
-                _agent.GoAlone();
-                return NodeState.SUCCESS;
-            //}
 
-            return NodeState.FAILURE;
-        }
+        //Asignamos la presa a la que perseguir y atacar en el siguiente nodo
+        _agent.prey = closestAgent();
+        _agent.prey.predator = _agent;
+        _agent.GoAlone();
+        return NodeState.SUCCESS;
+   
     }
 
     private FlockAgentRabbit closestAgent()

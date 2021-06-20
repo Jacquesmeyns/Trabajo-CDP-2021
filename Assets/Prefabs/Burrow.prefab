@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1146050271745280149}
   - component: {fileID: 1146050271744313941}
   - component: {fileID: 1146050271746315412}
-  - component: {fileID: -1038533221678617743}
+  - component: {fileID: -2947120391980143729}
   m_Layer: 0
   m_Name: Burrow
   m_TagString: Burrow
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f319a92d2aba5184181360269aea7210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &-1038533221678617743
+--- !u!65 &-2947120391980143729
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,8 +101,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146050271746315413}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.97226584, y: 0.48624656, z: 0.73301655}
+  m_Size: {x: 1.33, y: 0.63, z: 1.09}
   m_Center: {x: -0.004757851, y: 0.00956416, z: 0.36477283}

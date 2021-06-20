@@ -35,7 +35,7 @@ public class IsPredatorNearNode : Node
         
         //No hay lobos cerca
         _agent.panic = false;
-        _agent.safe = true;
+        //_agent.safe = true;
         return NodeState.FAILURE;
     }
 }

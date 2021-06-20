@@ -24,7 +24,7 @@ public class EvadeObstacleBehavior : FlockBehavior
         for (int i = 0; i < hits.Length; i++)
         {
             Vector3 anguloVision;
-            float maxDistance = 1f;
+            float maxDistance = 3f;
             anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
 
             //Compruebo colisiones con objetos que estén en la máscara de capa seleccionada
@@ -33,7 +33,7 @@ public class EvadeObstacleBehavior : FlockBehavior
                 Vector3 direccion = Vector3.zero;
                 //Debug.Log(hits[i].point);
                 //Si es un conejo sólo interesan los que tengan el tag Obstacle
-                if (agent.kind == AnimalKind.RABBIT && hits[i].transform.tag.Equals("Obstacle"))
+                if (agent.kind == AnimalKind.RABBIT && hits[i].transform.CompareTag("Obstacle"))
                 {
                     Debug.DrawRay(agent.transform.position,hits[i].point-agent.transform.position,Color.red);
                     direccion = agent.transform.position - hits[i].point;
