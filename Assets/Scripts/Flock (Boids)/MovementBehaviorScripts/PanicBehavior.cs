@@ -43,17 +43,17 @@ public class PanicBehavior : FlockBehavior
                 Debug.DrawRay(agent.transform.position, distanceToBurrow, Color.black);
                 //Si está cerca de un mínimo de la madriguera, se esconde
                 t = distanceToBurrow.magnitude / burrowRadius;
-                if (t < 0.9f)
-                {
-                    ((FlockAgentRabbit) agent).predator = null;
-                    return Vector3.zero;
+                //if (t < 0.9f)
+                //{
+                    //((FlockAgentRabbit) agent).predator = null;
+                //    return Vector3.zero;
                     /*if (c.GetComponent<BurrowScript>().EnterBurrow())
                     {
                         ((FlockAgentRabbit) agent).safe = true;
                         agent.GetComponentInChildren<MeshRenderer>().enabled = false;
                         
                     }*/
-                }
+                //}
                 
                 toBurrowMove += distanceToBurrow;
                 nBurrows++;

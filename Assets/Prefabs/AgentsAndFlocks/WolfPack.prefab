@@ -49,7 +49,7 @@ MonoBehaviour:
     type: 3}
   defaultBehavior: {fileID: 11400000, guid: 60729d2e1c2c38f4fa8c462ea1380da1, type: 2}
   startingCount: 1
-  driveFactor: 40
+  driveFactor: 30
   maxSpeed: 18.5
   neighborRadius: 3
   avoidanceRadiusMultiplier: 7.96

@@ -27,7 +27,7 @@ public class IsPredatorNearNode : Node
             if(c!= _agent.AgentCollider && (c.CompareTag("LoneWolf") || c.CompareTag("Wolf")))
             {
                 //_predators.Add(c.gameObject.GetComponent<FlockAgentWolf>());
-                _agent.safe = false;
+                //_agent.safe = false;
                 _agent.panic = true;
                 return NodeState.SUCCESS;
             }

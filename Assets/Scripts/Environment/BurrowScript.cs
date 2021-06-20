@@ -43,6 +43,7 @@ public class BurrowScript : MonoBehaviour
         if ((other.CompareTag("Rabbit") || other.CompareTag("FleeingRabbit")) && EnterBurrow())
         {
             other.transform.GetComponent<FlockAgentRabbit>().safe = true;
+            other.transform.GetComponent<FlockAgentRabbit>().predator = null;
             other.transform.GetComponentInChildren<MeshRenderer>().enabled = false;
         }
     }

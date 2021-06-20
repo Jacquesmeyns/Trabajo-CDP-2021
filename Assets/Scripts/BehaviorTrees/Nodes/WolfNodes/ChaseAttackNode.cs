@@ -32,7 +32,7 @@ public class ChaseAttackNode : Node
             //Seguir moviéndose
 
             //Si la presa se ha ocultado
-            if(agent.IsPreyHidden())
+            if(agent.prey.isSafe())
             {
                 //Deja de buscar
                 //agent.prey.predated = false;

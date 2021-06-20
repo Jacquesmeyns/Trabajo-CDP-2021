@@ -55,7 +55,8 @@ public class FlockRabbit : Flock
                     //Pánico
                 if (((FlockAgentRabbit)agents[i]).panic)
                 {
-                    if(!((FlockAgentRabbit)agents[i]).safe && ((FlockAgentRabbit)agents[i]).predator!=null)
+                    //Si no está a salvo y sigue cerca, se sigue moviendo
+                    if(!((FlockAgentRabbit)agents[i]).safe)
                         move = ((FlockAgentRabbit)agents[i]).panicBehavior.CalculateMove(agents[i], context, this);
                 }   //Cavar madriguera
                 else if (!((FlockAgentRabbit) agents[i]).hasDug)

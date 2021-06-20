@@ -15,10 +15,22 @@ public class SearchPreyNode : Node
 
     public override NodeState Evaluate()
     {
-        //Si ya está persiguiendo a uno
-        if (_agent.prey.predator == _agent)
-            return NodeState.SUCCESS;
+        //Compruebo que la presa sigue siendo alcanzable
+        if (_agent.prey != null)
+        {
+            //Si ya está persiguiendo a uno
+            if (_agent.prey.predator == null)
+            {
+                _agent.prey = null; //Se ha ocultado
+                return NodeState.FAILURE;
+            }
+            return NodeState.SUCCESS;   //La sigue viendo
+        }
         
+        
+
+        
+
         //Reiniciamos la lista cada vez
         conejos = new List<FlockAgentRabbit>();
         //Buscando presa
