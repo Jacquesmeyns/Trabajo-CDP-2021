@@ -24,14 +24,9 @@ public class PanicBehavior : FlockBehavior
         //  que estén dentro de su área)
         foreach (Collider c in contextColliders)
         {
-            
-            
-            
             //No queremos guardar la posición del propio agente, ni la de agentes que no sean lobos
             if(c!= agent.AgentCollider && 
-               (c.CompareTag("LoneWolf") || c.CompareTag("Wolf"))
-               
-               )
+               (c.CompareTag("LoneWolf") || c.CompareTag("Wolf")))
             {
                 //_predators.Add(c.gameObject.GetComponent<FlockAgentWolf>());
                 fleeMove += agent.transform.position - c.transform.position;

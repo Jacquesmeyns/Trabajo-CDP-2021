@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BurrowScript : MonoBehaviour
 {
-    private int maxCapacity;
+    private int maxCapacity = 3;
 
     private int currentRabbits;
 
@@ -37,9 +37,12 @@ public class BurrowScript : MonoBehaviour
         currentRabbits--;
     }
 
+    /// <summary>
+    /// Cuando entra un conejo, si hay sitio se oculta
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("A");
         if ((other.CompareTag("Rabbit") || other.CompareTag("FleeingRabbit")) && EnterBurrow())
         {
             other.transform.GetComponent<FlockAgentRabbit>().safe = true;
@@ -48,6 +51,10 @@ public class BurrowScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// El conejo sale de la madriguera
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Rabbit") || other.CompareTag("FleeingRabbit"))

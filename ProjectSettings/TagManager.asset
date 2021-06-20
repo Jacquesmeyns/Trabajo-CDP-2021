@@ -11,6 +11,7 @@ TagManager:
   - FleeingRabbit
   - Burrow
   - Obstacle
+  - GreenFood
   layers:
   - Default
   - TransparentFX

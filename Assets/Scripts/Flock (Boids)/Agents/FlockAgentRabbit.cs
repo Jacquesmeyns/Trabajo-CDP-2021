@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(BoxCollider))]
 public class FlockAgentRabbit : FlockAgent
 {
+    internal GameObject food;
     private bool _safe;
     public bool panic;
     public FlockAgentWolf predator;
@@ -52,9 +53,9 @@ public class FlockAgentRabbit : FlockAgent
 
         Sequence digSafetyZoneSequence = new Sequence(new List<Node>{canDigNode, isHealthy, goToDigNode});
         
-        Selector surviveSelector = new Selector(new List<Node> {isPredatorNearNode});///////a medias
+        Selector surviveSelector = new Selector(new List<Node> {digSafetyZoneSequence,isPredatorNearNode});///////a medias
         
-        topNode = new Selector(new List<Node>{digSafetyZoneSequence, surviveSelector});
+        topNode = new Selector(new List<Node>{surviveSelector});
     }
 
     private void Update()

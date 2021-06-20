@@ -75,6 +75,7 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\CanDigNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\GoToDigNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\IsPredatorNearNode.cs" />
+     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RabbitNodes\SearchFoodNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\RangeNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\AttackNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\WolfNodes\ChaseAttackNode.cs" />

@@ -51,13 +51,14 @@ public class FlockAgentWolf : FlockAgent
         SeekPartnerNode seekPartnerNode = new SeekPartnerNode(this);
         IsFlockFedNode isFlockFedNode = new IsFlockFedNode(this, transform.GetComponentInParent<FlockWolf>().flockLowHungerThreshold);
         GoToPartnerNode goToPartnerNode = new GoToPartnerNode(this);
+        RangeNode isInRangeNode = new RangeNode(awarenessRadius * 1.5f, this);
 
         Sequence mateSequence = new Sequence(new List<Node> {isFlockHealthyNode, isFlockFedNode, seekPartnerNode, goToPartnerNode});
 
         Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseAttackNode, attackNode});
 
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
-        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockFedNode, /*healthNode, */searchPreyNode, chaseAttackNode, eatNode});
+        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockFedNode, /*healthNode, */searchPreyNode, isInRangeNode,chaseAttackNode, eatNode});
 
         topNode = new Selector(new List<Node>{ surviveSequence,/* defendSequence, */mateSequence});
     }
