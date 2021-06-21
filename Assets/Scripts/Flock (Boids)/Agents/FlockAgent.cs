@@ -120,6 +120,10 @@ public class FlockAgent : MonoBehaviour
         set
         {
             _currentHealth = Mathf.Clamp(value, 0, startingHealth);
+            if (_currentHealth <= 0)
+            {
+                gameObject.transform.Rotate(0,0,90);
+            }
         }
     }
 
@@ -198,7 +202,7 @@ public class FlockAgent : MonoBehaviour
 
     public void Dissappear()
     {
-        Debug.Log("Me destruyo: " + this.ToString());
+        //Debug.Log("Me destruyo: " + this.ToString());
         Destroy(gameObject);
     }
 

@@ -58,7 +58,7 @@ public class FlockAgentWolf : FlockAgent
         Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseAttackNode, attackNode});
 
         //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
-        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ isFlockFedNode, /*healthNode, */searchPreyNode, isInRangeNode,chaseAttackNode, eatNode});
+        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ new Inverter(isFlockFedNode), /*healthNode, */searchPreyNode, isInRangeNode,chaseAttackNode, eatNode});
 
         topNode = new Selector(new List<Node>{ surviveSequence,/* defendSequence, */mateSequence});
     }

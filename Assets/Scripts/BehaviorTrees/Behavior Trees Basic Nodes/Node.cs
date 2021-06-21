@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Clase nodo. Puede tener tres estados (RUNNING, SUCCESS, FAILURE) y debe tener un método Evaluate que decida
+/// el estado a devolver.
+/// </summary>
 [System.Serializable]
 public abstract class Node
 {

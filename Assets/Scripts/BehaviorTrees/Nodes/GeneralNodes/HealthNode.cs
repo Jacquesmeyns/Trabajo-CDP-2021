@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve SUCCESS cuando la vida del agente está por encima del umbral
+/// </summary>
 public class HealthNode : Node
 {
     private FlockAgent agent;

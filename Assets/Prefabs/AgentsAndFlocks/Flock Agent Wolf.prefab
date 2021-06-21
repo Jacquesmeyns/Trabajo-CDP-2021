@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angulosVision: e2fffffff1ffffff0f0000001e000000
   startingHealth: 70
-  hungerThreshold: 0.554
+  hungerThreshold: 0.5
   gluttony: 0.0001
   _lowHealthThreshold: 0.5
   healthRestoreRate: 0.5

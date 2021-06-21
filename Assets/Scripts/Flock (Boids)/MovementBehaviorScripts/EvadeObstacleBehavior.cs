@@ -24,7 +24,7 @@ public class EvadeObstacleBehavior : FlockBehavior
         for (int i = 0; i < hits.Length; i++)
         {
             Vector3 anguloVision;
-            float maxDistance = 3f;
+            float maxDistance = 5f;
             anguloVision = Quaternion.Euler(0, agent.angulosVision[i], 0) * agent.transform.forward;
 
             //Compruebo colisiones con objetos que estén en la máscara de capa seleccionada

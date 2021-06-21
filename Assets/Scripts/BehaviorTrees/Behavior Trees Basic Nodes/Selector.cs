@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve fallo cuando todos fallan. Si no, devuelve el primer nodo que devuelva Success o Running. 
+/// </summary>
 public class Selector : Node
 {
     protected List<Node> nodes = new List<Node>();

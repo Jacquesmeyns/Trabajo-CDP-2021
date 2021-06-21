@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Devuelve SUCCESS cuando el agente ha conseguido llegar hasta su compañero y reproducirse con él
+/// </summary>
 public class GoToPartnerNode : Node
 {
-    //private NavMeshAgent agent;
     private FlockAgent _agent;
     private FlockAgent _partner;
 
@@ -18,11 +20,6 @@ public class GoToPartnerNode : Node
     public override NodeState Evaluate()
     {
         _partner = _agent.partner;
-        /*if (_partner == null )
-        {
-            _agent.Regroup();
-            return NodeState.FAILURE;
-        }*/
 
         float distance = Vector3.Distance(_partner.transform.position, _agent.transform.position);
         //Si ambos están en el nido, pueden tener a la cría

@@ -6,7 +6,7 @@ public class GoToEatNode : Node
 {
     private FlockAgentRabbit _agent;
     private GameObject objective;
-    private float eatingDistance = 1f;
+    private float eatingDistance = 2f;
     
     public GoToEatNode(FlockAgentRabbit agent)
     {

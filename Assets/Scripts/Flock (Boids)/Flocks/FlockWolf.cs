@@ -40,7 +40,7 @@ public class FlockWolf : Flock
             agents.Add(newAgent.GetComponent<FlockAgentWolf>());
             total++;
         }
-
+        nestPrefab.GetComponent<SpriteRenderer>().color = Color.red;
         Instantiate( 
             nestPrefab, 
             nestPosition, 
@@ -65,7 +65,7 @@ public class FlockWolf : Flock
 
                 if (agent.inFlock)
                 {
-                    Debug.Log("Flock Behavior");
+                    //Debug.Log("Flock Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                     move = defaultBehavior.CalculateMove(agent, context, this);
                 }
@@ -74,13 +74,13 @@ public class FlockWolf : Flock
                 {
                     if(!agent.InNestWithPartner(nestPosition)) 
                     {
-                         Debug.Log("PRE-Breeding Behavior" + agent.name);
+                         //Debug.Log("PRE-Breeding Behavior" + agent.name);
                          //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                          move = agent.preBreedingBehavior.CalculateMove(agent, context, this);
                     }
                     else
                     {
-                        Debug.Log("Breeding Behavior" + agent.name);
+                        //Debug.Log("Breeding Behavior" + agent.name);
                         move = agent.breedingBehavior.CalculateMove(agent, context, this);
                     }
                     
@@ -90,7 +90,7 @@ public class FlockWolf : Flock
                 }
                 else
                 {
-                    Debug.Log("Hunting Behavior");
+                    //Debug.Log("Hunting Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                     move = agent.huntingBehavior.CalculateMove(agent, context, this);
                     //move = Vector3.zero;
@@ -105,8 +105,8 @@ public class FlockWolf : Flock
                     //  capo la velocidad con el máximo definido
                     move = move.normalized * maxSpeed;
                 }
-                if(move == Vector3.zero)
-                    Debug.Log("ZERO");
+                //if(move == Vector3.zero)
+                //    Debug.Log("ZERO");
                 
                 //Aplico el movimiento
                 agent.Move(move);

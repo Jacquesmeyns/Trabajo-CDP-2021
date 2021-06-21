@@ -7,6 +7,8 @@ public class FlockRabbit : Flock
     
     void Awake()
     {
+        nestPosition = transform.position;
+        nestPrefab.GetComponent<SpriteRenderer>().color = Color.yellow;
         Instantiate( 
             nestPrefab, 
             nestPosition, 
@@ -75,11 +77,10 @@ public class FlockRabbit : Flock
                 }   //Cavar madriguera
                 else if (!((FlockAgentRabbit) agents[i]).hasDug)
                 {
-                    Debug.Log("DIG BEHAVIOR");
+                    //Debug.Log("DIG BEHAVIOR");
                     move = ((FlockAgentRabbit)agents[i]).digBehavior.CalculateMove(agents[i], context, this);
                 }   //Hambre
-                else if(((FlockAgentRabbit)agents[i]).hunger < ((FlockAgentRabbit)agents[i]).hungerThreshold && 
-                        ((FlockAgentRabbit)agents[i]).food != null)
+                else if(((FlockAgentRabbit)agents[i]).food != null)
                 {
                     move = ((FlockAgentRabbit)agents[i]).eatBehavior.CalculateMove(agents[i], context, this);
                 }

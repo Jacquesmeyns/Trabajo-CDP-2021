@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve el estado inverso del nodo pasado por parámetro. Si dicho nodo devuelve Running, también devuelve Running.
+/// </summary>
 public class Inverter : Node
 {
     protected Node node;

@@ -35,8 +35,8 @@ public class FlockAgentRabbit : FlockAgent
         hunger = startingHunger;
         foodBites = (int) startingHealth/8;
         ConstructBehaviorTree();
-        //Para controlar que no haya demasiadas madrigueras, tienen sólo un 25% de poder cavar
-        if (Random.value < 0.65)
+        //Para controlar que no haya demasiadas madrigueras, tienen sólo un 20% de poder cavar
+        if (Random.value < 0.80)
             hasDug = true;
         //Hasta que no crezca no puede reproducirse
         _hasBreeded = true;
@@ -69,7 +69,7 @@ public class FlockAgentRabbit : FlockAgent
 
         Sequence mateSequence = new Sequence(new List<Node> {seekPartnerNode, goToPartnerNode});
         
-        Sequence eatSequence = new Sequence(new List<Node>{new Inverter(isHealthySequence),searchFoodNode,goToEatNode,eatNode});
+        Sequence eatSequence = new Sequence(new List<Node>{new Inverter(isHealthy),searchFoodNode,goToEatNode,eatNode});
         
         Sequence digSafetyZoneSequence = new Sequence(new List<Node>{canDigNode, isHealthy, goToDigNode});
         
@@ -149,7 +149,7 @@ public class FlockAgentRabbit : FlockAgent
         FlockRabbit pack = GetComponentInParent<FlockRabbit>();
         
         //Crían de 3 a 4 conejos
-        int tope = Mathf.CeilToInt(Random.value*2 + 2);
+        int tope = Mathf.CeilToInt(Random.value*2 + 1);
         for (int i = 0; i < tope; i++)
         {
             //Se instancia el prefab del conejo

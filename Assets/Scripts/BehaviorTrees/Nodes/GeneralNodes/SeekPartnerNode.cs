@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Devuelve SUCCESS cuando encuentra un compañero con el que reproducirse
+/// </summary>
 public class SeekPartnerNode : Node
 {
     //private NavMeshAgent agent;
@@ -24,9 +27,6 @@ public class SeekPartnerNode : Node
 
         //Reiniciamos la lista de agentes
         agents = new List<Collider>();
-        
-        //Cuando es CIAN, está buscando compañero para tener crías              <<<<----Igual me sirve esto de los colores
-        //agent.GetComponentInChildren<Material>().SetColor("_Color",Color.cyan);
 
         Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, agent.awarenessRadius);
         
@@ -60,22 +60,18 @@ public class SeekPartnerNode : Node
         
     }
 
+    /// <summary>
+    /// Devuelve al agente con el que se pueda reproducir más cercano
+    /// </summary>
+    /// <returns></returns>
     private bool MateClosestBreedableAgent()
     {
-        //float closestDistance = 99999999f;
         Transform closestPosition = null;
 
         agents.Sort((agent1, agent2) => CompareDistance(agent1, agent2));
         
         foreach (Collider c in agents)
         {
-            //float distance = Vector3.Distance(agent.transform.position, c.transform.position);
-            /*if( distance < closestDistance && agent.PartnerWith(c.gameObject.GetComponent<FlockAgent>()))
-            {
-                closestDistance = distance;
-                closestPosition = c.transform;
-            }*/
-            
             //Cuando encuentra un agente con el que tener crías, sale del bucle
             if (c.gameObject.GetComponent<FlockAgent>().PartnerWith(agent))
             {
@@ -89,7 +85,12 @@ public class SeekPartnerNode : Node
         return false;
     }
 
-    //Para ordenar la lista en función de la cercanía
+   /// <summary>
+   ///  Compara la cercanía al agente de dos colliders
+   /// </summary>
+   /// <param name="trans1">El collider del primer agente a comparar</param>
+   /// <param name="trans2">El collider del segundo agente a comparar</param>
+   /// <returns></returns>
     private int CompareDistance(Collider trans1, Collider trans2)
     {
         float dist1 = Vector3.Distance(agent.transform.position, trans1.transform.position);

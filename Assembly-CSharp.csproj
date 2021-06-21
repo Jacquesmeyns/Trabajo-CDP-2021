@@ -63,7 +63,6 @@
      <Compile Include="Assets\Scripts\BehaviorTrees\Behavior Trees Basic Nodes\Selector.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Behavior Trees Basic Nodes\Sequence.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GeneralNodes\EatNode.cs" />
-     <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GeneralNodes\GoToNestNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GeneralNodes\GoToPartnerNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GeneralNodes\HealthNode.cs" />
      <Compile Include="Assets\Scripts\BehaviorTrees\Nodes\GeneralNodes\IsFlockFedNode.cs" />

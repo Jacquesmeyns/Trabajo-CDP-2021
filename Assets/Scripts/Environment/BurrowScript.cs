@@ -20,12 +20,16 @@ public class BurrowScript : MonoBehaviour
     /// <returns></returns>
     public bool EnterBurrow()
     {
-        if (currentRabbits < maxCapacity)
+        lock ("current")
         {
-            currentRabbits++;
-            return true;
+            if (currentRabbits < maxCapacity)
+            {
+                currentRabbits++;
+                return true;
+            }
+
+            return false;
         }
-        return false;
     }
     
     /// <summary>
@@ -34,7 +38,8 @@ public class BurrowScript : MonoBehaviour
     /// <returns></returns>
     public void ExitBurrow()
     {
-        currentRabbits--;
+        lock("current")
+            currentRabbits--;
     }
 
     /// <summary>

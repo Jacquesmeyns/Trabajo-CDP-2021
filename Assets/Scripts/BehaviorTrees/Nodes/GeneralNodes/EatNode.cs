@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Devuelve SUCCESS si el agente puede comer
+/// </summary>
 public class EatNode : Node
 {
     //private NavMeshAgent agent;
@@ -19,8 +22,6 @@ public class EatNode : Node
         switch(agent.kind)
         {
             case AnimalKind.WOLF:
-                //if(((FlockAgentWolf)agent).prey.IsDead())
-                //{
                 //Si sigue con bocados y no ha desaparecido
                 if (((FlockAgentWolf) agent).CanTakeBite() && ((FlockAgentWolf) agent).prey != null)
                 {
@@ -34,20 +35,15 @@ public class EatNode : Node
                     ((FlockAgentWolf) agent).Regroup();
                     return NodeState.SUCCESS;
                 }
-                //}
-                break;
 
             case AnimalKind.RABBIT:
                 //Se borra el gameobject y el conejo come
                 ((FlockAgentRabbit) agent).Eat();
                 return NodeState.SUCCESS;
-
-            case AnimalKind.NULL:
+            
             default:
                 Debug.LogError("Define the AnimalKind variable of the agent");
                 return NodeState.FAILURE;
         }
-
-        return NodeState.RUNNING;
     }
 }

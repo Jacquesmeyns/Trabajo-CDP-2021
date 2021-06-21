@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve fallo cuando cualquier nodo falla. Devuelve Success cuando todos lo consiguen. Si algún nodo devuelve
+/// Running, también devuelve Running.
+/// </summary>
 public class Sequence : Node
 {
     protected List<Node> nodes = new List<Node>();
