@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-//Inspector propio para los objetos de tipo CompositeBehavior
+/// <summary>
+/// Inspector propio para los objetos de tipo CompositeBehavior
+/// </summary>
 [CustomEditor(typeof(CompositeBehavior))]
 public class CompositeBehaviorEditor : Editor
 {
@@ -106,7 +108,12 @@ public class CompositeBehaviorEditor : Editor
         }
     }
     
-    // Para borrar un comportamiento
+    /// <summary>
+    /// Borra un comportamiento
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="old"></param>
+    /// <returns></returns>
     private FlockBehavior[] Remove(int index, FlockBehavior[] old)
     {
         //Nuevo array con los comportamientos después de borrar el indicado (tiene 1 menos que el array original)
@@ -127,7 +134,12 @@ public class CompositeBehaviorEditor : Editor
         return current;
     }
     
-    // Para actualizar la lista de pesos al borrar un comportamiento
+    /// <summary>
+    /// actualizar la lista de pesos al borrar un comportamiento
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="old"></param>
+    /// <returns></returns>
     private float[] RemoveWeight(int index, float[] old)
     {
         //Nuevo array con los pesos después de borrar el indicado (tiene 1 menos que el array original)

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Comportamiento que evita los obstáculos calculando el movimiento de esquive.
+/// </summary>
 [CreateAssetMenu(menuName = "Flock/Behavior/EvadeObstacle")]
 public class EvadeObstacleBehavior : FlockBehavior
 {
@@ -9,16 +12,13 @@ public class EvadeObstacleBehavior : FlockBehavior
     {
         Vector3 evadeMove = Vector3.zero;
 
-        //Comprobar obstáculos lanzando 5 rayos con Raycast
-        //  Del 0 al 4, de izquierda a derecha siendo 2 el transform.forward
-        //  para dibujar el raycast
-        //Debug.DrawLine(Camera.main.ScreenPointToRay(Input.mousePosition),hit.point,Color.green);
+        //Comprobar obstáculos lanzando rayos con Raycast
             
         //Desplazamiento de bit para obtener la máscara de capa que queremos utilizar
         //  En este caso, la capa "Obstacle"
         int layerMask = 1 << 8;
             
-        //Voy a lanzar cinco rayos
+        //Lanza los rayos, definidos en el agente
         RaycastHit[] hits = new RaycastHit[agent.angulosVision.Length];
 
         for (int i = 0; i < hits.Length; i++)
@@ -31,25 +31,20 @@ public class EvadeObstacleBehavior : FlockBehavior
             if (Physics.Raycast(agent.transform.position,anguloVision, out hits[i], maxDistance,layerMask))
             {
                 Vector3 direccion = Vector3.zero;
-                //Debug.Log(hits[i].point);
                 //Si es un conejo sólo interesan los que tengan el tag Obstacle
                 if (agent.kind == AnimalKind.RABBIT && hits[i].transform.CompareTag("Obstacle"))
                 {
                     Debug.DrawRay(agent.transform.position,hits[i].point-agent.transform.position,Color.red);
                     direccion = agent.transform.position - hits[i].point;
-                    //El movimento escala con la cercanía al objetivo a evadir
-                    //direccion = direccion * (1 - Vector3.Magnitude(direccion)/maxDistance);
                     evadeMove += direccion;
                     break;
                 }
 
                 if (agent.kind == AnimalKind.WOLF)
                 {
-                    //Para los lobos pillo todos los de la capa
+                    //Para los lobos se queda todos los de la capa
                     Debug.DrawRay(agent.transform.position, hits[i].point - agent.transform.position, Color.red);
                     direccion = agent.transform.position - hits[i].point;
-                    //El movimento escala con la cercanía al objetivo a evadir
-                    //direccion = direccion * (1 - Vector3.Magnitude(direccion)/maxDistance);
                     evadeMove += direccion;
                     break;
                 }
@@ -60,7 +55,7 @@ public class EvadeObstacleBehavior : FlockBehavior
             }
         }
 
-        Debug.DrawRay(agent.transform.position,evadeMove,Color.cyan);
-        return new Vector3(evadeMove.x, 0, evadeMove.z).normalized;
+        Debug.DrawRay(agent.transform.position,evadeMove,Color.cyan);     //La dirección para esquivar
+        return new Vector3(evadeMove.x, 0, evadeMove.z).normalized;             //y = 0 para que no salgan volando
     }
 }

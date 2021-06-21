@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Devuelve SUCCESS cuando encuentra una presa.
+/// </summary>
 public class SearchPreyNode : Node
 {
     private FlockAgentWolf _agent;
@@ -27,10 +30,6 @@ public class SearchPreyNode : Node
             return NodeState.SUCCESS;   //La sigue viendo
         }
         
-        
-
-        
-
         //Reiniciamos la lista cada vez
         conejos = new List<FlockAgentRabbit>();
         //Buscando presa
@@ -44,7 +43,7 @@ public class SearchPreyNode : Node
             if(c!= _agent.AgentCollider && (c.CompareTag("Rabbit") || c.CompareTag("FleeingRabbit")) )
             {
                 //Guardo los conejos que no tengan lobo asignado
-                if(!c.gameObject.GetComponent<FlockAgentRabbit>().predator != null && 
+                if(c.gameObject.GetComponent<FlockAgentRabbit>().predator == null && 
                    !c.gameObject.GetComponent<FlockAgentRabbit>().safe)
                     conejos.Add(c.gameObject.GetComponent<FlockAgentRabbit>());
             }
@@ -53,7 +52,6 @@ public class SearchPreyNode : Node
         if(conejos.Count == 0)
         {
             //Seguir buscando
-            //Debug.Log("Buscando conejos");
             return NodeState.FAILURE;
         }
 
@@ -65,6 +63,10 @@ public class SearchPreyNode : Node
    
     }
 
+    /// <summary>
+    /// Devuelve el conejo más cercano
+    /// </summary>
+    /// <returns></returns>
     private FlockAgentRabbit closestAgent()
     {
         float closestDistance = 99999999f;
@@ -79,9 +81,6 @@ public class SearchPreyNode : Node
                     closestRabbit = conejo;
                 }
         }
-        
-        if(closestRabbit == null)
-            Debug.LogError("ESTE CONEJO NO ES UN CONEJO");
 
         return closestRabbit;
     }

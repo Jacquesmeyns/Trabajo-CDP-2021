@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla la alineación de los agentes respecto a la manada
+/// </summary>
 [CreateAssetMenu(menuName = "Flock/Behavior/Alignment")]
 public class AlignmentBehavior : FlockBehavior
 {

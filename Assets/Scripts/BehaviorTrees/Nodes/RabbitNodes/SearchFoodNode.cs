@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve SUCCESS cuando ha encontrado comida.
+/// </summary>
 public class SearchFoodNode : Node
 {
 
@@ -49,6 +52,10 @@ public class SearchFoodNode : Node
    
     }
 
+    /// <summary>
+    /// Devuelve el gameobject más cercano.
+    /// </summary>
+    /// <returns></returns>
     private GameObject closestAgent()
     {
         float closestDistance = 99999999f;

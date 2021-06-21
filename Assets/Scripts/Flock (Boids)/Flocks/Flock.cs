@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
+
+    #region Variables
+    
     //Prefabs de los agentes lobo y conejo y de las manadas de cada uno
     [Header("Prefabs")]
     private FlockWolf wolfPackPrefab;
@@ -40,8 +43,6 @@ public class Flock : MonoBehaviour
     
     [Header("Prefab de nido")]
     [SerializeField] internal GameObject nestPrefab;
-    /*private readonly List<Transform> _wolfSpawnPoints = new List<Transform>();
-    private readonly List<Transform> _rabbitSpawnPoints = new List<Transform>();*/
     
     [Header("Umbrales")]
     [Range(0,1)] public float _flockLowHungerThreshold;
@@ -49,7 +50,7 @@ public class Flock : MonoBehaviour
     {
         get { return _flockLowHungerThreshold; }
     }
-    [Range(0,1)] public float _flockLowHealthThreshold;         //Salud mínima para no considerarse la bandada sana
+    [Range(0,1)] public float _flockLowHealthThreshold;       //Salud mínima para no considerarse la bandada sana
     public float flockLowHealthThreshold
     {
         get { return _flockLowHealthThreshold; }
@@ -62,72 +63,15 @@ public class Flock : MonoBehaviour
     //Para llevar la cuenta del total de agentes
     internal int total;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-       /* total = 0;
-        nestPosition = transform.position;
-        //Calculamos los cuadrados
-        //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
-        //  cada vez que use sqrMagnitude
-        squareMaxSpeed = maxSpeed * maxSpeed;
-        squareNeighborRadius = neighborRadius * neighborRadius;
-        squareAvoidanceRadius = squareNeighborRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
+    #endregion
 
-        //Cargo las posibles posiciones de aparición
-        GameObject wolfPackSpawnPositionsObject = GameObject.Find("WolvesSpawnPoints");
-        GameObject rabbitFlockSpawnPositionsObject = GameObject.Find("RabbitSpawnPoints");
-*/
-/*        foreach (Transform child in wolfPackSpawnPositionsObject.GetComponent<Transform>())
-        {
-            //Debug.Log(child.ToString());
-            _wolfSpawnPoints.Add(child);
-        }
-        
-        foreach (Transform child in rabbitFlockSpawnPositionsObject.GetComponent<Transform>())
-        {
-            _rabbitSpawnPoints.Add(child);
-        }*/
+    #region ClassMethods
 
-        //Creamos las manadas de lobos y conejos
-//        FlockWolf wolvesFlock = Instantiate(wolfPackPrefab, _wolfSpawnPoints[Random.Range(0,_wolfSpawnPoints.Count)]);
-//        FlockRabbit rabbitFlock = Instantiate(rabbitFlockPrefab, _rabbitSpawnPoints[Random.Range(0,_rabbitSpawnPoints.Count)]);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*
-        //Se calcula el movimiento de cada agente
-        foreach(FlockAgent agent in agents)
-        {
-            //Se recogen todos los agentes dentro del radio
-            List<Transform> context = GetNearbyObjects(agent);
-            //agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count/6f);
-            
-            //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
-            Vector2 move = behavior.CalculateMove(agent, context, this);
-            //Con esto se suavizan los giros, para que no haga movimientos bruscos
-            move *= driveFactor;
-
-            
-            if (move.sqrMagnitude > squareMaxSpeed)
-            {
-                //Si el cuadrado del movimiento es mayor que el cuadrado la velocidad máxima
-                //  capo la velocidad con el máximo definido
-                move = move.normalized * maxSpeed;
-            }
-
-            //Muevo el agente mientras no haya llegado a la posición objetivo
-            if(targetPosition!=Vector2.zero){
-                agent.Move(move);
-            }
-                
-            
-        }*/
-    }
-
+    /// <summary>
+    /// Devuelve una lista con los objetos cercanos al agente.
+    /// </summary>
+    /// <param name="agent"></param>
+    /// <returns></returns>
     internal virtual List<Transform> GetNearbyObjects(FlockAgent agent)
     {
         //Lista de posiciones
@@ -152,7 +96,7 @@ public class Flock : MonoBehaviour
     }
     
     /// <summary>
-    /// Cada 30 segundos cambia la posición en la que se centran las bandadas
+    /// Cada 15 segundos cambia la posición en la que se centran las bandadas.
     /// Otorga dinamismo a la simulación
     /// </summary>
     /// <returns></returns>
@@ -161,7 +105,9 @@ public class Flock : MonoBehaviour
         called = true;
         Vector3 newPos = Random.insideUnitSphere;
         targetPosition = new Vector3(newPos.x, 0, newPos.z)*65;
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(15);
         called = false;
     }
+    
+    #endregion
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla que los agentes se eviten si se acercan demasiado entre ellos
+/// </summary>
 [CreateAssetMenu(menuName = "Flock/Behavior/Avoidance")]
 public class AvoidanceBehavior : FlockBehavior
 {
@@ -32,6 +35,6 @@ public class AvoidanceBehavior : FlockBehavior
 
         Debug.DrawRay(agent.transform.position, avoidanceMove, Color.red);
         
-        return new Vector3(avoidanceMove.x, 0, avoidanceMove.z);
+        return new Vector3(avoidanceMove.x, 0, avoidanceMove.z);    //y = 0 para que los agentes no salgan volando
     }
 }

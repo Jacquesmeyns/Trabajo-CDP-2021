@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class FlockRabbit : Flock
 {
+    #region MonobehaviorMethods
     
     void Awake()
     {
-        nestPosition = transform.position;
-        nestPrefab.GetComponent<SpriteRenderer>().color = Color.yellow;
-        Instantiate( 
-            nestPrefab, 
-            nestPosition, 
-            nestPrefab.transform.rotation, 
-            transform);
-        
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
         //  cada vez que use sqrMagnitude
         squareMaxSpeed = maxSpeed * maxSpeed;
@@ -36,7 +29,6 @@ public class FlockRabbit : Flock
                 this.GetComponentInParent<Transform>()
             );
             newAgent.name = "Conejo " + i;
-            //newAgent.kind = AnimalKind.RABBIT;
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent.GetComponent<FlockAgentRabbit>());
             total++;
@@ -44,18 +36,20 @@ public class FlockRabbit : Flock
 
         targetPosition = transform.position;
         
-        
-        //nestPrefab.GetComponent<SpriteRenderer>().color = Color.blue;
-        /*nestPrefab.transform.position =
-            new Vector3(nestPrefab.transform.position.x, 0, nestPrefab.transform.position.z);*/
-        
+        //El círculo que marca el nido de la manada
+        nestPosition = transform.position;
+        nestPrefab.GetComponent<SpriteRenderer>().color = Color.yellow;
+        Instantiate( 
+            nestPrefab, 
+            nestPosition, 
+            nestPrefab.transform.rotation, 
+            transform);
     }
 
     // Update is called once per frame
     void Update()
     {
         //Se calcula el movimiento de cada agente
-        
         for(int i = agents.Count-1; i >= 0; i--)
         {
             if (agents[i] == null)
@@ -74,21 +68,23 @@ public class FlockRabbit : Flock
                     //Si no está a salvo y sigue cerca, se sigue moviendo
                     if(!((FlockAgentRabbit)agents[i]).safe)
                         move = ((FlockAgentRabbit)agents[i]).panicBehavior.CalculateMove(agents[i], context, this);
-                }   //Cavar madriguera
+                }   
+                //Cavar madriguera
                 else if (!((FlockAgentRabbit) agents[i]).hasDug)
                 {
-                    //Debug.Log("DIG BEHAVIOR");
                     move = ((FlockAgentRabbit)agents[i]).digBehavior.CalculateMove(agents[i], context, this);
-                }   //Hambre
+                }   
+                //Hambre
                 else if(((FlockAgentRabbit)agents[i]).food != null)
                 {
                     move = ((FlockAgentRabbit)agents[i]).eatBehavior.CalculateMove(agents[i], context, this);
-                }
-                else if(agents[i].CanBreed() && agents[i].partner != null)//Reproducción
+                }   
+                //Reproducción
+                else if(agents[i].CanBreed() && agents[i].partner != null)
                 {
                     if (!agents[i].InNestWithPartner(nestPosition))
                     {
-                        //Pre-breeding behavior. Se esperan en el nido
+                        //Pre-breeding behavior. Se esperan mutuamente en el nido
                         move = agents[i].preBreedingBehavior.CalculateMove(agents[i], context, this);
                     }
                     else
@@ -98,8 +94,6 @@ public class FlockRabbit : Flock
                 {
                     move = defaultBehavior.CalculateMove(agents[i], context, this);
                 }
-                    
-
 
                 //Con esto se suavizan los giros, para que no haga movimientos bruscos
                 move *= driveFactor;
@@ -111,24 +105,22 @@ public class FlockRabbit : Flock
                     move = move.normalized * maxSpeed;
                 }
 
-                //Muevo el agente mientras no haya llegado a la posición objetivo
-                //if(targetPosition!=Vector2.zero){
-                //    Debug.Log("Tengo una posición a la que ir");
-                
+                //Muevo el agente
                 agents[i].Move(move);
-                //  ---------------> SÓLO DEBUG, PARA EVITAR QUE SE MUEVA <--------------------
-                
-                
-                //}
             }
 
         }
 
-        /*if (!called)
-            StartCoroutine(ChangeTargetPosition());*/
+        //Para dar dinamismo
+        if (!called)
+            StartCoroutine(ChangeTargetPosition());
     }
+    
+    #endregion
 
-    List<Transform> GetNearbyObjects(FlockAgent agent)
+    #region ClassMethods
+    
+    internal override List<Transform> GetNearbyObjects(FlockAgent agent)
     {
         //Lista de posiciones
         List<Transform> context = new List<Transform>();
@@ -150,6 +142,6 @@ public class FlockRabbit : Flock
         //Devolvemos los agentes circundantes
         return context;
     }
-
     
+    #endregion
 }

@@ -61,6 +61,7 @@ public class FlockAgent : MonoBehaviour
         }
         set
         {
+            //Cuando se queda sin bocados, el cadáver desaparece
             _foodBites = value;
             if(_foodBites<=0)
                 Dissappear();
@@ -120,6 +121,7 @@ public class FlockAgent : MonoBehaviour
         set
         {
             _currentHealth = Mathf.Clamp(value, 0, startingHealth);
+            //Cuando se queda sin vida, se convierte en cadáver (se gira 90 grados en el eje Z)
             if (_currentHealth <= 0)
             {
                 gameObject.transform.Rotate(0,0,90);
@@ -142,92 +144,108 @@ public class FlockAgent : MonoBehaviour
 
     #region MyMethods
     
-    //Los árboles se construyen en código leyéndo el grafo de derecha a izquierda y de abajo a arriba
-    //  Primero haz todos los nodos (no importa el orden), y luego monta las secuencias y los selectores
-    //  en el orden que he dicho al principio
-    private void ConstructBehaviorTree()
+    /// <summary>
+    /// Construye el árbol de comportamientos del agente.
+    ///
+    /// Los árboles se construyen en código leyendo el grafo de derecha a izquierda y de abajo a arriba.
+    ///  Primero haz todos los nodos (no importa el orden), y luego monta las secuencias y los selectores
+    ///  en el orden dicho al principio.
+    /// </summary>
+    public virtual void ConstructBehaviorTree()
     {
-        Debug.LogError("Necesita implementación de árbol");
+        throw new NotImplementedException();
     }
 
-    //Aplico movimientos con la velocidad
+    /// <summary>
+    /// Aplica movimiento con la velocidad.
+    /// </summary>
+    /// <param name="velocity"></param>
     public void Move(Vector3 velocity)
     {
-        //transform.forward = velocity;
         transform.position += velocity * Time.deltaTime;
-        
-        //tDelta += Time.deltaTime / tSeconds;
         transform.forward = Vector3.SmoothDamp(transform.forward, velocity, ref velocity, 1f);
-
-        //transform.position = Vector3.Lerp(transform.position, velocity , Time.deltaTime);
-        //transform.position = Vector3.MoveTowards(transform.position, velocity * Time.deltaTime, velocity.magnitude);
-
-        /*Vector3 velocidad = new Vector3(velocity.x, 0, velocity.y);
-        transform.up = velocity;
-        transform.position += (Vector3)velocidad * Time.deltaTime;
-        */
     }
 
+    /// <summary>
+    /// Separa al agente de la manada.
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public virtual void GoAlone()
     {
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Devuelve al agente a la manada.
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public virtual void Regroup()
     {
         throw new NotImplementedException();
     }
 
-    //Para controlar el movimiento
+    /// <summary>
+    /// Si el agente tiene puntos de vida o no.
+    /// </summary>
+    /// <returns></returns>
     public bool IsDead(){
         return currentHealth <= 0;
     }
 
+    /// <summary>
+    /// True si puede reproducirse.
+    /// </summary>
+    /// <returns></returns>
     public bool CanBreed()
     {
         return !_hasBreeded;
-        
-        //Si ha tenido crías no puede tener más
-        /*if(_hasBreeded)
-        {
-            return false;
-        }
-        //Si no ha tenido, puede tener sólo una vez
-        else
-        {
-            _hasBreeded = true;
-            return true;
-        }*/
     }
 
+    /// <summary>
+    /// Elimina el gameobject del agente.
+    /// </summary>
     public void Dissappear()
     {
-        //Debug.Log("Me destruyo: " + this.ToString());
         Destroy(gameObject);
     }
-
     
-    //True cuando está con bocados disponibles
+    /// <summary>
+    /// True cuando está con bocados disponibles.
+    /// </summary>
+    /// <returns></returns>
     public bool CanBeEaten()
     {
         return foodBites > 0;
     }
     
-    //Se le quita un contador de bocados
+    /// <summary>
+    /// Se le quita un contador de bocados.
+    /// </summary>
     public void TakeBite()
     {
         foodBites--;
     }
 
+    /// <summary>
+    /// Actualiza el nivel de hambre en base al valor gluttony y startingHunger.
+    /// </summary>
     public void UpdateHunger()
     {
         hunger -= gluttony*startingHunger;
     }
     
+    /// <summary>
+    /// Regenera la vida con el tiempo en base al valor healthRestoreRate.
+    /// </summary>
     internal void RegenerateHealth(){
         currentHealth += Time.deltaTime * healthRestoreRate;
     }
 
+    /// <summary>
+    /// Si puede hacerse compañero del agente pasado por parámetro se emparejan y devuelve true.
+    /// </summary>
+    /// <param name="agent"></param>
+    /// <returns></returns>
     public bool PartnerWith(FlockAgent agent)
     {
         //Si alguno ya tiene compañero, no puede elegirse otro. Tampoco si el compañero no puede criar aún
@@ -243,20 +261,20 @@ public class FlockAgent : MonoBehaviour
         return true;
     }
 
-    //Crea hijo o hijos
+    /// <summary>
+    /// Crea una o varias instancias de agentes hijos.
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public virtual void SpawnChilds()
     {
         throw new NotImplementedException();
-        /*if(!CanBreed())
-            return;
-        _hasBreeded = true;
-        partner._hasBreeded = true;
-        
-        GameObject child = Instantiate(gameObject, GetComponentInParent<FlockWolf>().transform);
-        GetComponentInParent<FlockWolf>().agents.Add(child.GetComponent<FlockAgentWolf>());*/
     }
 
-    //Si ambos están dentro del radio del nido, true
+    /// <summary>
+    /// Devuelve true si ambos están dentro del radio del nido.
+    /// </summary>
+    /// <param name="nestPosition">Posición del nido.</param>
+    /// <returns></returns>
     internal bool InNestWithPartner(Vector3 nestPosition)
     {
         float minDistance = transform.GetComponentInParent<Flock>().nestRadius;
@@ -269,6 +287,9 @@ public class FlockAgent : MonoBehaviour
     #endregion
 }
 
+/// <summary>
+/// Tipos de agentes animales.
+/// </summary>
 public enum AnimalKind{
     WOLF, RABBIT, NULL,
 }

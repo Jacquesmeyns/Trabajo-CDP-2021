@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve SUCCESS cuando hay un depredador cerca del radio de consciencia del agente (conejo).
+/// </summary>
 public class IsPredatorNearNode : Node
 {
     private FlockAgentRabbit _agent;
-    private List<FlockAgentWolf> _predators;
     
     public IsPredatorNearNode(FlockAgentRabbit agent)
     {
@@ -14,9 +16,6 @@ public class IsPredatorNearNode : Node
 
     public override NodeState Evaluate()
     {
-        //Reiniciamos la lista cada vez
-    //_predators = new List<FlockAgentWolf>();
-        
         //Busca todos los colliders en su radio de consciencia
         Collider[] contextColliders = Physics.OverlapSphere(_agent.transform.position, _agent.awarenessRadius);
         //Guarda las posiciones de todos los lobos dentro de su radio de búsqueda (los agentes 
@@ -35,7 +34,6 @@ public class IsPredatorNearNode : Node
         
         //No hay lobos cerca
         _agent.panic = false;
-        //_agent.safe = true;
         return NodeState.FAILURE;
     }
 }

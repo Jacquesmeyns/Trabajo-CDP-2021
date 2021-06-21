@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve SUCCESS cuando está dentro de la zona en la que quiere cavar. Y cava.
+/// </summary>
 public class GoToDigNode : Node
 {
-//private NavMeshAgent agent;
     private FlockAgentRabbit _agent;
-    private float burrowRadius = 2f;
+    private float burrowRadius = 2f;    //Radio de la zona a cavar
 
     public GoToDigNode(FlockAgentRabbit agent)
     {

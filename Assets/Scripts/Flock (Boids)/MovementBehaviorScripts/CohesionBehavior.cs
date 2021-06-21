@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla que los agentes se mantengan en la manada
+/// </summary>
 [CreateAssetMenu(menuName = "Flock/Behavior/Cohesion")]
 public class CohesionBehavior : FlockBehavior
 {

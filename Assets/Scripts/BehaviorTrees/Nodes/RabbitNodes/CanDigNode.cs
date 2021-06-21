@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve SUCCESS cuando el agente puede cavar.
+/// </summary>
 public class CanDigNode : Node
 {
     private FlockAgentRabbit _agent;
@@ -15,7 +18,6 @@ public class CanDigNode : Node
     {
         if (_agent.hasDug)
         {
-            //_agent.searchingWhereToDig = false;           ?¿?¿?¿
             return NodeState.FAILURE;
         }
 

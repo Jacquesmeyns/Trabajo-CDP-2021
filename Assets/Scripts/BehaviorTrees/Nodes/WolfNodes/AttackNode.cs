@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Devuelve SUCCESS cuando la presa ha muerto.
+/// </summary>
 public class AttackNode : Node
 {
     private FlockAgent targetAgent = new FlockAgent();
@@ -14,9 +17,7 @@ public class AttackNode : Node
 
     public override NodeState Evaluate()
     {
-        //Cuando lo mata: success
         if(targetAgent.IsDead()){
-            //targetAgent.GetComponentInChildren<Material>().SetColor("_Color",Color.red);
             return NodeState.SUCCESS;
         }
 

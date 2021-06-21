@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// Devuelve SUCCESS si el agente puede comer
+/// Devuelve SUCCESS si el agente puede comer.
 /// </summary>
 public class EatNode : Node
 {

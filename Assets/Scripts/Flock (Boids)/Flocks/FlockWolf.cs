@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class FlockWolf : Flock
 {
+    #region MonobehaviorMethods
+
     void Awake()
     {
         nestPosition = transform.position;
@@ -33,13 +35,14 @@ public class FlockWolf : Flock
                 Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
                 GetComponentInParent<Transform>()
             );
-            
-            
+
             newAgent.name = "Lobo " + i;
             //Se guarda el nuevo agente en la bandada
             agents.Add(newAgent.GetComponent<FlockAgentWolf>());
             total++;
         }
+        
+        //El círculo que marca el nido de la manada
         nestPrefab.GetComponent<SpriteRenderer>().color = Color.red;
         Instantiate( 
             nestPrefab, 
@@ -52,20 +55,15 @@ public class FlockWolf : Flock
     void Update()
     {
         //Se calcula el movimiento de cada agente
-
         foreach (FlockAgentWolf agent in agents)
         {
             if (!agent.IsDead()){
-
                 Vector3 move;
-
                 //Se recogen todos los agentes dentro del radio
                 List<Transform> context = GetNearbyObjects(agent);
 
-
                 if (agent.inFlock)
                 {
-                    //Debug.Log("Flock Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                     move = defaultBehavior.CalculateMove(agent, context, this);
                 }
@@ -74,8 +72,7 @@ public class FlockWolf : Flock
                 {
                     if(!agent.InNestWithPartner(nestPosition)) 
                     {
-                         //Debug.Log("PRE-Breeding Behavior" + agent.name);
-                         //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
+                        //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                          move = agent.preBreedingBehavior.CalculateMove(agent, context, this);
                     }
                     else
@@ -83,17 +80,11 @@ public class FlockWolf : Flock
                         //Debug.Log("Breeding Behavior" + agent.name);
                         move = agent.breedingBehavior.CalculateMove(agent, context, this);
                     }
-                    
-                    
-                    
-                    
                 }
                 else
                 {
-                    //Debug.Log("Hunting Behavior");
                     //Se calcula el movimiento de cada agente de la bandada en función del comportamiendo definido
                     move = agent.huntingBehavior.CalculateMove(agent, context, this);
-                    //move = Vector3.zero;
                 }
                 
                 //Con esto se suavizan los giros, para que no haga movimientos bruscos
@@ -105,23 +96,22 @@ public class FlockWolf : Flock
                     //  capo la velocidad con el máximo definido
                     move = move.normalized * maxSpeed;
                 }
-                //if(move == Vector3.zero)
-                //    Debug.Log("ZERO");
-                
                 //Aplico el movimiento
                 agent.Move(move);
             }
-
         }
         
-        /*if (!called)
-            StartCoroutine(ChangeTargetPosition());*/
+        //Para dar dinamismo
+        if (!called)
+            StartCoroutine(ChangeTargetPosition());
     }
 
+    #endregion
+
+    #region ClassMethods
     
     internal override List<Transform> GetNearbyObjects(FlockAgent agent)
     {
-        
         //Lista de posiciones
         List<Transform> context = new List<Transform>();
         //Array de todos los colliders que estén dentro del área circular, 
@@ -139,37 +129,9 @@ public class FlockWolf : Flock
                 context.Add(c.transform);
             }
         }
-
         //Devolvemos los agentes circundantes
         return context;
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
-    }
-
-    /*
-    List<Transform> GetSeenObjects(FlockAgent agent)
-    {
-        
-        //Lista de posiciones
-        List<Transform> context = new List<Transform>();
-        //Array de todos los colliders que estén dentro del collider del cono de vision
-        Collider[] contextColliders = agent.ConoVision.OverlappingColliders().ToArray();
-        
-        //Para cada agente guardamos toda las posiciones de los obstáculos 
-        //  que colisionen con él (estén dentro de su área de visión)
-        foreach (Collider c in contextColliders)
-        {
-            //No queremos guardar la posición del propio agente
-            if(c!= agent.AgentCollider && c.CompareTag("Obstacle"))
-            {
-                context.Add(c.transform);
-            }
-        }
-
-        //Devolvemos los obstáculos circundantes
-        return context;
-    }*/
+    
+    #endregion
 }

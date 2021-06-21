@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla que se mantengan en la manada de una forma más suave.
+/// </summary>
 [CreateAssetMenu(menuName = "Flock/Behavior/Steered Cohesion")]
 public class SteeredCohesionBehavior : FlockBehavior
 {

@@ -7,18 +7,13 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class FlockAgentWolf : FlockAgent
 {
-    private void Awake() {
-        //awarenessRadius = 10f;
-        currentHealth = startingHealth;   //************************QUITAR EL /9. SÓLO DEBUG
-        hunger = startingHunger;
-        foodBites = (int) startingHealth /10;
-        ConstructBehaviorTree();
-        _hasBreeded = true;
-        StartCoroutine(GrowUp()); //Corrutina, tiempo que tarda en crecer para poder criar
-    }
 
+    #region Variables
+
+    //El comportamiento de caza de los lobos
     [SerializeField] public FlockBehavior huntingBehavior;
 
+    //Referencia a la presa
     private FlockAgentRabbit _prey = new FlockAgentRabbit();
     public FlockAgentRabbit prey
     { 
@@ -26,43 +21,23 @@ public class FlockAgentWolf : FlockAgent
         set{ _prey = value;}
     }
     
-    private bool attacked = false;
-    private bool eating = false;
+    //Para controlar si ha atacado o si está comiendo
+    private bool attacked;
+    private bool eating;
     
-    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvv----------->>>>>>>>>>>>>>Me interesa revisar esto
-    public Transform targetLocation{
-        get {return _prey.transform;}
+    #endregion
+
+    #region MonobehaviorMethods
+    
+    private void Awake() {
+        currentHealth = startingHealth;
+        hunger = startingHunger;
+        foodBites = (int) startingHealth /10;   //Para escalar los bocados en función al 10% de la vida máxima
+        ConstructBehaviorTree();
+        _hasBreeded = true;
+        StartCoroutine(GrowUp()); //Corrutina, tiempo que tarda en crecer para poder criar (10-20seg)
     }
     
-    
-
-
-    //Los árboles se construyen en código leyendo el grafo de derecha a izquierda y de abajo a arriba
-    //  Primero se hacen todos los nodos (no importa el orden), y luego se montan las secuencias y los selectores
-    //  en el orden dicho al principio
-    private void ConstructBehaviorTree()
-    {
-        IsFlockHealthyNode isFlockHealthyNode = new IsFlockHealthyNode(this, transform.GetComponentInParent<FlockWolf>().flockLowHealthThreshold);
-        HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
-        SearchPreyNode searchPreyNode = new SearchPreyNode(this);
-        ChaseAttackNode chaseAttackNode = new ChaseAttackNode(this);
-        AttackNode attackNode = new AttackNode(prey);
-        EatNode eatNode = new EatNode(this);
-        SeekPartnerNode seekPartnerNode = new SeekPartnerNode(this);
-        IsFlockFedNode isFlockFedNode = new IsFlockFedNode(this, transform.GetComponentInParent<FlockWolf>().flockLowHungerThreshold);
-        GoToPartnerNode goToPartnerNode = new GoToPartnerNode(this);
-        RangeNode isInRangeNode = new RangeNode(awarenessRadius * 1.5f, this);
-
-        Sequence mateSequence = new Sequence(new List<Node> {isFlockHealthyNode, isFlockFedNode, seekPartnerNode, goToPartnerNode});
-
-        Sequence defendSequence = new Sequence(new List<Node>{searchPreyNode, chaseAttackNode, attackNode});
-
-        //Sequence huntSequence = new Sequence(new List<Node>{healthNode, searchPreyNode, chaseNode, eatNode});
-        Sequence surviveSequence = new Sequence(new List<Node>{ /*new Inverter(isFlockHealthyNode),*/ new Inverter(isFlockFedNode), /*healthNode, */searchPreyNode, isInRangeNode,chaseAttackNode, eatNode});
-
-        topNode = new Selector(new List<Node>{ surviveSequence,/* defendSequence, */mateSequence});
-    }
-
     private void Update() {
         if (!IsDead())
         {
@@ -80,7 +55,41 @@ public class FlockAgentWolf : FlockAgent
             UpdateHunger();
         }
     }
+    
+    #endregion
 
+    #region ClassMethods
+    
+    public override void ConstructBehaviorTree()
+    {
+        //Nodos
+        IsFlockHealthyNode isFlockHealthyNode = new IsFlockHealthyNode(this, transform.GetComponentInParent<FlockWolf>().flockLowHealthThreshold);
+        HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
+        SearchPreyNode searchPreyNode = new SearchPreyNode(this);
+        ChaseAttackNode chaseAttackNode = new ChaseAttackNode(this);
+        AttackNode attackNode = new AttackNode(prey);
+        EatNode eatNode = new EatNode(this);
+        SeekPartnerNode seekPartnerNode = new SeekPartnerNode(this);
+        IsFlockFedNode isFlockFedNode = new IsFlockFedNode(this, transform.GetComponentInParent<FlockWolf>().flockLowHungerThreshold);
+        GoToPartnerNode goToPartnerNode = new GoToPartnerNode(this);
+        RangeNode isInRangeNode = new RangeNode(awarenessRadius * 1.5f, this);
+
+        //Secuencias
+        Sequence mateSequence = new Sequence(new List<Node> {isFlockFedNode, seekPartnerNode, goToPartnerNode});
+        
+        Selector notHealtthySelector = new Selector(new List<Node>{new Inverter(isFlockFedNode), new Inverter(healthNode)});
+
+        Sequence surviveSequence = new Sequence(new List<Node>{notHealtthySelector, searchPreyNode, isInRangeNode,chaseAttackNode, eatNode});
+
+        //Nodo raíz
+        topNode = new Selector(new List<Node>{ surviveSequence,mateSequence});
+    }
+
+    
+    /// <summary>
+    /// Devuelve true si la presa está oculta.
+    /// </summary>
+    /// <returns></returns>
     public bool IsPreyHidden()
     {
         if(prey.isSafe() && prey.panic)
@@ -103,26 +112,28 @@ public class FlockAgentWolf : FlockAgent
         this.tag = "Wolf";
     }
 
-
+    /// <summary>
+    /// Devuelve true si la presa ha muerto.
+    /// </summary>
+    /// <returns></returns>
     public bool IsPreyDead()
     {
         return prey.IsDead();
-        
-        /*
-        if(prey!=null)
-            return prey.IsDead();
-        else
-            return false;*/
     }
 
+    /// <summary>
+    /// Hace daño a la presa cada cierto tiempo (corrutina).
+    /// </summary>
     public void Attack()
     {
         if(!attacked)
             StartCoroutine(AttackCoolDown());
     }
 
-    
-
+    /// <summary>
+    /// True si puede comer de la presa.
+    /// </summary>
+    /// <returns></returns>
     public bool CanTakeBite()
     {
         if (prey == null)
@@ -136,13 +147,15 @@ public class FlockAgentWolf : FlockAgent
         }
     }
 
+    /// <summary>
+    /// Se come un bocado de la presa cada cierto tiempo (corrutina).
+    /// </summary>
     public void Eat()
     {
         if(!eating)
             StartCoroutine(BiteCoolDown());
     }
     
-    //Crea hijo o hijos
     public override void SpawnChilds()
     {
         if(!CanBreed())
@@ -165,10 +178,18 @@ public class FlockAgentWolf : FlockAgent
             //Se añade a la manada
             pack.agents.Add(child.GetComponent<FlockAgentWolf>());
         }
-        Regroup();
+        Regroup();          //Ambos vuelven con la manada
         partner.Regroup();
     }
+    
+    #endregion
         
+    #region IEnumerators
+    
+    /// <summary>
+    /// Le quita una cantidad de evida a la presa cada cinco segundos.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator AttackCoolDown()
     {
         attacked = true;
@@ -177,6 +198,10 @@ public class FlockAgentWolf : FlockAgent
         attacked = false;
     }
     
+    /// <summary>
+    /// Toma un bocado de la presa que le cura cada 2 segundos.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator BiteCoolDown()
     {
         eating = true;
@@ -187,13 +212,16 @@ public class FlockAgentWolf : FlockAgent
         eating = false;
     }
     
+    /// <summary>
+    /// Crece a los 10-20 segundos. Actualiza su escala y pone _hasBreed a false.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator GrowUp()
     {
-        //float startTime = Time.time;
-        Vector3 speed = Vector3.one;
-        //transform.localScale = Vector3.SmoothDamp(transform.localScale, Vector3.one, ref speed, 2f);
         yield return new WaitForSeconds(Random.value *10f + 10f);
         transform.localScale = Vector3.one;
         _hasBreeded = false;
     }
+    
+    #endregion
 }

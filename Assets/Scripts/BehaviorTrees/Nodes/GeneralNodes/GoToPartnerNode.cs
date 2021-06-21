@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// Devuelve SUCCESS cuando el agente ha conseguido llegar hasta su compañero y reproducirse con él
+/// Devuelve SUCCESS cuando el agente ha conseguido llegar hasta su compañero y reproducirse con él.
 /// </summary>
 public class GoToPartnerNode : Node
 {

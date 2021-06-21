@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Sigue y ataca a la presa. Devuelve SUCCESS cuando la presa ha muerto.
+/// </summary>
 public class ChaseAttackNode : Node
 {
     private FlockAgentWolf agent;
@@ -29,8 +32,6 @@ public class ChaseAttackNode : Node
         float distance = Vector3.Distance(targetAgent.transform.position, agent.transform.position);
         if(distance < 3f)
         {
-            //Seguir moviéndose
-
             //Si la presa se ha ocultado
             if(agent.prey.isSafe())
             {

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Devuelve SUCCESS cuando el agente está dentro de la distancia mínima para comer.
+/// </summary>
 public class GoToEatNode : Node
 {
     private FlockAgentRabbit _agent;

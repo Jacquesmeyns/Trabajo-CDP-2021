@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Instancia los scripts que instanciarán los agentes y prepara el mapa de forma aleatoria.
+/// </summary>
 public class Spawner : MonoBehaviour
 {
+    //Todos los prefabs a instanciar
     [SerializeField] private FlockWolf wolfPackPrefab;
     [SerializeField] private FlockRabbit rabbitFlockPrefab;
     [Header("Environment prefabs")] 
@@ -12,16 +16,16 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject grass;
 
     [Header("Environment generation variables")]
-    [Range(0,10)] public int minCumulus;
+    [Range(0,10)] public int minCumulus;    //Min-Max de nodos de obstáculos. Cada nodo tiene un árbol y varias piedras.
     [Range(10,30)] public int maxCumulus;
     [Range(0,2)] public int minStones;
     [Range(2,10)] public int maxStones;
-    [Range(1, 5)] public float stonesRadius;
+    [Range(1, 5)] public float stonesRadius;    //Radio de aparición de las piedras alrededor del árbol.
     [Range(0, 30)] public int startingRabbitFood;
-    [Range(1, 120)] public int grassSpawnTime;
+    [Range(1, 120)] public int grassSpawnTime;  //Segundos que pasan entre instanciaciones de césped.
 
-    internal bool called;
-    private GameObject scene;
+    internal bool called;   //Para controlar las llamadas de la corrutina
+    private GameObject scene;   //Referencia a la escena
     
     // Start is called before the first frame update
     private void Start()
@@ -49,15 +53,11 @@ public class Spawner : MonoBehaviour
             cumulo.name = "Obstacle cumulus " + i;
             cumulo.transform.position = ranPos;
             
-            //Instancio el centro del cúmulo. Un árbol
+            //Instancia del centro del cúmulo. Un árbol
             Instantiate(treeObstacle, 
                 cumulo.transform.position, 
                 Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
                 cumulo.transform);
-            /*Instantiate(grass,
-                ranPos,
-                Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
-                scene.transform);*/
             //Por cada cúmulo se instancian alrededor del mismo una serie de obstáculos en posiciones aleatorias
             int nStoneObstacles = Random.Range(minStones, maxStones);
             for (int j = 0; j < nStoneObstacles; j++)
@@ -71,15 +71,10 @@ public class Spawner : MonoBehaviour
                     ranPos,
                     Quaternion.Euler(Vector3.up * Random.Range(0f, 360f)),
                     cumulo.transform);
-                /*stoneObstacle.transform.position = Random.insideUnitSphere * stonesRadius + cumulo.transform.position;
-                stoneObstacle.transform.position =
-                    new Vector3(stoneObstacle.transform.position.x, 0f, stoneObstacle.transform.position.z);
-                stoneObstacle.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0f, 360f));
-                Instantiate(stoneObstacle, cumulo.transform);*/
             }
         }
         
-        //Creo césped inicial para los conejos
+        //Spawn del césped inicial para los conejos
         for (int i = 0; i < startingRabbitFood; i++)
         {
             ranPos = Random.insideUnitSphere * 70;
@@ -100,6 +95,10 @@ public class Spawner : MonoBehaviour
             StartCoroutine(SpawnGrass());
     }
 
+    /// <summary>
+    /// Instancia una mata de césped cada vez que es llamada
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SpawnGrass()
     {
         called = true;

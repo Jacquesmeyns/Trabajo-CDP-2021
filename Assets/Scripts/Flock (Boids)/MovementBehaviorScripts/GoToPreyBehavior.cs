@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla que el agente vaya hacia la presa.
+/// </summary>
 [CreateAssetMenu(menuName = "Flock/Behavior/GoToPrey")]
 public class GoToPreyBehavior : FlockBehavior
 {
@@ -28,18 +31,20 @@ public class GoToPreyBehavior : FlockBehavior
             return Vector2.zero;
         }
 
-        //Debug.Log("Esta no es la buena, primo");
-        targetOffset = targetOffset * (t*t);
+        targetOffset = targetOffset * (t*t);    //Cuanto más lejos está, más escala
         return new Vector3(targetOffset.x, 0, targetOffset.z);
     }
 
+    /// <summary>
+    /// Calcula la posición del la presa. Para lobos.
+    /// </summary>
+    /// <param name="agent"></param>
+    /// <returns></returns>
      public Vector3 CalculatePreyPosition(FlockAgentWolf agent)
     {
-        //vvvvvvvvvvvvvvvvvvvvv--------------------->>>>>>>>>>>>>>>>>>>>>Esto debería ir en un nodo
         if (agent.prey == null)
         {
-            agent.Regroup();
-            
+            agent.Regroup();    //Si no hay presa, se reagrupa
             return Vector3.zero;
         }
             
@@ -50,6 +55,11 @@ public class GoToPreyBehavior : FlockBehavior
         return targetOffset;
     }
 
+    /// <summary>
+    /// Calcula la posición de la comida. Para conejos.
+    /// </summary>
+    /// <param name="agent"></param>
+    /// <returns></returns>
      public Vector3 CalculateFoodPosition(FlockAgentRabbit agent)
      {
          if (agent.food == null)

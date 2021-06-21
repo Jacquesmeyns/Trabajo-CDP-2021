@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// Devuelve SUCCESS cuando encuentra un compañero con el que reproducirse
+/// Devuelve SUCCESS cuando encuentra un compañero con el que reproducirse.
 /// </summary>
 public class SeekPartnerNode : Node
 {
@@ -61,13 +61,11 @@ public class SeekPartnerNode : Node
     }
 
     /// <summary>
-    /// Devuelve al agente con el que se pueda reproducir más cercano
+    /// Devuelve al agente con el que se pueda reproducir más cercano.
     /// </summary>
     /// <returns></returns>
     private bool MateClosestBreedableAgent()
     {
-        Transform closestPosition = null;
-
         agents.Sort((agent1, agent2) => CompareDistance(agent1, agent2));
         
         foreach (Collider c in agents)
@@ -77,7 +75,6 @@ public class SeekPartnerNode : Node
             {
                 return true;
             }
-
             //Si no puede, prueba con el siguiente más cercano
         }
 
@@ -86,10 +83,10 @@ public class SeekPartnerNode : Node
     }
 
    /// <summary>
-   ///  Compara la cercanía al agente de dos colliders
+   ///  Compara la cercanía al agente de dos colliders.
    /// </summary>
-   /// <param name="trans1">El collider del primer agente a comparar</param>
-   /// <param name="trans2">El collider del segundo agente a comparar</param>
+   /// <param name="trans1">El collider del primer agente a comparar.</param>
+   /// <param name="trans2">El collider del segundo agente a comparar.</param>
    /// <returns></returns>
     private int CompareDistance(Collider trans1, Collider trans2)
     {
