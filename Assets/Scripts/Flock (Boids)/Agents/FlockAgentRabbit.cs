@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,34 +15,35 @@ public class FlockAgentRabbit : FlockAgent
     private bool _safe;
     
     //Si hay un lobo cerca o no.
-    public bool panic;
+    internal bool panic;
     
     //Referencia al depredador que le persigue.
     public FlockAgentWolf predator;
     
     //Si ha cavado ya la madriguera.
-    public bool _hasDug;
+    internal bool _hasDug;
     
     //Para controlar que no se hagan varias llamadas a la corrutina. Sólo necesito una activa a la vez.
     private bool calledThread;
     
     //La posición de la madriguera en la que esconderse.
     internal Vector3 burrowPosition = Vector3.zero;
-    
-    //El prefab de la madriguera, para instanciarlo una vez haya cavado.
-    [SerializeField] GameObject burrowPrefab;
-    
+
     //Los comportamientos concretos que componen el movimiento del conejo.
     [SerializeField] public FlockBehavior panicBehavior;
     [SerializeField] public FlockBehavior digBehavior;
     [SerializeField] public FlockBehavior eatBehavior;
     
+    [Header("Burrow")]
+    //El prefab de la madriguera, para instanciarlo una vez haya cavado.
+    [SerializeField] GameObject burrowPrefab;
+    
     //Getters - setters de las variables anteriores
-    public bool safe{ 
+    internal bool safe{ 
         get{ return _safe;}
         set{ _safe = value;}
     }
-    public bool hasDug{ 
+    internal bool hasDug{ 
         get{ return _hasDug;}
         set{ _hasDug = value;}
     }

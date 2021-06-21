@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -12,8 +10,9 @@ public class FlockAgent : MonoBehaviour
     Vector3 currentVelocity;
 
     //Ángulos desde los que se lanzan los rayos del raycast
-    public int[] angulosVision = {-2, -1, 1, 2};
+    internal int[] angulosVision = {-10, -5, 5, 10};
 
+    [Header("Agent parameters")]
     //Salud de inicio
     [SerializeField] internal float startingHealth;
     
@@ -24,7 +23,7 @@ public class FlockAgent : MonoBehaviour
     internal float _hunger;     //Cuando llega a cero, empieza a perder vida
     
     //Cuánto hambre baja por turno
-    public float gluttony = 0.0001f;
+    internal float gluttony = 0.0001f;
     
     //Salud mínima para no considerarse sano
     [Range(0,1)] public float _lowHealthThreshold;
@@ -33,13 +32,13 @@ public class FlockAgent : MonoBehaviour
     [SerializeField] internal float healthRestoreRate;
     
     //Si está con el grupo o va por su cuenta
-    [SerializeField] private bool _inFlock = false;
+    private bool _inFlock = false;
     
     //Cantidad de bocados que puede morder un depredador de su cadáver
     private int _foodBites;
     
     //Si ha criado o no
-    [SerializeField] internal bool _hasBreeded = false;
+    internal bool _hasBreeded = false;
     
     //Agente con el que criar 
     private FlockAgent _partner = null;
@@ -52,6 +51,14 @@ public class FlockAgent : MonoBehaviour
     
     //Tipo de animal
     [SerializeField] private AnimalKind _kind = AnimalKind.NULL;
+    
+    //Radio de consciencia. Para ver a los demás agentes e interactuar con ellos (cazar/reproducirse)
+    private float _awarenessRadius = 10f;
+    public float awarenessRadius
+    { 
+        get{ return _awarenessRadius;}
+        //set{ _awarenessRadius = value;}
+    }
 
     internal int foodBites
     {
@@ -100,6 +107,7 @@ public class FlockAgent : MonoBehaviour
     }
 
     //Comportamiento de criar
+    [Header("Behaviors")]
     [SerializeField] public FlockBehavior breedingBehavior;
     [SerializeField] public FlockBehavior preBreedingBehavior;
 
@@ -108,13 +116,7 @@ public class FlockAgent : MonoBehaviour
         set { _kind = value;}
     }
 
-    //Radio de consciencia. Para ver a los demás agentes e interactuar con ellos (cazar/reproducirse)
-    [SerializeField] private float _awarenessRadius = 10f;
-    public float awarenessRadius
-    { 
-        get{ return _awarenessRadius;}
-        //set{ _awarenessRadius = value;}
-    }
+    
     
     public float currentHealth {
         get {return _currentHealth;}

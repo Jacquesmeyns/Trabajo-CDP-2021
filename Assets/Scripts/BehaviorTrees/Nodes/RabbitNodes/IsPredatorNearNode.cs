@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Devuelve SUCCESS cuando hay un depredador cerca del radio de consciencia del agente (conejo).

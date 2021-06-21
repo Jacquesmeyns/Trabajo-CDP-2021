@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]

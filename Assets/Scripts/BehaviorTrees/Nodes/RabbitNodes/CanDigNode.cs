@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Devuelve SUCCESS cuando el agente puede cavar.
 /// </summary>
 public class CanDigNode : Node

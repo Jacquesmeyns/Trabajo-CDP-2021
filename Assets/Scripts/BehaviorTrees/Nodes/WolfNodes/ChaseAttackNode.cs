@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 /// <summary>
 /// Sigue y ataca a la presa. Devuelve SUCCESS cuando la presa ha muerto.

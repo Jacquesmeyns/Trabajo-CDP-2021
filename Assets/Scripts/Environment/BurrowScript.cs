@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Controla las madrigueras y la cantidad de conejos que pueden ocultarse en ellas. Hay un máximo de 3 conejos por

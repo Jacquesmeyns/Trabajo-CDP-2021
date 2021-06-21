@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Devuelve SUCCESS cuando la vida del agente está por encima del umbral.
 /// </summary>
 public class HealthNode : Node

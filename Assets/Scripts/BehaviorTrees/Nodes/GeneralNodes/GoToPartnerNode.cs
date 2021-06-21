@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 /// <summary>
 /// Devuelve SUCCESS cuando el agente ha conseguido llegar hasta su compañero y reproducirse con él.

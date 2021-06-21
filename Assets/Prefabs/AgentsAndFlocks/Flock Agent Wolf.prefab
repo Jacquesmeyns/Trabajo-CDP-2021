@@ -45,20 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa83e6ccb8f99b4980a724b8bc0bd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angulosVision: e2fffffff1ffffff0f0000001e000000
-  startingHealth: 70
-  hungerThreshold: 0.5
-  gluttony: 0.0001
-  _lowHealthThreshold: 0.5
+  startingHealth: 100
+  hungerThreshold: 0.883
+  _lowHealthThreshold: 0.896
   healthRestoreRate: 0.5
-  _inFlock: 1
-  _hasBreeded: 0
   _currentHealth: 0
   _kind: 0
   breedingBehavior: {fileID: 11400000, guid: cb552b1ea04994c45afcedfd27823ab2, type: 2}
   preBreedingBehavior: {fileID: 11400000, guid: c483870ea7ed6464c9b09006729f44d7,
     type: 2}
-  _awarenessRadius: 14
   huntingBehavior: {fileID: 11400000, guid: ef2071b3695a6b74cb0bdc82a7244f7b, type: 2}
 --- !u!65 &-2686658291109697328
 BoxCollider:

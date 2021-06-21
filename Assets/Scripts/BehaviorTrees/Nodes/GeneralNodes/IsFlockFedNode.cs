@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Devuelve SUCCESS cuando el hambre media de la manada está por encima del umbral de la manada.
 /// </summary>
 public class IsFlockFedNode : Node

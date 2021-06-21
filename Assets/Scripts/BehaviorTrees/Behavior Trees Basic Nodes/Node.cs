@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Clase nodo. Puede tener tres estados (RUNNING, SUCCESS, FAILURE) y debe tener un método Evaluate que decida
 /// el estado a devolver.
 /// </summary>

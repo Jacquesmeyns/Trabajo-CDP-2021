@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Devuelve SUCCESS cuando está dentro de la zona en la que quiere cavar. Y cava.
