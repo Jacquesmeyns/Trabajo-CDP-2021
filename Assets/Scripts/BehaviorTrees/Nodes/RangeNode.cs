@@ -33,8 +33,8 @@ public class RangeNode : Node
         if (nodeState == NodeState.FAILURE && origin.kind == AnimalKind.WOLF)
         {
             //Se actualiza el estado. La presa y el depredador dejan de serlo
-            ((FlockAgentWolf) origin).prey = null;
             ((FlockAgentWolf) origin).prey.predator = null;
+            ((FlockAgentWolf) origin).prey = null;
         }
         return _nodeState;
     }

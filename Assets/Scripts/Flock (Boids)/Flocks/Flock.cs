@@ -62,7 +62,7 @@ public class Flock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        total = 0;
+       /* total = 0;
         nestPosition = transform.position;
         //Calculamos los cuadrados
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
@@ -74,8 +74,8 @@ public class Flock : MonoBehaviour
         //Cargo las posibles posiciones de aparición
         GameObject wolfPackSpawnPositionsObject = GameObject.Find("WolvesSpawnPoints");
         GameObject rabbitFlockSpawnPositionsObject = GameObject.Find("RabbitSpawnPoints");
-
-        foreach (Transform child in wolfPackSpawnPositionsObject.GetComponent<Transform>())
+*/
+/*        foreach (Transform child in wolfPackSpawnPositionsObject.GetComponent<Transform>())
         {
             //Debug.Log(child.ToString());
             _wolfSpawnPoints.Add(child);
@@ -84,7 +84,7 @@ public class Flock : MonoBehaviour
         foreach (Transform child in rabbitFlockSpawnPositionsObject.GetComponent<Transform>())
         {
             _rabbitSpawnPoints.Add(child);
-        }
+        }*/
 
         //Creamos las manadas de lobos y conejos
 //        FlockWolf wolvesFlock = Instantiate(wolfPackPrefab, _wolfSpawnPoints[Random.Range(0,_wolfSpawnPoints.Count)]);
