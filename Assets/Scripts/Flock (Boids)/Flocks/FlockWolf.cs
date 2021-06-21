@@ -42,10 +42,10 @@ public class FlockWolf : Flock
         }
 
         Instantiate( 
-            GameObject.Find("Posicion target"), 
+            nestPrefab, 
             nestPosition, 
-            GameObject.Find("Posicion target").transform.rotation, 
-            gameObject.transform);
+            nestPrefab.transform.rotation, 
+            transform);
     }
 
     // Update is called once per frame
@@ -114,7 +114,8 @@ public class FlockWolf : Flock
 
         }
         
-        
+        /*if (!called)
+            StartCoroutine(ChangeTargetPosition());*/
     }
 
     

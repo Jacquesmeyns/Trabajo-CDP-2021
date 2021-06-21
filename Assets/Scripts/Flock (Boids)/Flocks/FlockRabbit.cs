@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class FlockRabbit : Flock
 {
+    
     void Awake()
     {
+        Instantiate( 
+            nestPrefab, 
+            nestPosition, 
+            nestPrefab.transform.rotation, 
+            transform);
+        
         //  Se usan cuadrados para ahorrar un poco de cálculos, en lugar de usar raíces cuadradas
         //  cada vez que use sqrMagnitude
         squareMaxSpeed = maxSpeed * maxSpeed;
@@ -34,6 +41,12 @@ public class FlockRabbit : Flock
         }
 
         targetPosition = transform.position;
+        
+        
+        //nestPrefab.GetComponent<SpriteRenderer>().color = Color.blue;
+        /*nestPrefab.transform.position =
+            new Vector3(nestPrefab.transform.position.x, 0, nestPrefab.transform.position.z);*/
+        
     }
 
     // Update is called once per frame
@@ -109,6 +122,9 @@ public class FlockRabbit : Flock
             }
 
         }
+
+        /*if (!called)
+            StartCoroutine(ChangeTargetPosition());*/
     }
 
     List<Transform> GetNearbyObjects(FlockAgent agent)
@@ -133,4 +149,6 @@ public class FlockRabbit : Flock
         //Devolvemos los agentes circundantes
         return context;
     }
+
+    
 }

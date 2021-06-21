@@ -34,11 +34,14 @@ public class Flock : MonoBehaviour
     public float SquareAvoidanceRadius { get { return squareAvoidanceRadius; } }
     [SerializeField] internal Vector3 targetPosition = Vector3.zero;
     
+    internal bool called;
     
     
-    [Header("Posiciones de aparición")]
-    private readonly List<Transform> _wolfSpawnPoints = new List<Transform>();
-    private readonly List<Transform> _rabbitSpawnPoints = new List<Transform>();
+    
+    [Header("Prefab de nido")]
+    [SerializeField] internal GameObject nestPrefab;
+    /*private readonly List<Transform> _wolfSpawnPoints = new List<Transform>();
+    private readonly List<Transform> _rabbitSpawnPoints = new List<Transform>();*/
     
     [Header("Umbrales")]
     [Range(0,1)] public float _flockLowHungerThreshold;
@@ -146,5 +149,19 @@ public class Flock : MonoBehaviour
 
         //Devolvemos los agentes circundantes
         return context;
+    }
+    
+    /// <summary>
+    /// Cada 30 segundos cambia la posición en la que se centran las bandadas
+    /// Otorga dinamismo a la simulación
+    /// </summary>
+    /// <returns></returns>
+    internal IEnumerator ChangeTargetPosition()
+    {
+        called = true;
+        Vector3 newPos = Random.insideUnitSphere;
+        targetPosition = new Vector3(newPos.x, 0, newPos.z)*65;
+        yield return new WaitForSeconds(30);
+        called = false;
     }
 }

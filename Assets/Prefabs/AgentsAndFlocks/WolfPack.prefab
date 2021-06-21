@@ -54,6 +54,8 @@ MonoBehaviour:
   neighborRadius: 3
   avoidanceRadiusMultiplier: 7.96
   targetPosition: {x: 40, y: 0, z: -40}
-  _flockLowHungerThreshold: 0.048
-  _flockLowHealthThreshold: 0.043
+  nestPrefab: {fileID: 2173361715457102909, guid: 142f0763d5fa56e4d97dafb4751cca82,
+    type: 3}
+  _flockLowHungerThreshold: 0.676
+  _flockLowHealthThreshold: 0.684
   nestRadius: 1
