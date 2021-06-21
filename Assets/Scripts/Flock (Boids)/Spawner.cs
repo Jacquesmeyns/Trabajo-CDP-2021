@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Instancia los scripts que instanciarán los agentes y prepara el mapa de forma aleatoria.
@@ -15,19 +18,22 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject grass;
 
     [Header("Environment generation variables")]
-    [Range(0,10)] public int minCumulus;    //Min-Max de nodos de obstáculos. Cada nodo tiene un árbol y varias piedras.
-    [Range(10,30)] public int maxCumulus;
-    [Range(0,2)] public int minStones;
-    [Range(2,10)] public int maxStones;
-    [Range(1, 5)] public float stonesRadius;    //Radio de aparición de las piedras alrededor del árbol.
-    [Range(0, 30)] public int startingRabbitFood;
-    [Range(1, 120)] public int grassSpawnTime;  //Segundos que pasan entre instanciaciones de césped.
+    [Range(0,10)] public int minCumulus = 0;    //Min-Max de nodos de obstáculos. Cada nodo tiene un árbol y varias piedras.
+    [Range(10,30)] public int maxCumulus = 10;
+    [Range(0,2)] public int minStones = 0;
+    [Range(2,10)] public int maxStones = 2;
+    [Range(1, 5)] public float stonesRadius = 1;    //Radio de aparición de las piedras alrededor del árbol.
+    [Range(0, 30)] public int startingRabbitFood = 0;
+    [Range(1, 120)] public int grassSpawnTime = 1;  //Segundos que pasan entre instanciaciones de césped.
 
-    internal bool called;   //Para controlar las llamadas de la corrutina
+    internal bool called; //Para controlar las llamadas de la corrutina
+    internal bool started;
     private GameObject scene;   //Referencia a la escena
     
-    // Start is called before the first frame update
-    private void Start()
+    /// <summary>
+    /// Comienza la simulación
+    /// </summary>
+    public void StartSimulation()
     {
         scene = GameObject.Find("Escenario");
         //Los flocks se van a instanciar en posiciones aleatorias dentro de un radio (dentro del mapa)
@@ -84,13 +90,22 @@ public class Spawner : MonoBehaviour
                 scene.transform);
         }
 
+        started = true;
+    }
+
+    /// <summary>
+    /// Reinicia la escena
+    /// </summary>
+    public void ResetSimulation()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame
     void Update()
     {
         //Genera césped cada x tiempo
-        if (!called)
+        if (!called && started)
             StartCoroutine(SpawnGrass());
     }
 
